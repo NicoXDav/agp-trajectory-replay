@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MXI RoboICL — A film about learning through context</title>
+<style>
+@font-face{font-family:Source;src:url('../fonts/sourcesans3.woff2')}@font-face{font-family:Newsreader;src:url('../fonts/newsreader.woff2')}*{box-sizing:border-box}body{margin:0;background:#f3f2ec;color:#133e4b;font:18px Source,Arial,sans-serif}main{max-width:1600px;margin:32px auto;padding:0 28px}header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:22px}h1{font:500 38px Newsreader,Georgia,serif;margin:0}a{color:#008a84;text-underline-offset:4px}video{width:100%;aspect-ratio:16/9;background:#102f3a;border-radius:8px;box-shadow:0 20px 60px #133e4b20}nav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 12px}button{font:inherit;background:#fff;color:#133e4b;border:1px solid #bdccc5;padding:9px 15px;border-radius:5px;cursor:pointer}button:hover,button:focus-visible{background:#dfece5;border-color:#008a84}p{font-size:16px;color:#5d7880;margin:16px 0}footer{display:flex;flex-wrap:wrap;gap:26px;margin:23px 0 35px}@media(max-width:600px){main{padding:0 12px;margin:20px auto}h1{font-size:30px}header a{font-size:15px}button{font-size:15px;padding:8px 11px}}
+</style>
+</head>
+<body><main>
+<header><h1>MXI RoboICL</h1><a href="../../roboicl/#showreel">Read the article ↗</a></header>
+<video id="film" controls playsinline preload="metadata" poster="v5/film-poster.jpg" src="v5/roboicl-film.mp4" aria-label="Three-minute thirty-eight-second RoboICL film, English narration and burned-in captions"></video>
+<nav aria-label="Film chapters">
+<button data-time="0">Introduction</button><button data-time="10">In-context learning</button><button data-time="50">Wrist guides</button><button data-time="80">Triangulation</button><button data-time="120">Checked motion</button><button data-time="160">Simplicity</button><button data-time="169">Information ablation</button><button data-time="179">Results</button><button data-time="188">Success reel · 1.5×</button><button data-time="211.333">Closing</button>
+</nav>
+<p>3:38 · English neural narration and captions · Original instrumental score · Recorded rollouts with explanatory overlays</p>
+<footer><a href="v5/roboicl-film-4k.mp4">Watch the 4K master ↗</a><a href="v5/roboicl-film.en.srt">English subtitles</a><a href="v5/film-evidence.json">Evidence &amp; provenance</a></footer>
+</main><script>
+const film=document.getElementById('film');
+for(const button of document.querySelectorAll('[data-time]'))button.addEventListener('click',()=>{film.currentTime=Number(button.dataset.time);film.play().catch(()=>{});});
+</script></body></html>

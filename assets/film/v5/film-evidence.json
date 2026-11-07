@@ -1,0 +1,2542 @@
+{
+  "duration_seconds": 218.33333333333334,
+  "resolution": [
+    3840,
+    2160
+  ],
+  "frame_rate": 24,
+  "narration": "Synthetic English neural narration: en-US-AndrewMultilingualNeural, edge-tts. Not a human recording.",
+  "music": "Original instrumental score; no narration from 188 to 211.333 seconds.",
+  "footage": {
+    "wrist": {
+      "episode": "task2-best77-tubes-pour10-20261103-r1-insert_tubes-standard-s0-l13-tubes-focused-v1",
+      "camera_file": "episode_0000000_cam_left_wrist_success.mp4",
+      "source_sha256": "0bc1fc871337f7dfbe979aedc082d6a835d83ba9b116c826ee7775231b115840"
+    },
+    "wrist-head": {
+      "episode": "task2-best77-tubes-pour10-20261103-r1-insert_tubes-standard-s0-l13-tubes-focused-v1",
+      "camera_file": "episode_0000000_cam_head_success.mp4",
+      "source_sha256": "acbb5149b41ce0e287c3812444b3e0a177671931be76e58707641c12d52a2c4c"
+    },
+    "tri-action": {
+      "episode": "task10-pour-independent-tools-20261104-r1-pour_balls_into_vase-standard-s0-l40-tools-v1",
+      "camera_file": "episode_0000000_cam_head_success.mp4",
+      "source_sha256": "cf0e2f9965a16eb6028c98a0a960f1d77284f29dd4912e32d4fbdf171e3411b8"
+    },
+    "icl_demo_example": {
+      "episode": "task11-final-main135-20261029-r1-stack_bowls-random-s0-l25-original-upstream-main",
+      "camera_file": "episode_0000000_cam_head_success.mp4",
+      "source_sha256": "8ce1d4f370b0866a8095f24d41e69eb118a4ad0c095da235380c19362fb05a3c",
+      "score": 100.0
+    },
+    "icl_live_example": {
+      "episode": "task11-final-main135-20261029-r1-stack_bowls-random-s0-l28-original-upstream-main",
+      "camera_file": "episode_0000000_cam_head_success.mp4",
+      "source_sha256": "79e535edd478aa2fcddedbf55ce4f55750951a1256509e1844c8770a0ae045e1",
+      "score": 100.0
+    },
+    "plan-head": {
+      "episode": "task20-pour-hexa-ab-20261105-r1-pour_balls_into_vase-standard-s0-l5-hexaB",
+      "camera_file": "episode_0000000_cam_head_success.mp4",
+      "source_sha256": "85205fc5d4487d732e3fe462ddc592e6641def656c91e9eba4a4d2841d99801c"
+    },
+    "plan-left": {
+      "episode": "task20-pour-hexa-ab-20261105-r1-pour_balls_into_vase-standard-s0-l5-hexaB",
+      "camera_file": "episode_0000000_cam_left_wrist_success.mp4",
+      "source_sha256": "f9b4813b12f7b3a8b6f816d3824a8d93cc618e77ad0383c7f799c40fe9969844"
+    },
+    "tri-left": {
+      "episode": "task10-pour-independent-tools-20261104-r1-pour_balls_into_vase-standard-s0-l40-tools-v1",
+      "camera_file": "episode_0000000_cam_left_wrist_success.mp4",
+      "source_sha256": "a5f519cdd4082d83db88c6abf84fbfa061b573368d128ef98180cdb544e7ac37"
+    },
+    "tri-right": {
+      "episode": "task10-pour-independent-tools-20261104-r1-pour_balls_into_vase-standard-s0-l40-tools-v1",
+      "camera_file": "episode_0000000_cam_right_wrist_success.mp4",
+      "source_sha256": "70dabad58492e07cc1e5d52dbc38eb8e5ab43bfffb4a4595802e23a1fd28af58"
+    }
+  },
+  "triangulation": {
+    "turn": 14,
+    "call_id": "call_0J17uYmgHOKtTMaRqjDLIHsX",
+    "tool": "measure_pour_geometry",
+    "executed": false,
+    "observation_step": 111,
+    "result": {
+      "status": "measured",
+      "reference_step": 111,
+      "points_m": {
+        "lip": [
+          0.20558206881224006,
+          -0.0016070663285458753,
+          0.8867892476588415
+        ],
+        "cup_base": [
+          0.1585403831414765,
+          0.018266228713566507,
+          0.8299472382913629
+        ],
+        "mouth": [
+          0.21999587379157787,
+          -0.07932193127609552,
+          0.9132766495714978
+        ],
+        "rim_near": [
+          0.20698810103246143,
+          -0.1125918112930144,
+          0.9196764939670021
+        ],
+        "rim_far": [
+          0.23318270646056877,
+          -0.041594239569104796,
+          0.9096452897589974
+        ],
+        "rim_left": [
+          0.1867249943617315,
+          -0.07222860010597391,
+          0.9169781770520553
+        ],
+        "rim_right": [
+          0.2529997757043909,
+          -0.08519235205399828,
+          0.9150062670271251
+        ]
+      },
+      "quality": {
+        "lip": {
+          "confidence": "high",
+          "ray_gap_m": 0.01357553813425039,
+          "ray_angle_deg": 29.663959153057114
+        },
+        "cup_base": {
+          "confidence": "high",
+          "ray_gap_m": 0.010845888405490849,
+          "ray_angle_deg": 26.900708913178434
+        },
+        "mouth": {
+          "confidence": "high",
+          "ray_gap_m": 0.0019268787985759104,
+          "ray_angle_deg": 33.618878949490146
+        },
+        "rim_near": {
+          "confidence": "high",
+          "ray_gap_m": 0.0043725420404516525,
+          "ray_angle_deg": 35.677960713596946
+        },
+        "rim_far": {
+          "confidence": "high",
+          "ray_gap_m": 0.0009960694037777498,
+          "ray_angle_deg": 31.66310044933813
+        },
+        "rim_left": {
+          "confidence": "high",
+          "ray_gap_m": 0.006594730854213837,
+          "ray_angle_deg": 34.32744598818955
+        },
+        "rim_right": {
+          "confidence": "high",
+          "ray_gap_m": 0.0055499154852914016,
+          "ray_angle_deg": 32.94515839518821
+        }
+      },
+      "visual_offsets": {
+        "cam_head": [
+          -0.03280000000000005,
+          -0.05409999999999998
+        ],
+        "cam_left_wrist": [
+          -0.08899999999999997,
+          0.03539999999999999
+        ]
+      },
+      "cup_axis_unit": null,
+      "mouth_normal_unit": [
+        0.05306169983530018,
+        0.12048251022394572,
+        0.9912963334647844
+      ],
+      "mouth_radius_m": 0.033566515430157894,
+      "lip_height_m": -0.01765840338172678,
+      "lip_minus_mouth_m": [
+        -0.014413804979337808,
+        0.07771486494754964,
+        -0.026487401912656305
+      ],
+      "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+    },
+    "remaining_tool_calls": 1
+  },
+  "planning": {
+    "episode": "task20-pour-hexa-ab-20261105-r1-pour_balls_into_vase-standard-s0-l5-hexaB",
+    "previews": [
+      {
+        "event": "hexa_command",
+        "variant": "B",
+        "command": "preview-transfer",
+        "kind": "hexa_result",
+        "call_id": "call_5wkicDo4mU1SAsltfQndT7UG",
+        "start_step": 52,
+        "end_step": 52,
+        "result": {
+          "plan_ok": false,
+          "plan_fail_reason": "no_complete_route: ['ik_unreachable']",
+          "stages": []
+        },
+        "exit_code": 2
+      },
+      {
+        "event": "hexa_command",
+        "variant": "B",
+        "command": "preview-transfer",
+        "kind": "hexa_result",
+        "call_id": "call_rABtQQmx5yFI9I9DoQJ6AZXC",
+        "start_step": 52,
+        "end_step": 52,
+        "result": {
+          "plan_ok": true,
+          "plan_fail_reason": null,
+          "stages": [],
+          "arm": "left",
+          "approach": {
+            "pitch": 15,
+            "yaw": 0,
+            "finger_sign": -1
+          },
+          "rotation_sign": 1,
+          "estimated_steps": 510,
+          "relocation": false,
+          "idle_parked": true,
+          "kinematic_only": true,
+          "motion_executed": false
+        },
+        "exit_code": 0
+      }
+    ],
+    "execution": {
+      "event": "hexa_command",
+      "variant": "B",
+      "command": "execute-transfer",
+      "kind": "hexa_result",
+      "call_id": "call_ZiT1iRsVoZ26qouJTBuS7y5C",
+      "start_step": 52,
+      "end_step": 553,
+      "result": {
+        "plan_ok": false,
+        "plan_fail_reason": "home_tracking_error",
+        "stages": [
+          {
+            "arm": "right",
+            "phase": "park",
+            "error_m": 0.00020242782485127,
+            "error_deg": 0.00879967429873012
+          },
+          {
+            "arm": "left",
+            "phase": "approach",
+            "error_m": 8.360852221341574e-05,
+            "error_deg": 0.0015133320314562168
+          },
+          {
+            "arm": "left",
+            "phase": "orient",
+            "error_m": 2.1106229808527562e-05,
+            "error_deg": 0.021803068664383432
+          },
+          {
+            "arm": "left",
+            "phase": "above",
+            "error_m": 0.00044347427832270084,
+            "error_deg": 0.002243329532162624
+          },
+          {
+            "arm": "left",
+            "phase": "contact",
+            "error_m": 0.000470364721691477,
+            "error_deg": 0.00445839911503318
+          },
+          {
+            "arm": "left",
+            "phase": "lift",
+            "error_m": 0.0006017075794005742,
+            "error_deg": 0.03536385595942356
+          },
+          {
+            "arm": "left",
+            "phase": "transit",
+            "error_m": 0.0004501069616956565,
+            "error_deg": 0.04632833725158109
+          },
+          {
+            "arm": "left",
+            "phase": "align",
+            "error_m": 0.000213538813862258,
+            "error_deg": 0.04324897910329145
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.000386284679995871,
+            "error_deg": 0.08092067190829438
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0003847790966980611,
+            "error_deg": 0.08069184650942698
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.00037355344399687864,
+            "error_deg": 0.08012924440573768
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0003596161707203496,
+            "error_deg": 0.0792849455588227
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0003541855147302763,
+            "error_deg": 0.0791246642647297
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.00034152576730205053,
+            "error_deg": 0.07839446970726895
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0003271391324479833,
+            "error_deg": 0.05899325788854397
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0003178903729320645,
+            "error_deg": 0.05829260583114292
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.00025982498972765364,
+            "error_deg": 0.0567985079512599
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0002510586949347808,
+            "error_deg": 0.05593149375065953
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.00026193292330918696,
+            "error_deg": 0.05570479183275886
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.00026631754491677654,
+            "error_deg": 0.05516462478882941
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.00027844831516294353,
+            "error_deg": 0.04431739818016685
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0002740933299236016,
+            "error_deg": 0.04358027765572651
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0002715140203974936,
+            "error_deg": 0.04313717113395592
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 2.5869817554207756e-05,
+            "error_deg": 0.024488923166391997
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0003677038227572944,
+            "error_deg": 0.07261862333386364
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0014970812131684427,
+            "error_deg": 0.25547471141775074
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0025029589669914496,
+            "error_deg": 0.4224094515511262
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0026448319068332507,
+            "error_deg": 0.45154264391087134
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.002734400777339236,
+            "error_deg": 0.4666913860864725
+          },
+          {
+            "arm": "left",
+            "phase": "tilt",
+            "error_m": 0.0026882377739508097,
+            "error_deg": 0.4558148842384841
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.0025593000852348444,
+            "error_deg": 0.38884049744364474
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.0013500092355421076,
+            "error_deg": 0.20191383623568201
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 5.9684756894183776e-05,
+            "error_deg": 0.0631991854622936
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.00022765653529216256,
+            "error_deg": 0.09314039034052435
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.00023966605677034188,
+            "error_deg": 0.09274140526006412
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.00026485224525406835,
+            "error_deg": 0.09239751813155878
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.0003003927950693089,
+            "error_deg": 0.09224948801660551
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.00020414161438651136,
+            "error_deg": 0.08991094064412898
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.00018301163004822842,
+            "error_deg": 0.08818728072227129
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.00016485106263362665,
+            "error_deg": 0.08712390111935085
+          },
+          {
+            "arm": "left",
+            "phase": "restore",
+            "error_m": 0.00015075425153136964,
+            "error_deg": 0.08628022930834028
+          },
+          {
+            "arm": "left",
+            "phase": "return",
+            "error_m": 0.00029763691665805826,
+            "error_deg": 0.033153422198850986
+          },
+          {
+            "arm": "left",
+            "phase": "support",
+            "error_m": 0.0017855997536943633,
+            "error_deg": 0.15292221661462868
+          },
+          {
+            "arm": "left",
+            "phase": "withdraw",
+            "error_m": 0.00029446773194521133,
+            "error_deg": 0.0077546827352569766
+          },
+          {
+            "arm": "left",
+            "phase": "retreat",
+            "error_m": 0.00043375010168593506,
+            "error_deg": 0.006196206111362614
+          }
+        ],
+        "arm": "left",
+        "approach": {
+          "pitch": 15,
+          "yaw": 0,
+          "finger_sign": -1
+        },
+        "rotation_sign": 1,
+        "estimated_steps": 510,
+        "relocation": false,
+        "idle_parked": true,
+        "kinematic_only": true,
+        "phase": "home"
+      },
+      "exit_code": 2
+    },
+    "score": 100.0,
+    "path_scope": "Forward-kinematic projection of recorded commanded joint targets, using the ARX URDF, standard robot base poses, fixed head calibration and nominal 150 mm grasp-center reference. Not a measured object path or a reconstruction of the rejected candidate."
+  },
+  "wrist_guide": "Guide reconstructed with verified fixed camera-to-link6 transform and nominal gripper opening from executed-command ledger. It is a geometric reference, not measured aperture/contact. Alignment glow is editorial.",
+  "icl_diagram": "Verified J18/H15 and B6 time-anchor rules. Timeline numbers use the audited Stack Bowls record. Thumbnail footage is from separate successful Stack Bowls episodes and illustrates the format; it is not the exact TRAIN/LIVE bundle of that audit.",
+  "image_quality": "Native 4K typography/composition. Recorded camera streams originate at 640x480 and are upscaled.",
+  "evidence": {
+    "original_icl": {
+      "score": 50.64,
+      "baseline": 33.68,
+      "scope": "Original paper, 30-task overall; strongest reported baseline; separate from current evaluation."
+    },
+    "current": {
+      "score": 75.9,
+      "q0_reference": 72.11,
+      "scope": "Team self-evaluation; Q0 revised-rule reference communicated to team; not an independently verified leaderboard ranking."
+    },
+    "footprint": {
+      "characters": 6258,
+      "scope": "Preliminary authored-text audit; excludes demonstrations and dynamic context; task-local/runtime variants not fully audited."
+    },
+    "ablation": {
+      "tasks": [
+        "Stack Bowls",
+        "Pack Objects",
+        "Insert Tubes"
+      ],
+      "fewer_points_lost": [
+        50,
+        32.5,
+        6.7
+      ],
+      "scope": "Exploratory paired runs, seed 0; 8 layouts and 32 scored trajectories overall; post-hoc L27 excluded from primary tubes chart."
+    }
+  },
+  "edit_timing": {
+    "unchanged_foundation": [
+      0,
+      80
+    ],
+    "target_triangulation": [
+      80,
+      120
+    ],
+    "checked_motion": [
+      120,
+      160
+    ],
+    "evidence": [
+      160,
+      188
+    ],
+    "nine_grid_1_5x": [
+      188,
+      211.33333333333334
+    ],
+    "outro": [
+      211.33333333333334,
+      218.33333333333334
+    ],
+    "triangulation": {
+      "film_seconds": [
+        80,
+        120
+      ],
+      "episode": "L40",
+      "source_seconds": [
+        3.5,
+        14.8
+      ],
+      "freeze_source_seconds": 4.44,
+      "freeze_film_seconds": [
+        87,
+        110
+      ],
+      "views": [
+        "head",
+        "left_wrist",
+        "right_wrist"
+      ],
+      "rays_used": [
+        "head",
+        "left_wrist"
+      ]
+    },
+    "planner": {
+      "film_seconds": [
+        120,
+        160
+      ],
+      "episode": "L5 hexaB",
+      "source_seconds": [
+        1.4,
+        23.5
+      ],
+      "freeze_source_seconds": 3.56,
+      "freeze_film_seconds": [
+        127,
+        141
+      ],
+      "rejected_preview_film_seconds": [
+        127,
+        134
+      ],
+      "passed_preview_film_seconds": [
+        134,
+        141
+      ],
+      "execute_film_seconds": [
+        141,
+        160
+      ]
+    }
+  },
+  "success_grid_evidence": "../../showcase/episode-evidence.json",
+  "triangulation_diagram": "Recorded L40 footage. Head-camera ray is cross-projected into the left-wrist image, and left-wrist ray into the head image, using reconstructed standard-scene calibration. Own-camera rays project to their target pixels. Luminous paths and particles are editorial emphasis, not uncertainty bounds. A real RGB crop and depth ruler replace the separate ray diagram. Original two-view data retained; occluded right-wrist recording excluded.",
+  "planner_diagram": "Recorded L5 footage with luminous projected command paths, sampled command markers, real rejected/passed preview receipts and recorded joint values/traces. Colors, glow, scanning and pass/fail marks are editorial effects. No virtual robot mesh or synthetic scene. Rejected-route geometry is not invented.",
+  "triangulation_measurements": [
+    {
+      "turn": 14,
+      "call_id": "call_0J17uYmgHOKtTMaRqjDLIHsX",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 111,
+      "result": {
+        "status": "measured",
+        "reference_step": 111,
+        "points_m": {
+          "lip": [
+            0.20558206881224006,
+            -0.0016070663285458753,
+            0.8867892476588415
+          ],
+          "cup_base": [
+            0.1585403831414765,
+            0.018266228713566507,
+            0.8299472382913629
+          ],
+          "mouth": [
+            0.21999587379157787,
+            -0.07932193127609552,
+            0.9132766495714978
+          ],
+          "rim_near": [
+            0.20698810103246143,
+            -0.1125918112930144,
+            0.9196764939670021
+          ],
+          "rim_far": [
+            0.23318270646056877,
+            -0.041594239569104796,
+            0.9096452897589974
+          ],
+          "rim_left": [
+            0.1867249943617315,
+            -0.07222860010597391,
+            0.9169781770520553
+          ],
+          "rim_right": [
+            0.2529997757043909,
+            -0.08519235205399828,
+            0.9150062670271251
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.01357553813425039,
+            "ray_angle_deg": 29.663959153057114
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.010845888405490849,
+            "ray_angle_deg": 26.900708913178434
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.0019268787985759104,
+            "ray_angle_deg": 33.618878949490146
+          },
+          "rim_near": {
+            "confidence": "high",
+            "ray_gap_m": 0.0043725420404516525,
+            "ray_angle_deg": 35.677960713596946
+          },
+          "rim_far": {
+            "confidence": "high",
+            "ray_gap_m": 0.0009960694037777498,
+            "ray_angle_deg": 31.66310044933813
+          },
+          "rim_left": {
+            "confidence": "high",
+            "ray_gap_m": 0.006594730854213837,
+            "ray_angle_deg": 34.32744598818955
+          },
+          "rim_right": {
+            "confidence": "high",
+            "ray_gap_m": 0.0055499154852914016,
+            "ray_angle_deg": 32.94515839518821
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            -0.03280000000000005,
+            -0.05409999999999998
+          ],
+          "cam_left_wrist": [
+            -0.08899999999999997,
+            0.03539999999999999
+          ]
+        },
+        "cup_axis_unit": null,
+        "mouth_normal_unit": [
+          0.05306169983530018,
+          0.12048251022394572,
+          0.9912963334647844
+        ],
+        "mouth_radius_m": 0.033566515430157894,
+        "lip_height_m": -0.01765840338172678,
+        "lip_minus_mouth_m": [
+          -0.014413804979337808,
+          0.07771486494754964,
+          -0.026487401912656305
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 17,
+      "call_id": "call_184o6aKmtiHbMipLwNCAzflW",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 125,
+      "result": {
+        "status": "measured",
+        "reference_step": 125,
+        "points_m": {
+          "lip": [
+            0.19941193843796012,
+            -0.07410822807918531,
+            0.9539178050215982
+          ],
+          "grip": [
+            0.13483812493198388,
+            -0.06119894044616886,
+            0.9545454986398791
+          ],
+          "cup_base": [
+            0.15207086481147694,
+            -0.04679993910461881,
+            0.8997413656125548
+          ],
+          "mouth": [
+            0.2226176411471139,
+            -0.0771571397305222,
+            0.9123262818790413
+          ],
+          "rim_near": [
+            0.22243515283772575,
+            -0.10784567869782519,
+            0.9085984527831259
+          ],
+          "rim_right": [
+            0.25520199864309845,
+            -0.08471755370059061,
+            0.9141003018051852
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.009265572433105041,
+            "ray_angle_deg": 35.97998504121262
+          },
+          "grip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0038218077907584114,
+            "ray_angle_deg": 36.99176762395698
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.005315372433670492,
+            "ray_angle_deg": 32.81918449489876
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.000601753848360753,
+            "ray_angle_deg": 33.43020015282456
+          },
+          "rim_near": {
+            "confidence": "high",
+            "ray_gap_m": 0.0036598510476836808,
+            "ray_angle_deg": 34.44098481834861
+          },
+          "rim_right": {
+            "confidence": "high",
+            "ray_gap_m": 0.005263435430343289,
+            "ray_angle_deg": 32.83376428202458
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            -0.007812000000000041,
+            -0.04375000000000001
+          ],
+          "cam_left_wrist": [
+            -0.012500000000000067,
+            -0.052083000000000046
+          ]
+        },
+        "cup_axis_unit": null,
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": [
+          -0.023205702709153786,
+          0.0030489116513368886,
+          0.041591523142556874
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 20,
+      "call_id": "call_NbmiBqYbBzcU6p5sCCJiqPqv",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 135,
+      "result": {
+        "status": "measured",
+        "reference_step": 135,
+        "points_m": {
+          "lip": [
+            0.22077065190499667,
+            -0.08054897802286307,
+            0.9459609024683544
+          ],
+          "grip": [
+            0.17063890317771419,
+            -0.05279946047870632,
+            0.9627573881455926
+          ],
+          "cup_base": [
+            0.17051860996150428,
+            -0.025344528472844213,
+            0.9127048089899514
+          ],
+          "mouth": [
+            0.22271114165545097,
+            -0.07695788387162356,
+            0.9121913983235657
+          ],
+          "rim_near": [
+            0.2225308772614946,
+            -0.10766319664737893,
+            0.9084644922518057
+          ],
+          "rim_right": [
+            0.25531781906784934,
+            -0.08451253656575841,
+            0.9139609751686435
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0005469462275409482,
+            "ray_angle_deg": 35.20859523599157
+          },
+          "grip": {
+            "confidence": "high",
+            "ray_gap_m": 0.001580860927631545,
+            "ray_angle_deg": 36.19647976215804
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.0036844503275140633,
+            "ray_angle_deg": 32.291136060915726
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.0007338114805392347,
+            "ray_angle_deg": 33.41953861314931
+          },
+          "rim_near": {
+            "confidence": "high",
+            "ray_gap_m": 0.0035320213832857493,
+            "ray_angle_deg": 34.43060303482377
+          },
+          "rim_right": {
+            "confidence": "high",
+            "ray_gap_m": 0.005127049545192337,
+            "ray_angle_deg": 32.82301994546384
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            0.010938000000000003,
+            -0.024999999999999967
+          ],
+          "cam_left_wrist": [
+            0.0046880000000000255,
+            -0.05416700000000002
+          ]
+        },
+        "cup_axis_unit": null,
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": [
+          -0.0019404897504542995,
+          -0.00359109415123951,
+          0.03376950414478874
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 21,
+      "call_id": "call_ygvBJbjUrP5cAxySOuQkRrKe",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 137,
+      "result": {
+        "status": "measured",
+        "reference_step": 137,
+        "points_m": {
+          "lip": [
+            0.2139400756365138,
+            -0.07811835182231378,
+            0.9391263896173686
+          ],
+          "grip": [
+            0.18244613652439334,
+            -0.04860118352924005,
+            0.9593457992055026
+          ],
+          "cup_base": [
+            0.15791393072130136,
+            -0.03514421407775843,
+            0.91988949245498
+          ],
+          "cup_top": [
+            0.2004607214448338,
+            -0.07351017721233029,
+            0.9602310942237396
+          ],
+          "mouth": [
+            0.21823227441127682,
+            -0.08334484849358294,
+            0.9157461065230406
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0004320818224439645,
+            "ray_angle_deg": 34.99992366483558
+          },
+          "grip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0025461571130678683,
+            "ray_angle_deg": 35.491356792180625
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.003096608686425217,
+            "ray_angle_deg": 33.276721181450256
+          },
+          "cup_top": {
+            "confidence": "high",
+            "ray_gap_m": 0.0027543984197589406,
+            "ray_angle_deg": 36.25331361742618
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.0010412076375999118,
+            "ray_angle_deg": 33.96510638620445
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            0.0031250000000000444,
+            -0.022915999999999992
+          ],
+          "cam_left_wrist": [
+            -0.009375000000000022,
+            -0.039583000000000035
+          ]
+        },
+        "cup_axis_unit": [
+          0.6072154415462403,
+          -0.5475478843160007,
+          0.5757436251743271
+        ],
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": [
+          -0.004292198774763029,
+          0.005226496671269162,
+          0.023380283094328047
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 24,
+      "call_id": "call_lX2BQCQVMGr6DMFxAorvMzPc",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 158,
+      "result": {
+        "status": "measured",
+        "reference_step": 158,
+        "points_m": {
+          "lip": [
+            0.22380366472991847,
+            -0.08089748383213549,
+            0.9381920256282232
+          ],
+          "cup_base": [
+            0.15640134056061605,
+            -0.04622957956449618,
+            0.9466660350986831
+          ],
+          "mouth": [
+            0.2159211624374383,
+            -0.08485986818740474,
+            0.9162421178358087
+          ],
+          "rim_near": [
+            0.22177099241530684,
+            -0.08290680574443166,
+            0.8946176913186673
+          ],
+          "rim_left": [
+            0.183062274885319,
+            -0.07801688253553482,
+            0.9280153914407521
+          ],
+          "rim_right": [
+            0.2535053042470897,
+            -0.0929803720240206,
+            0.9110047282758473
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0016720393630456915,
+            "ray_angle_deg": 34.77142159521804
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.0025441244817766104,
+            "ray_angle_deg": 35.30844713369834
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.004156195515962284,
+            "ray_angle_deg": 34.12463669545618
+          },
+          "rim_near": {
+            "confidence": "medium",
+            "ray_gap_m": 0.02281813670215885,
+            "ray_angle_deg": 32.76526816367825
+          },
+          "rim_left": {
+            "confidence": "high",
+            "ray_gap_m": 0.016264266647756143,
+            "ray_angle_deg": 35.262123134782755
+          },
+          "rim_right": {
+            "confidence": "medium",
+            "ray_gap_m": 0.021910461177469604,
+            "ray_angle_deg": 32.98047962683587
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            0.014063000000000048,
+            -0.025000000000000022
+          ],
+          "cam_left_wrist": [
+            0.0031249999999999334,
+            -0.03958400000000001
+          ]
+        },
+        "cup_axis_unit": null,
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": [
+          0.007882502292480165,
+          0.003962384355269244,
+          0.02194990779241457
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 27,
+      "call_id": "call_uzrZLpCt7KHr6wX9QsroLHKc",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 178,
+      "result": {
+        "status": "measured",
+        "reference_step": 178,
+        "points_m": {
+          "lip": [
+            0.22469802826787127,
+            -0.09261294096099372,
+            0.9495319212311489
+          ],
+          "grip": [
+            0.1894266844389591,
+            -0.07956285037919193,
+            0.9941266274555547
+          ],
+          "cup_base": [
+            0.15641300991405765,
+            -0.05094572093339973,
+            0.9612506126879523
+          ],
+          "mouth": [
+            0.22192220581556538,
+            -0.07865559433272862,
+            0.9132239793280248
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0008520148512739347,
+            "ray_angle_deg": 35.78227685046878
+          },
+          "grip": {
+            "confidence": "high",
+            "ray_gap_m": 0.003564014425514801,
+            "ray_angle_deg": 38.7141827565923
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.002008303626247502,
+            "ray_angle_deg": 36.38410186944292
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.002942008900338078,
+            "ray_angle_deg": 33.578800969603506
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            0.018749999999999933,
+            -0.01874999999999999
+          ],
+          "cam_left_wrist": [
+            0.022312,
+            -0.057416999999999996
+          ]
+        },
+        "cup_axis_unit": null,
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": [
+          0.0027758224523058983,
+          -0.013957346628265102,
+          0.03630794190312414
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 29,
+      "call_id": "call_NnsUYcdrIZbr25ArnPgXfamM",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 189,
+      "result": {
+        "status": "measured",
+        "reference_step": 189,
+        "points_m": {
+          "lip": [
+            0.21428466103417762,
+            -0.09322077999754971,
+            0.9508015256609346
+          ],
+          "grip": [
+            0.17476609010111988,
+            -0.07781922600778232,
+            0.9984415239149484
+          ],
+          "cup_base": [
+            0.15264721360711342,
+            -0.04725432223660184,
+            0.9641261329595725
+          ],
+          "cup_top": [
+            0.2118017496131791,
+            -0.08025312429782575,
+            0.9765129445851751
+          ],
+          "mouth": [
+            0.22185595398034,
+            -0.07970452116779368,
+            0.912639515222438
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0064484893346822905,
+            "ray_angle_deg": 36.2512693685419
+          },
+          "grip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0005747340258048894,
+            "ray_angle_deg": 39.44316216905393
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.004948846336444607,
+            "ray_angle_deg": 36.41873210699991
+          },
+          "cup_top": {
+            "confidence": "high",
+            "ray_gap_m": 0.0018635945457073765,
+            "ray_angle_deg": 36.99261531750856
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.005878912416645998,
+            "ray_angle_deg": 33.595867886450904
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            0.009375000000000022,
+            -0.026083000000000023
+          ],
+          "cam_left_wrist": [
+            0.020311999999999997,
+            -0.049583000000000044
+          ]
+        },
+        "cup_axis_unit": [
+          0.8590629558294103,
+          -0.4792201976639264,
+          0.1798856305339148
+        ],
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": [
+          -0.007571292946162378,
+          -0.013516258829756031,
+          0.03816201043849654
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 31,
+      "call_id": "call_iQRqIbMqAhFsOgKVoOcv4YLe",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 202,
+      "result": {
+        "status": "measured",
+        "reference_step": 202,
+        "points_m": {
+          "lip": [
+            0.213813535224328,
+            -0.09186360821282787,
+            0.948698535029181
+          ],
+          "grip": [
+            0.19274938036623535,
+            -0.0702237423543088,
+            0.994830329928034
+          ],
+          "cup_base": [
+            0.1611608920984821,
+            -0.03501989517566871,
+            0.9595659758082691
+          ],
+          "mouth": [
+            0.217717800067233,
+            -0.08000490980040541,
+            0.9141268437380751
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.004044631746828564,
+            "ray_angle_deg": 36.114037713946594
+          },
+          "grip": {
+            "confidence": "high",
+            "ray_gap_m": 0.002776463081075514,
+            "ray_angle_deg": 38.10810853100177
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.002163489656690768,
+            "ray_angle_deg": 35.31986230280214
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.00550593146816846,
+            "ray_angle_deg": 33.79858940520654
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            0.010938000000000003,
+            -0.02291700000000002
+          ],
+          "cam_left_wrist": [
+            0.018749999999999933,
+            -0.04791700000000004
+          ]
+        },
+        "cup_axis_unit": null,
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": [
+          -0.003904264842905014,
+          -0.011858698412422458,
+          0.03457169129110593
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 32,
+      "call_id": "call_rO1yy503Ihb3T68ssZjiHHQ0",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 204,
+      "result": {
+        "status": "measured",
+        "reference_step": 204,
+        "points_m": {
+          "lip": [
+            0.21557680928236217,
+            -0.09265824468135012,
+            0.9478995297606947
+          ],
+          "grip": [
+            0.18431344532341953,
+            -0.07874440630809303,
+            0.9959595024556431
+          ],
+          "cup_base": [
+            0.16569231501830295,
+            -0.033181449453009756,
+            0.9567404868571908
+          ],
+          "mouth": [
+            0.2191680677594438,
+            -0.08047781157206114,
+            0.914841632172942
+          ]
+        },
+        "quality": {
+          "lip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0030954791326252727,
+            "ray_angle_deg": 36.04795947050685
+          },
+          "grip": {
+            "confidence": "high",
+            "ray_gap_m": 0.0044607605631321445,
+            "ray_angle_deg": 38.98296331343838
+          },
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.002174262058693999,
+            "ray_angle_deg": 34.98337435955099
+          },
+          "mouth": {
+            "confidence": "high",
+            "ray_gap_m": 0.0022133266771908883,
+            "ray_angle_deg": 33.8163879463783
+          }
+        },
+        "visual_offsets": {
+          "cam_head": [
+            0.010938000000000003,
+            -0.01874999999999999
+          ],
+          "cam_left_wrist": [
+            0.017188000000000092,
+            -0.04791700000000004
+          ]
+        },
+        "cup_axis_unit": null,
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": [
+          -0.003591258477081638,
+          -0.012180433109288971,
+          0.03305789758775268
+        ],
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    },
+    {
+      "turn": 44,
+      "call_id": "call_KTMDSNs60sda9h454VMaz24B",
+      "tool": "measure_pour_geometry",
+      "executed": false,
+      "observation_step": 318,
+      "result": {
+        "status": "unavailable",
+        "reference_step": 318,
+        "points_m": {
+          "cup_base": [
+            0.22582566186329575,
+            -0.1437721585561099,
+            0.7116065760074369
+          ]
+        },
+        "quality": {
+          "cup_base": {
+            "confidence": "high",
+            "ray_gap_m": 0.004563197682890864,
+            "ray_angle_deg": 26.33869851902886
+          }
+        },
+        "visual_offsets": {},
+        "cup_axis_unit": null,
+        "mouth_normal_unit": null,
+        "mouth_radius_m": null,
+        "lip_height_m": null,
+        "lip_minus_mouth_m": null,
+        "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+      },
+      "remaining_tool_calls": 1
+    }
+  ],
+  "icl_sampling": {
+    "shots": 1,
+    "J": 18,
+    "B": 6,
+    "frame_frequency_Hz": 25,
+    "train_selection": "uniform time targets, deterministic non-overlap, action-bound valid; frame zero and latest valid endpoint included",
+    "live_fixed_anchors": "floor(i * native_step_limit / 6), i=0..4; sixth slot is rolling latest",
+    "full_trace_retained_locally": true,
+    "main_stack_bowls_L0_actual": {
+      "train_frames": 366,
+      "H": 15,
+      "train_intervals": [
+        [
+          0,
+          15
+        ],
+        [
+          21,
+          36
+        ],
+        [
+          41,
+          56
+        ],
+        [
+          62,
+          77
+        ],
+        [
+          82,
+          97
+        ],
+        [
+          103,
+          118
+        ],
+        [
+          124,
+          139
+        ],
+        [
+          144,
+          159
+        ],
+        [
+          165,
+          180
+        ],
+        [
+          185,
+          200
+        ],
+        [
+          206,
+          221
+        ],
+        [
+          226,
+          241
+        ],
+        [
+          247,
+          262
+        ],
+        [
+          268,
+          283
+        ],
+        [
+          288,
+          303
+        ],
+        [
+          309,
+          324
+        ],
+        [
+          329,
+          344
+        ],
+        [
+          350,
+          365
+        ]
+      ],
+      "live_step": 301,
+      "captured_chunks": 21,
+      "retained_intervals": [
+        [
+          0,
+          15
+        ],
+        [
+          120,
+          135
+        ],
+        [
+          256,
+          271
+        ],
+        [
+          286,
+          301
+        ]
+      ],
+      "omitted_chunks": 17,
+      "fixed_anchors": [
+        0,
+        133,
+        266,
+        400,
+        533
+      ],
+      "image_budget": {
+        "train_triptychs": 36,
+        "live_max_triptychs": 12,
+        "max_total": 48,
+        "cap": 50
+      }
+    }
+  },
+  "voice_timing": "voice-timings.json",
+  "grid_speed_relative_to_v2": 1.5,
+  "triangulation_reconstruction": {
+    "measurements": [
+      {
+        "turn": 14,
+        "call_id": "call_0J17uYmgHOKtTMaRqjDLIHsX",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 111,
+        "result": {
+          "status": "measured",
+          "reference_step": 111,
+          "points_m": {
+            "lip": [
+              0.20558206881224006,
+              -0.0016070663285458753,
+              0.8867892476588415
+            ],
+            "cup_base": [
+              0.1585403831414765,
+              0.018266228713566507,
+              0.8299472382913629
+            ],
+            "mouth": [
+              0.21999587379157787,
+              -0.07932193127609552,
+              0.9132766495714978
+            ],
+            "rim_near": [
+              0.20698810103246143,
+              -0.1125918112930144,
+              0.9196764939670021
+            ],
+            "rim_far": [
+              0.23318270646056877,
+              -0.041594239569104796,
+              0.9096452897589974
+            ],
+            "rim_left": [
+              0.1867249943617315,
+              -0.07222860010597391,
+              0.9169781770520553
+            ],
+            "rim_right": [
+              0.2529997757043909,
+              -0.08519235205399828,
+              0.9150062670271251
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.01357553813425039,
+              "ray_angle_deg": 29.663959153057114
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.010845888405490849,
+              "ray_angle_deg": 26.900708913178434
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.0019268787985759104,
+              "ray_angle_deg": 33.618878949490146
+            },
+            "rim_near": {
+              "confidence": "high",
+              "ray_gap_m": 0.0043725420404516525,
+              "ray_angle_deg": 35.677960713596946
+            },
+            "rim_far": {
+              "confidence": "high",
+              "ray_gap_m": 0.0009960694037777498,
+              "ray_angle_deg": 31.66310044933813
+            },
+            "rim_left": {
+              "confidence": "high",
+              "ray_gap_m": 0.006594730854213837,
+              "ray_angle_deg": 34.32744598818955
+            },
+            "rim_right": {
+              "confidence": "high",
+              "ray_gap_m": 0.0055499154852914016,
+              "ray_angle_deg": 32.94515839518821
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              -0.03280000000000005,
+              -0.05409999999999998
+            ],
+            "cam_left_wrist": [
+              -0.08899999999999997,
+              0.03539999999999999
+            ]
+          },
+          "cup_axis_unit": null,
+          "mouth_normal_unit": [
+            0.05306169983530018,
+            0.12048251022394572,
+            0.9912963334647844
+          ],
+          "mouth_radius_m": 0.033566515430157894,
+          "lip_height_m": -0.01765840338172678,
+          "lip_minus_mouth_m": [
+            -0.014413804979337808,
+            0.07771486494754964,
+            -0.026487401912656305
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 17,
+        "call_id": "call_184o6aKmtiHbMipLwNCAzflW",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 125,
+        "result": {
+          "status": "measured",
+          "reference_step": 125,
+          "points_m": {
+            "lip": [
+              0.19941193843796012,
+              -0.07410822807918531,
+              0.9539178050215982
+            ],
+            "grip": [
+              0.13483812493198388,
+              -0.06119894044616886,
+              0.9545454986398791
+            ],
+            "cup_base": [
+              0.15207086481147694,
+              -0.04679993910461881,
+              0.8997413656125548
+            ],
+            "mouth": [
+              0.2226176411471139,
+              -0.0771571397305222,
+              0.9123262818790413
+            ],
+            "rim_near": [
+              0.22243515283772575,
+              -0.10784567869782519,
+              0.9085984527831259
+            ],
+            "rim_right": [
+              0.25520199864309845,
+              -0.08471755370059061,
+              0.9141003018051852
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.009265572433105041,
+              "ray_angle_deg": 35.97998504121262
+            },
+            "grip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0038218077907584114,
+              "ray_angle_deg": 36.99176762395698
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.005315372433670492,
+              "ray_angle_deg": 32.81918449489876
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.000601753848360753,
+              "ray_angle_deg": 33.43020015282456
+            },
+            "rim_near": {
+              "confidence": "high",
+              "ray_gap_m": 0.0036598510476836808,
+              "ray_angle_deg": 34.44098481834861
+            },
+            "rim_right": {
+              "confidence": "high",
+              "ray_gap_m": 0.005263435430343289,
+              "ray_angle_deg": 32.83376428202458
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              -0.007812000000000041,
+              -0.04375000000000001
+            ],
+            "cam_left_wrist": [
+              -0.012500000000000067,
+              -0.052083000000000046
+            ]
+          },
+          "cup_axis_unit": null,
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": [
+            -0.023205702709153786,
+            0.0030489116513368886,
+            0.041591523142556874
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 20,
+        "call_id": "call_NbmiBqYbBzcU6p5sCCJiqPqv",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 135,
+        "result": {
+          "status": "measured",
+          "reference_step": 135,
+          "points_m": {
+            "lip": [
+              0.22077065190499667,
+              -0.08054897802286307,
+              0.9459609024683544
+            ],
+            "grip": [
+              0.17063890317771419,
+              -0.05279946047870632,
+              0.9627573881455926
+            ],
+            "cup_base": [
+              0.17051860996150428,
+              -0.025344528472844213,
+              0.9127048089899514
+            ],
+            "mouth": [
+              0.22271114165545097,
+              -0.07695788387162356,
+              0.9121913983235657
+            ],
+            "rim_near": [
+              0.2225308772614946,
+              -0.10766319664737893,
+              0.9084644922518057
+            ],
+            "rim_right": [
+              0.25531781906784934,
+              -0.08451253656575841,
+              0.9139609751686435
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0005469462275409482,
+              "ray_angle_deg": 35.20859523599157
+            },
+            "grip": {
+              "confidence": "high",
+              "ray_gap_m": 0.001580860927631545,
+              "ray_angle_deg": 36.19647976215804
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.0036844503275140633,
+              "ray_angle_deg": 32.291136060915726
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.0007338114805392347,
+              "ray_angle_deg": 33.41953861314931
+            },
+            "rim_near": {
+              "confidence": "high",
+              "ray_gap_m": 0.0035320213832857493,
+              "ray_angle_deg": 34.43060303482377
+            },
+            "rim_right": {
+              "confidence": "high",
+              "ray_gap_m": 0.005127049545192337,
+              "ray_angle_deg": 32.82301994546384
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              0.010938000000000003,
+              -0.024999999999999967
+            ],
+            "cam_left_wrist": [
+              0.0046880000000000255,
+              -0.05416700000000002
+            ]
+          },
+          "cup_axis_unit": null,
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": [
+            -0.0019404897504542995,
+            -0.00359109415123951,
+            0.03376950414478874
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 21,
+        "call_id": "call_ygvBJbjUrP5cAxySOuQkRrKe",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 137,
+        "result": {
+          "status": "measured",
+          "reference_step": 137,
+          "points_m": {
+            "lip": [
+              0.2139400756365138,
+              -0.07811835182231378,
+              0.9391263896173686
+            ],
+            "grip": [
+              0.18244613652439334,
+              -0.04860118352924005,
+              0.9593457992055026
+            ],
+            "cup_base": [
+              0.15791393072130136,
+              -0.03514421407775843,
+              0.91988949245498
+            ],
+            "cup_top": [
+              0.2004607214448338,
+              -0.07351017721233029,
+              0.9602310942237396
+            ],
+            "mouth": [
+              0.21823227441127682,
+              -0.08334484849358294,
+              0.9157461065230406
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0004320818224439645,
+              "ray_angle_deg": 34.99992366483558
+            },
+            "grip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0025461571130678683,
+              "ray_angle_deg": 35.491356792180625
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.003096608686425217,
+              "ray_angle_deg": 33.276721181450256
+            },
+            "cup_top": {
+              "confidence": "high",
+              "ray_gap_m": 0.0027543984197589406,
+              "ray_angle_deg": 36.25331361742618
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.0010412076375999118,
+              "ray_angle_deg": 33.96510638620445
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              0.0031250000000000444,
+              -0.022915999999999992
+            ],
+            "cam_left_wrist": [
+              -0.009375000000000022,
+              -0.039583000000000035
+            ]
+          },
+          "cup_axis_unit": [
+            0.6072154415462403,
+            -0.5475478843160007,
+            0.5757436251743271
+          ],
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": [
+            -0.004292198774763029,
+            0.005226496671269162,
+            0.023380283094328047
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 24,
+        "call_id": "call_lX2BQCQVMGr6DMFxAorvMzPc",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 158,
+        "result": {
+          "status": "measured",
+          "reference_step": 158,
+          "points_m": {
+            "lip": [
+              0.22380366472991847,
+              -0.08089748383213549,
+              0.9381920256282232
+            ],
+            "cup_base": [
+              0.15640134056061605,
+              -0.04622957956449618,
+              0.9466660350986831
+            ],
+            "mouth": [
+              0.2159211624374383,
+              -0.08485986818740474,
+              0.9162421178358087
+            ],
+            "rim_near": [
+              0.22177099241530684,
+              -0.08290680574443166,
+              0.8946176913186673
+            ],
+            "rim_left": [
+              0.183062274885319,
+              -0.07801688253553482,
+              0.9280153914407521
+            ],
+            "rim_right": [
+              0.2535053042470897,
+              -0.0929803720240206,
+              0.9110047282758473
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0016720393630456915,
+              "ray_angle_deg": 34.77142159521804
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.0025441244817766104,
+              "ray_angle_deg": 35.30844713369834
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.004156195515962284,
+              "ray_angle_deg": 34.12463669545618
+            },
+            "rim_near": {
+              "confidence": "medium",
+              "ray_gap_m": 0.02281813670215885,
+              "ray_angle_deg": 32.76526816367825
+            },
+            "rim_left": {
+              "confidence": "high",
+              "ray_gap_m": 0.016264266647756143,
+              "ray_angle_deg": 35.262123134782755
+            },
+            "rim_right": {
+              "confidence": "medium",
+              "ray_gap_m": 0.021910461177469604,
+              "ray_angle_deg": 32.98047962683587
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              0.014063000000000048,
+              -0.025000000000000022
+            ],
+            "cam_left_wrist": [
+              0.0031249999999999334,
+              -0.03958400000000001
+            ]
+          },
+          "cup_axis_unit": null,
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": [
+            0.007882502292480165,
+            0.003962384355269244,
+            0.02194990779241457
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 27,
+        "call_id": "call_uzrZLpCt7KHr6wX9QsroLHKc",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 178,
+        "result": {
+          "status": "measured",
+          "reference_step": 178,
+          "points_m": {
+            "lip": [
+              0.22469802826787127,
+              -0.09261294096099372,
+              0.9495319212311489
+            ],
+            "grip": [
+              0.1894266844389591,
+              -0.07956285037919193,
+              0.9941266274555547
+            ],
+            "cup_base": [
+              0.15641300991405765,
+              -0.05094572093339973,
+              0.9612506126879523
+            ],
+            "mouth": [
+              0.22192220581556538,
+              -0.07865559433272862,
+              0.9132239793280248
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0008520148512739347,
+              "ray_angle_deg": 35.78227685046878
+            },
+            "grip": {
+              "confidence": "high",
+              "ray_gap_m": 0.003564014425514801,
+              "ray_angle_deg": 38.7141827565923
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.002008303626247502,
+              "ray_angle_deg": 36.38410186944292
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.002942008900338078,
+              "ray_angle_deg": 33.578800969603506
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              0.018749999999999933,
+              -0.01874999999999999
+            ],
+            "cam_left_wrist": [
+              0.022312,
+              -0.057416999999999996
+            ]
+          },
+          "cup_axis_unit": null,
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": [
+            0.0027758224523058983,
+            -0.013957346628265102,
+            0.03630794190312414
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 29,
+        "call_id": "call_NnsUYcdrIZbr25ArnPgXfamM",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 189,
+        "result": {
+          "status": "measured",
+          "reference_step": 189,
+          "points_m": {
+            "lip": [
+              0.21428466103417762,
+              -0.09322077999754971,
+              0.9508015256609346
+            ],
+            "grip": [
+              0.17476609010111988,
+              -0.07781922600778232,
+              0.9984415239149484
+            ],
+            "cup_base": [
+              0.15264721360711342,
+              -0.04725432223660184,
+              0.9641261329595725
+            ],
+            "cup_top": [
+              0.2118017496131791,
+              -0.08025312429782575,
+              0.9765129445851751
+            ],
+            "mouth": [
+              0.22185595398034,
+              -0.07970452116779368,
+              0.912639515222438
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0064484893346822905,
+              "ray_angle_deg": 36.2512693685419
+            },
+            "grip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0005747340258048894,
+              "ray_angle_deg": 39.44316216905393
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.004948846336444607,
+              "ray_angle_deg": 36.41873210699991
+            },
+            "cup_top": {
+              "confidence": "high",
+              "ray_gap_m": 0.0018635945457073765,
+              "ray_angle_deg": 36.99261531750856
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.005878912416645998,
+              "ray_angle_deg": 33.595867886450904
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              0.009375000000000022,
+              -0.026083000000000023
+            ],
+            "cam_left_wrist": [
+              0.020311999999999997,
+              -0.049583000000000044
+            ]
+          },
+          "cup_axis_unit": [
+            0.8590629558294103,
+            -0.4792201976639264,
+            0.1798856305339148
+          ],
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": [
+            -0.007571292946162378,
+            -0.013516258829756031,
+            0.03816201043849654
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 31,
+        "call_id": "call_iQRqIbMqAhFsOgKVoOcv4YLe",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 202,
+        "result": {
+          "status": "measured",
+          "reference_step": 202,
+          "points_m": {
+            "lip": [
+              0.213813535224328,
+              -0.09186360821282787,
+              0.948698535029181
+            ],
+            "grip": [
+              0.19274938036623535,
+              -0.0702237423543088,
+              0.994830329928034
+            ],
+            "cup_base": [
+              0.1611608920984821,
+              -0.03501989517566871,
+              0.9595659758082691
+            ],
+            "mouth": [
+              0.217717800067233,
+              -0.08000490980040541,
+              0.9141268437380751
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.004044631746828564,
+              "ray_angle_deg": 36.114037713946594
+            },
+            "grip": {
+              "confidence": "high",
+              "ray_gap_m": 0.002776463081075514,
+              "ray_angle_deg": 38.10810853100177
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.002163489656690768,
+              "ray_angle_deg": 35.31986230280214
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.00550593146816846,
+              "ray_angle_deg": 33.79858940520654
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              0.010938000000000003,
+              -0.02291700000000002
+            ],
+            "cam_left_wrist": [
+              0.018749999999999933,
+              -0.04791700000000004
+            ]
+          },
+          "cup_axis_unit": null,
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": [
+            -0.003904264842905014,
+            -0.011858698412422458,
+            0.03457169129110593
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 32,
+        "call_id": "call_rO1yy503Ihb3T68ssZjiHHQ0",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 204,
+        "result": {
+          "status": "measured",
+          "reference_step": 204,
+          "points_m": {
+            "lip": [
+              0.21557680928236217,
+              -0.09265824468135012,
+              0.9478995297606947
+            ],
+            "grip": [
+              0.18431344532341953,
+              -0.07874440630809303,
+              0.9959595024556431
+            ],
+            "cup_base": [
+              0.16569231501830295,
+              -0.033181449453009756,
+              0.9567404868571908
+            ],
+            "mouth": [
+              0.2191680677594438,
+              -0.08047781157206114,
+              0.914841632172942
+            ]
+          },
+          "quality": {
+            "lip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0030954791326252727,
+              "ray_angle_deg": 36.04795947050685
+            },
+            "grip": {
+              "confidence": "high",
+              "ray_gap_m": 0.0044607605631321445,
+              "ray_angle_deg": 38.98296331343838
+            },
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.002174262058693999,
+              "ray_angle_deg": 34.98337435955099
+            },
+            "mouth": {
+              "confidence": "high",
+              "ray_gap_m": 0.0022133266771908883,
+              "ray_angle_deg": 33.8163879463783
+            }
+          },
+          "visual_offsets": {
+            "cam_head": [
+              0.010938000000000003,
+              -0.01874999999999999
+            ],
+            "cam_left_wrist": [
+              0.017188000000000092,
+              -0.04791700000000004
+            ]
+          },
+          "cup_axis_unit": null,
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": [
+            -0.003591258477081638,
+            -0.012180433109288971,
+            0.03305789758775268
+          ],
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      },
+      {
+        "turn": 44,
+        "call_id": "call_KTMDSNs60sda9h454VMaz24B",
+        "tool": "measure_pour_geometry",
+        "executed": false,
+        "observation_step": 318,
+        "result": {
+          "status": "unavailable",
+          "reference_step": 318,
+          "points_m": {
+            "cup_base": [
+              0.22582566186329575,
+              -0.1437721585561099,
+              0.7116065760074369
+            ]
+          },
+          "quality": {
+            "cup_base": {
+              "confidence": "high",
+              "ray_gap_m": 0.004563197682890864,
+              "ray_angle_deg": 26.33869851902886
+            }
+          },
+          "visual_offsets": {},
+          "cup_axis_unit": null,
+          "mouth_normal_unit": null,
+          "mouth_radius_m": null,
+          "lip_height_m": null,
+          "lip_minus_mouth_m": null,
+          "interpretation": "moving minus target, world metres; RGB must confirm correspondence. Radius is conservative from four marked inner-rim points. Grip and cup-axis are visual estimates."
+        },
+        "remaining_tool_calls": 1
+      }
+    ],
+    "head_pixel": [
+      444.9813419265123,
+      189.43052980214117
+    ],
+    "left_pixel": [
+      386.60115238457917,
+      222.55523808410632
+    ],
+    "depth_m": 0.507179464879648,
+    "head_camera": {
+      "intrinsic_matrix": [
+        [
+          288.13254096884566,
+          0.0,
+          320.0
+        ],
+        [
+          0.0,
+          288.13254096884566,
+          240.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "camera_to_environment": [
+        [
+          0.9999999999999999,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.8660253441153968,
+          -0.5000001033497976,
+          -0.4099999964237213
+        ],
+        [
+          0.0,
+          0.5000001033497976,
+          0.8660253441153968,
+          1.3079999685287476
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    "left_camera_to_world": [
+      [
+        0.5553512521364462,
+        0.38515424016040634,
+        -0.7370489794547463,
+        -0.17198830646705957
+      ],
+      [
+        -0.8296362582480566,
+        0.19547607542017303,
+        -0.5229653744840251,
+        -0.2608880946247566
+      ],
+      [
+        -0.057346889580996645,
+        0.90191203298563,
+        0.4280958058915878,
+        1.0974805051492924
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "mouth": [
+      0.21999587379157787,
+      -0.07932193127609552,
+      0.9132766495714978
+    ],
+    "head_origin": [
+      0.0,
+      -0.4099999964237213,
+      1.3079999685287476
+    ],
+    "left_origin": [
+      -0.17198830646705957,
+      -0.2608880946247566,
+      1.0974805051492924
+    ],
+    "calibration_provenance": "Reconstructed from standard-scene fixed camera configuration and an archived TEST_RUNTIME calibration. Not asserted to be an original per-frame calibration log for L40. Original XYZ and ray diagnostics are from L40.",
+    "third_view": "The vase mouth is occluded by the held cup; excluded from triangulation."
+  },
+  "video_alignment": {
+    "planner": "Continuous native execution mapped by video_frame = command_step + 37. Offset inferred from 591 source video frames and final step 553, then checked visually at source seconds 4, 6, 8 and 10. Editorial alignment, not a per-frame simulator timestamp proof."
+  }
+}

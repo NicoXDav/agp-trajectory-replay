@@ -1,0 +1,15 @@
+{
+  "source": "RoboICL-main-20261028/third_party/RoboDojo/third_party/curobo/robot/x5_v2",
+  "description": "Original local ARX X5 mesh geometry and URDF joint origins. Presentation-only IK motion and illustrative camera mounts.",
+  "sha256": {
+    "link8.STL": "29f7a8379cad81797e82e4ba099455cc275ac6ac5bb9e264ce46719fd7d2bb60",
+    "link3.STL": "3ac2411b0cbffcf4808cae4c215cfeab607f240cd124eeba209ac7986ac047c0",
+    "base_link.STL": "898dbe3af3a98857358ac5a3d74e085ec9c69946737e767dad139776761cbd92",
+    "link2.STL": "2865da6a962c814abaf9251497bcf5f5e3b67610e3b657ddcaa9de8b3d45e83e",
+    "link1.STL": "04a52b86a5b28c847377a9167e7effab0478fa591052e83b0b32cf8709bb3885",
+    "link5.STL": "934b3e70ce2987f8de999de29d8ef72c8370dced8e9fdf6f9ddd3e7e24c1e464",
+    "link4.STL": "3447ddef920c22e4607b887e1cc588037dfb51c37825c4cac86a5391425469c4",
+    "link6.STL": "32dca4ededcf3215163207b9aea1046114ae59921555d1e068ee46fa6e53915e",
+    "link7.STL": "ec3d40b39cccde0075ca3d16603f14f180fce41a46b446473d384def7a1b0be0"
+  }
+}

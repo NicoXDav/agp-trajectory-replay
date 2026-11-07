@@ -1,0 +1,110 @@
+{
+  "subtitles": {
+    "cues": 64,
+    "overlap": false,
+    "maximum_characters": 66
+  },
+  "audio": {
+    "mix": {
+      "seconds": 218.33333333333334,
+      "sample_rate": 48000,
+      "peak": 24163
+    },
+    "narration": {
+      "seconds": 218.33333333333334,
+      "sample_rate": 48000,
+      "peak": 26039
+    }
+  },
+  "music_only_seconds": [
+    188,
+    211.33333333333334
+  ],
+  "success_reel": {
+    "speed": 1.5,
+    "seconds": 23.333333333333332,
+    "reused_verified_v3_segment": true
+  },
+  "evidence": {
+    "real_rgb_only": true,
+    "synthetic_robot_removed": true,
+    "actual_failed_then_passed_previews": true,
+    "native_score": 100,
+    "triangulation_views_used": 2,
+    "third_view_occluded": true,
+    "head_optical_depth_reconstructed_m": 0.507179464879648,
+    "head_projection_within_3px_of_audited_landmark": true,
+    "left_projection_within_5px_of_audited_landmark": true
+  },
+  "visual_revision": {
+    "cross_projected_rays_in_real_images": true,
+    "separate_ray_diagram_removed": true,
+    "depth_ruler_and_rgb_target_detail": true,
+    "command_path_glow_and_samples": true,
+    "existing_verified_audio_reused": true
+  },
+  "media": {
+    "roboicl-film-4k.mp4": {
+      "metadata": {
+        "ffmpeg_version": "7.1 built with Apple clang version 13.1.6 (clang-1316.0.21.2.5)",
+        "codec": "h264",
+        "pix_fmt": "yuv420p(progressive)",
+        "audio_codec": "aac",
+        "fps": 24.0,
+        "source_size": [
+          3840,
+          2160
+        ],
+        "size": [
+          3840,
+          2160
+        ],
+        "rotate": 0,
+        "duration": 218.32999999999998
+      },
+      "decoded_frames": 5240,
+      "decode_errors": "",
+      "returncode": 0,
+      "bytes": 101538526,
+      "sha256": "48c16c20adeb929e3e98c6347928c3267828742922d854e84c767404cb209542"
+    },
+    "roboicl-film.mp4": {
+      "metadata": {
+        "ffmpeg_version": "7.1 built with Apple clang version 13.1.6 (clang-1316.0.21.2.5)",
+        "codec": "h264",
+        "pix_fmt": "yuv420p(progressive)",
+        "audio_codec": "aac",
+        "fps": 24.0,
+        "source_size": [
+          1920,
+          1080
+        ],
+        "size": [
+          1920,
+          1080
+        ],
+        "rotate": 0,
+        "duration": 218.32999999999998
+      },
+      "decoded_frames": 5240,
+      "decode_errors": "",
+      "returncode": 0,
+      "bytes": 33017609,
+      "sha256": "10552e07edaf334cfbe1a125d1f4bf8c928caed6b2c7f96b033aa391bb38c248"
+    }
+  },
+  "browser": {
+    "preview_current_src": "/assets/film/v5/roboicl-film.mp4",
+    "article_current_src": "/assets/film/v5/roboicl-film.mp4",
+    "duration_seconds": 218.333333,
+    "playback_size": [
+      1920,
+      1080
+    ],
+    "triangulation_visual_check_seconds": 105.11,
+    "planner_visual_check_seconds": 143.28,
+    "closing_ended": true,
+    "media_error": null,
+    "local_asset_links_passed": true
+  }
+}
