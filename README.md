@@ -1,6 +1,6 @@
 # MXI-RoboICL
 
-Public research website and V6 method film.
+Public research website and V7 method film.
 
 Website: https://nicoxdav.github.io/agp-trajectory-replay/
 

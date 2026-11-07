@@ -8,14 +8,14 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('mxi-theme')||'dark'}catch(e){}</script>
 <link rel="icon" href="../assets/mxi-logo.png"><link rel="stylesheet" href="../assets/styles.c7ca676ddd0a.css"><link rel="stylesheet" href="blog.css">
 <link rel="stylesheet" href="research.css">
-<script src="blog.js?v=6" defer></script>
+<script src="blog.js?v=7" defer></script>
 <link rel="stylesheet" href="scenes.css">
 <link rel="stylesheet" href="opening.css">
-<link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=6">
+<link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=7">
 <link rel="preload" href="../assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
-<script src="opening.js?v=6" defer></script>
+<script src="opening.js?v=7" defer></script>
 <script type="importmap">{"imports":{"three":"../assets/three/build/three.module.js","three/addons/":"../assets/three/examples/jsm/"}}</script>
-<script type="module" src="scene-loader.js?v=6"></script>
+<script type="module" src="scene-loader.js?v=7"></script>
 </head>
 <body>
 <a class="skip-link" href="#article">Skip to article</a>
@@ -24,24 +24,24 @@
 
 <nav class="contents" aria-label="Article sections">
 <button class="contents-toggle" aria-expanded="false" aria-controls="section-links">On this page <span aria-hidden="true">＋</span></button>
-<div id="section-links"><span class="contents-label">In this article</span><a href="#showreel">In action</a><a href="#background">Overview</a><a href="#method">Geometry</a><a href="#execution">Execution</a><a href="#results">Results</a><a href="#ablation">Ablation</a><a href="#simplicity">Simplicity</a><a href="#next">Outlook</a></div>
+<div id="section-links"><span class="contents-label">In this article</span><a href="#showreel">In action</a><a href="#background">Overview</a><a href="#method">Wrist guides</a><a href="#triangulation">Triangulation</a><a href="#execution">Execution</a><a href="#results">Results</a><a href="#ablation">Ablation</a><a href="#simplicity">Simplicity</a><a href="#next">Outlook</a></div>
 </nav>
 <div class="article-head wrap">
 <div class="edition"><span>MXI Research</span><span>November 2026</span></div>
-<h1 class="mxi-title" aria-label="MXI-RoboICL"><span class="mxi-title-primary">MXI</span><span class="mxi-title-secondary">MXI-RoboICL</span></h1><p class="mxi-team-statement">The MXI team’s upgrade to RoboICL.<br>Structured experience. Explicit geometry. Checked motion.</p>
+<h1 class="mxi-title">MXI-RoboICL</h1><p class="mxi-team-statement">An MXI team upgrade to RoboICL for more precise robot control.</p>
 <div class="publication-meta"><span class="paper-slot" aria-hidden="true"></span><a href="https://github.com/Embodied-RSI/RoboICL"><span>RoboICL foundation</span>GitHub ↗</a></div>
 </div>
 <section id="showreel" class="showreel wrap" aria-label="MXI-RoboICL in action">
 <figure class="showreel-figure">
-<video id="showcase-video" controls playsinline preload="none" poster="../assets/film/v6/film-poster.jpg" aria-label="MXI-RoboICL: three-minute thirteen-second method film with English narration, captions and recorded successes">
-<source src="../assets/film/v6/roboicl-film.mp4" type="video/mp4">
-<a href="../assets/film/v6/roboicl-film.mp4">Watch the MXI-RoboICL method film</a>
+<video id="showcase-video" controls playsinline preload="none" poster="../assets/film/v7/film-poster.jpg" aria-label="MXI-RoboICL: method film with English narration, captions and recorded successes">
+<source src="../assets/film/v7/roboicl-film.mp4" type="video/mp4">
+<a href="../assets/film/v7/roboicl-film.mp4">Watch the MXI-RoboICL method film</a>
 </video>
-<div class="film-quality"><span>MXI film · 3:13</span><label>Playback quality <select id="film-quality" aria-label="Video quality"><option value="720p">720p · faster</option><option value="1080p" selected>1080p · HD</option></select></label><a href="../assets/film/v6/roboicl-film-4k.mp4">4K ↗</a></div>
+<div class="film-links"><a href="../assets/film/v7/roboicl-film-4k.mp4">Watch in 4K ↗</a></div>
 </figure>
 </section>
-<section id="background" class="opening-overview wrap" aria-labelledby="overview-title">
-<h2 id="overview-title">Learning through context.</h2>
+<section id="background" class="opening-overview wrap" aria-label="Overview">
+
 <p><strong>MXI-RoboICL is the MXI team’s extension of a simple idea: let a frozen vision-language model learn robot control through context.</strong> The original RoboICL framework keeps the model frozen and brings two complementary sources of experience into the same conversation: a recorded demonstration of the task, when available, and the robot’s own interaction history. Both follow a shared observation–action–receipt–observation format, connecting what the robot sees to what it does and what changes afterward. Non-overlapping demonstration windows cover different stages of a task. During execution, bounded anchored memory keeps selected earlier interactions alongside the latest completed action, preserving useful experience without replaying every frame. Explicit trajectory gaps distinguish retained records from consecutive motion. The model then produces continuous action chunks through a compact control interface. This makes demonstrations, execution feedback, and online correction part of one inference-time process, without robot-specific parameter updates or a separately trained action model.</p>
 <p><strong>The MXI contribution makes geometry explicit at the point of action: wrist-camera guides, task-relevant triangulation, and checked motion.</strong> A robot may recognize an object yet miss it by a small offset, or choose a plausible destination that is difficult to reach. Wrist-camera guides project the nominal grasp center and inner finger-pad edges into the current image, exposing the relationship between the hand’s closing region and the target. Calibrated multi-view triangulation complements this cue: corresponding pixels and camera poses recover task-relevant 3D points from RGB, without a depth map. Sparse, reliable evidence can already guide a position correction; it need not wait for a dense point cloud. Our execution experiments additionally check reachability and motion continuity before applying a route. These MXI additions preserve the original feedback loop: the agent sees the actual executed motion, receives a fresh observation, and adjusts its next decision to the scene in front of it.</p>
 <p><strong>Our current self-evaluation reaches 75.9 on RoboDojo, 3.79 points above Q0’s revised-rule reference of 72.11.</strong> This team-reported state-of-the-art result builds on the original work’s evidence that structured context can strengthen precision, long-horizon behavior, and memory with a frozen model. The opening film explains the method through annotated recordings and closes with eighteen selected 100-point episodes across nine tasks and different layouts. Beyond the headline score, our paired information-ablation study finds smaller score drops for MXI-RoboICL across all three tested task groups, with Stack Bowls retaining its original performance. An authored-text audit also shows a smaller authored interface in the measured subset. Together, these results motivate a practical direction: retain the simplicity of learning from examples and interaction, while supplying the geometric evidence needed for more precise control. The benchmark comparison, paired scores, and audit scope are detailed below.</p>
@@ -68,7 +68,7 @@
 <div class="context-strip"><div><span>Demonstration context</span><p>Selected windows from a separate reference trajectory.</p></div><div><span>Interaction memory</span><p>Retained execution records from the active episode.</p></div><div><span>Current observation</span><p>Three camera views, robot state, and calibration.</p></div></div>
 <p class="small">A demonstration window includes its starting observation, an action chunk, an execution receipt, and its ending observation. Omitted intervals are marked explicitly. Temporal sampling provides coverage, but does not guarantee that every brief contact or handover is retained.</p></section>
 
-<section id="method"><h2>Visual grounding</h2><h3>MXI wrist-camera guides</h3><p>A wrist image becomes more useful when the agent can relate the visible object to the hand that will grasp it. We project the arm’s nominal grasp center and inner finger-pad edges into its wrist image using the current camera calibration and public gripper geometry. For a narrow target, recognizing the object is only half the problem: the hand’s closing center must also land on it. The projected guide makes that offset visible before closure.</p>
+<section id="method" class="method-chapter"><h2 class="method-group-title">Method</h2><h3>Wrist-camera guides</h3><p>A wrist image becomes more useful when the agent can relate the visible object to the hand that will grasp it. We project the arm’s nominal grasp center and inner finger-pad edges into its wrist image using the current camera calibration and public gripper geometry. For a narrow target, recognizing the object is only half the problem: the hand’s closing center must also land on it. The projected guide makes that offset visible before closure.</p>
 
 <figure class="scene-figure" id="wrist-animation" data-scene="grasp">
 <div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>See the offset. Guide the grasp.</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><button data-guides aria-pressed="true">Hide reticle</button></div></div>
@@ -85,7 +85,7 @@
 </figure>
 
 <p>The camera intrinsics <em>K</em> map a camera-frame point to image coordinates. The transform <em>T</em> connects the camera to the environment frame. Wrist extrinsics change with arm motion, so the overlay must use the transform for the same observation.</p>
-<h3>MXI target geometry</h3><p>Triangulation uses corresponding image points and calibrated camera poses to estimate a target’s 3D location. Two sufficiently separated views can be enough. A third view adds a consistency check; it is not a requirement for the basic geometry. This recovers metric depth from RGB and calibration, without requiring a depth map.</p>
+</section><section id="triangulation" class="method-chapter"><h3>Target triangulation</h3><p>Triangulation uses corresponding image points and calibrated camera poses to estimate a target’s 3D location. Two sufficiently separated views can be enough. A third view adds a consistency check; it is not a requirement for the basic geometry. This recovers metric depth from RGB and calibration, without requiring a depth map.</p>
 <figure class="scene-figure" id="tri-animation" data-scene="tri">
 <div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>3D localization from RGB alone</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><button data-outlier aria-pressed="false">Try mismatched view</button><button data-reset>Reset view</button></div></div>
 <div class="scene-stage" role="group" aria-label="3D localization from RGB alone">
@@ -101,7 +101,7 @@
 </figure><p>Real rays rarely intersect perfectly. The useful estimate is a point near the rays, checked for positive depth, adequate baseline, and reprojection consistency. Equally important is identity: geometrically consistent pixels on a pen do not locate the holder the robot is trying to grasp.</p><div class="evidence-steps"><div><b>Match</b><span>The same target landmark in two views.</span></div><div><b>Check</b><span>Calibration, ray geometry, and reprojection.</span></div><div><b>Use</b><span>A bounded claim tied to the current action.</span></div></div>
 <p>A reliable single point can support a position correction. Two can suggest a direction if their identities are meaningful. Neither establishes a full object pose or a surface plane. The aim of the target-geometry work is to use sparse evidence at the level it supports, rather than discard everything below a fixed point count.</p><details><summary>Why timestamp alignment matters</summary><p>Pairing an older RGB frame with the latest wrist pose moves its ray in the wrong direction. Render synchronization and observation-aligned state are prerequisites for useful geometry. Historical demonstrations also require their own calibration and provenance checks.</p></details></section>
 
-<section id="execution"><h2>MXI checked execution</h2><p><strong>A destination is only the beginning of a motion.</strong> In our pouring experiments, route tools turn target poses into a sequence the arm can follow. Nearby Cartesian samples are solved with inverse kinematics, checked against joint limits and neighboring configurations, then timed for execution. The model returns to fresh images and execution feedback to decide what to do next.</p>
+<section id="execution" class="method-chapter"><h3>Checked execution</h3><p><strong>A destination is only the beginning of a motion.</strong> In our pouring experiments, route tools turn target poses into a sequence the arm can follow. Nearby Cartesian samples are solved with inverse kinematics, checked against joint limits and neighboring configurations, then timed for execution. The model returns to fresh images and execution feedback to decide what to do next.</p>
 <figure class="scene-figure" id="planning-animation" data-scene="planning">
 <div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>Plan, place, release</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><button data-reset>Reset view</button></div></div>
 <div class="scene-stage" role="group" aria-label="Path sampling, inverse kinematics, continuity checks and execution">

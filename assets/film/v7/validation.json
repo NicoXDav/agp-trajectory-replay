@@ -1,0 +1,48 @@
+{
+  "media": {
+    "roboicl-film-4k.mp4": {
+      "size": [
+        3840,
+        2160
+      ],
+      "frames": 4864,
+      "duration": 202.67000000000002,
+      "bytes": 89856593,
+      "sha256": "6cde86363ccd1a1a455ee7c77868cd148540438d4ca3917dfde6fd760dc007ec",
+      "fast_start": true
+    },
+    "roboicl-film.mp4": {
+      "size": [
+        1920,
+        1080
+      ],
+      "frames": 4864,
+      "duration": 202.67000000000002,
+      "bytes": 36163936,
+      "sha256": "ead648e4333a77ef4def49a3cf708b976e7ad4edafc191d3bd3ef000c4772e95",
+      "fast_start": true
+    }
+  },
+  "subtitles": {
+    "cues": 55,
+    "overlap": false
+  },
+  "audio": {
+    "final_peak_dbfs": -5.036773204803467,
+    "native_tempo": true,
+    "paragraph_waveform_shape_preserved": true,
+    "auditory_review": "Not independently verified by a listening tool"
+  },
+  "visual": {
+    "continuous_preview_frames": 286,
+    "max_sampled_preview_displacement_m_per_frame": 0.00902,
+    "foreground_arm_depth_occlusion": true,
+    "overlays_removed_before_real_execution": true
+  },
+  "website": {
+    "single_project_heading": true,
+    "peer_method_titles": true,
+    "fixed_1080p": true,
+    "browser_check": "Unavailable: computer-use connection timed out; source and HTTP checks performed"
+  }
+}

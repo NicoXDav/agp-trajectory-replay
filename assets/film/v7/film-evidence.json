@@ -1,12 +1,12 @@
 {
-  "duration_seconds": 193,
+  "duration_seconds": 202.66666666666666,
   "resolution": [
     3840,
     2160
   ],
   "frame_rate": 24,
-  "narration": "Synthetic English narration, en-US-AndrewMultilingualNeural. MXI is pronounced as three letters. New script and subtitles.",
-  "music": "Original instrumental score; no narration between 163 and 186.333 seconds.",
+  "narration": "Synthetic English paragraph narration, en-GB-RyanNeural, native speed. No post-generation tempo changes. One shared gain.",
+  "music": "Continuous original instrumental bed, generated without repeated-buffer seams. Music-only success reel.",
   "footage": {
     "wrist": {
       "episode": "task2-best77-tubes-pour10-20261103-r1-insert_tubes-standard-s0-l13-tubes-focused-v1",
@@ -545,88 +545,10 @@
       "scope": "Exploratory paired runs, seed 0; 8 layouts and 32 scored trajectories overall; post-hoc L27 excluded from primary tubes chart."
     }
   },
-  "edit_timing": {
-    "unchanged_foundation": [
-      0,
-      80
-    ],
-    "target_triangulation": [
-      80,
-      120
-    ],
-    "checked_motion": [
-      120,
-      160
-    ],
-    "evidence": [
-      160,
-      188
-    ],
-    "nine_grid_1_5x": [
-      188,
-      211.33333333333334
-    ],
-    "outro": [
-      211.33333333333334,
-      218.33333333333334
-    ],
-    "triangulation": {
-      "film_seconds": [
-        80,
-        120
-      ],
-      "episode": "L40",
-      "source_seconds": [
-        3.5,
-        14.8
-      ],
-      "freeze_source_seconds": 4.44,
-      "freeze_film_seconds": [
-        87,
-        110
-      ],
-      "views": [
-        "head",
-        "left_wrist",
-        "right_wrist"
-      ],
-      "rays_used": [
-        "head",
-        "left_wrist"
-      ]
-    },
-    "planner": {
-      "film_seconds": [
-        120,
-        160
-      ],
-      "episode": "L5 hexaB",
-      "source_seconds": [
-        1.4,
-        23.5
-      ],
-      "freeze_source_seconds": 3.56,
-      "freeze_film_seconds": [
-        127,
-        141
-      ],
-      "rejected_preview_film_seconds": [
-        127,
-        134
-      ],
-      "passed_preview_film_seconds": [
-        134,
-        141
-      ],
-      "execute_film_seconds": [
-        141,
-        160
-      ]
-    }
-  },
+  "edit_timing": "Chapter lengths follow native-speed paragraph narration. Recorded scenes are retimed for presentation; success grid runs at 1.5x.",
   "success_grid_evidence": "../../showcase/episode-evidence.json",
-  "triangulation_diagram": "Recorded L40 footage. Head-camera ray is cross-projected into the left-wrist image, and left-wrist ray into the head image, using reconstructed standard-scene calibration. Own-camera rays project to their target pixels. Luminous paths and particles are editorial emphasis, not uncertainty bounds. A real RGB crop and depth ruler replace the separate ray diagram. Original two-view data retained; occluded right-wrist recording excluded.",
-  "planner_diagram": "Recorded L5 footage with luminous projected command paths, sampled command markers, real rejected/passed preview receipts and recorded joint values/traces. Colors, glow, scanning and pass/fail marks are editorial effects. No virtual robot mesh or synthetic scene. Rejected-route geometry is not invented.",
+  "triangulation_diagram": "Calibrated rays only at the frozen observation; all overlays clear before the moving footage",
+  "planner_diagram": "Continuous FK reconstruction of recorded joints with actual ARX forearm/hand meshes; native commanded opening; distance-based editorial retiming; disappears before real execution",
   "triangulation_measurements": [
     {
       "turn": 14,
@@ -1589,7 +1511,7 @@
       }
     }
   },
-  "voice_timing": "voice-timings.json",
+  "voice_timing": "timeline.json",
   "grid_speed_relative_to_v2": 1.5,
   "triangulation_reconstruction": {
     "measurements": [
@@ -2541,59 +2463,59 @@
   },
   "identity": "MXI-RoboICL \u2014 the MXI team\u2019s upgrade to RoboICL",
   "visual_revision": {
-    "wrist": "High-contrast nominal grasp reticle, editorial alignment pulse, and same-RGB enlarged detail. Highlight is not a measured contact or success detector.",
-    "triangulation": "Calibrated cross-projections with a luminous core and particle flow; matching two views, with occluded third view excluded.",
-    "planner": "Translucent simplified wrist-and-finger outlines projected from FK at recorded joint targets 105, 125, 145, 165 and 185. Nominal aperture; not a new simulated robot or reconstructed rejected route.",
-    "pacing": "193 seconds; narrated chapters tightened; full 35-second success reel preserved at 1.5x."
+    "identity": "Single MXI-RoboICL wordmark",
+    "planner": "Continuous FK reconstruction of recorded joints with actual ARX forearm/hand meshes; native commanded opening; distance-based editorial retiming; disappears before real execution",
+    "wrist": "Nominal center and finger guides; white-tube segmentation supplies an explanatory target offset, not a model output or metric position",
+    "triangulation": "Calibrated rays only at the frozen observation; all overlays clear before the moving footage",
+    "success_reel_speed": 1.5
   },
   "chapters": [
     {
       "id": "intro",
-      "start": 0.0,
-      "end": 8.0,
-      "title": "MXI \u2014 RoboICL, extended"
+      "start": 0,
+      "end": 10.048
     },
     {
       "id": "icl",
-      "start": 8.0,
-      "end": 42.0,
-      "title": "Experience becomes context"
+      "start": 10.048,
+      "end": 44.048
     },
     {
       "id": "wrist",
-      "start": 42.0,
-      "end": 68.0,
-      "title": "Where will the fingers close?"
+      "start": 44.048,
+      "end": 71.064
     },
     {
       "id": "tri",
-      "start": 68.0,
-      "end": 102.0,
-      "title": "A direction becomes a position"
+      "start": 71.064,
+      "end": 101.19999999999999
     },
     {
       "id": "plan",
-      "start": 102.0,
-      "end": 136.0,
-      "title": "From destination to motion"
+      "start": 101.19999999999999,
+      "end": 139.56799999999998
     },
     {
       "id": "evidence",
-      "start": 136.0,
-      "end": 163.0,
-      "title": "Simple. Elegant. Effective."
+      "start": 139.56799999999998,
+      "end": 170.952
     },
     {
       "id": "grid",
-      "start": 163.0,
-      "end": 186.33333333333175,
-      "title": "Nine tasks in action"
+      "start": 170.952,
+      "end": 194.28533333333334
     },
     {
       "id": "outro",
-      "start": 186.33333333333175,
-      "end": 193,
-      "title": "MXI-RoboICL"
+      "start": 194.28533333333334,
+      "end": 202.65333333333334
     }
-  ]
+  ],
+  "version": "v7",
+  "audio": {
+    "voice": "en-GB-RyanNeural",
+    "paragraph_generation": true,
+    "post_tempo": 1,
+    "gain": "One shared narration gain; no per-sentence loudness processing"
+  }
 }
