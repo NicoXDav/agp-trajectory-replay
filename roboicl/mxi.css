@@ -8,3 +8,5 @@
 @media(max-width:600px){.article-head .mxi-title{margin:28px 0 14px}.mxi-team-statement{max-width:340px}.publication-meta{margin-bottom:24px}.opening-overview{padding-top:32px}}
 
 .article-head{padding:30px 0 16px}
+
+.article-head .mxi-emphasis{font-weight:610;font-size:1.05em;letter-spacing:-.035em}

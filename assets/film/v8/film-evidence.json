@@ -1,11 +1,11 @@
 {
-  "duration_seconds": 202.66666666666666,
+  "duration_seconds": 200.2,
   "resolution": [
     3840,
     2160
   ],
-  "frame_rate": 24,
-  "narration": "Synthetic English paragraph narration, en-GB-RyanNeural, native speed. No post-generation tempo changes. One shared gain.",
+  "frame_rate": 50,
+  "narration": "Synthetic English paragraph narration, en-US-AndrewMultilingualNeural. Native speed, no post-generation tempo changes, one shared gain.",
   "music": "Continuous original instrumental bed, generated without repeated-buffer seams. Music-only success reel.",
   "footage": {
     "wrist": {
@@ -2473,49 +2473,57 @@
     {
       "id": "intro",
       "start": 0,
-      "end": 10.048
+      "end": 10.408
     },
     {
       "id": "icl",
-      "start": 10.048,
-      "end": 44.048
+      "start": 10.408,
+      "end": 44.408
     },
     {
       "id": "wrist",
-      "start": 44.048,
-      "end": 71.064
+      "start": 44.408,
+      "end": 68.408
     },
     {
       "id": "tri",
-      "start": 71.064,
-      "end": 101.19999999999999
+      "start": 68.408,
+      "end": 98.408
     },
     {
       "id": "plan",
-      "start": 101.19999999999999,
-      "end": 139.56799999999998
+      "start": 98.408,
+      "end": 136.40800000000002
     },
     {
       "id": "evidence",
-      "start": 139.56799999999998,
-      "end": 170.952
+      "start": 136.40800000000002,
+      "end": 169.01600000000002
     },
     {
       "id": "grid",
-      "start": 170.952,
-      "end": 194.28533333333334
+      "start": 169.01600000000002,
+      "end": 192.34933333333336
     },
     {
       "id": "outro",
-      "start": 194.28533333333334,
-      "end": 202.65333333333334
+      "start": 192.34933333333336,
+      "end": 200.18933333333337
     }
   ],
-  "version": "v7",
+  "version": "v8",
   "audio": {
-    "voice": "en-GB-RyanNeural",
+    "voice": "en-US-AndrewMultilingualNeural",
     "paragraph_generation": true,
     "post_tempo": 1,
     "gain": "One shared narration gain; no per-sentence loudness processing"
+  },
+  "v8_presentation": {
+    "identity": "MXI is 5% larger and slightly heavier, within one centered MXI-RoboICL wordmark.",
+    "wrist": "Original 25 fps RGB receives motion-compensated interpolation before frame-by-frame 50 fps overlays. Selected observation is held while the reference is explained. Reticle starts after the question.",
+    "alignment": "Editorial target overlap cue; not a contact sensor or proof of grasp success.",
+    "camera_direction": "Dashed camera-icon guides show viewing direction schematically. Solid cross-view rays use calibration at the frozen observation. A ray in its own camera projects to a pixel, so the dashed cue is not claimed to be a calibrated own-image ray.",
+    "provenance": "Explanatory provenance is retained here instead of microtext below footage.",
+    "scientific_scope": "Interpolation and geometric overlays are editorial. They do not add measured observations or establish causal performance gains."
   }
 }

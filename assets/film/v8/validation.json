@@ -1,0 +1,72 @@
+{
+  "media": {
+    "roboicl-film-4k.mp4": {
+      "size": [
+        3840,
+        2160
+      ],
+      "frames": 10010,
+      "duration": 200.2,
+      "bytes": 52952553,
+      "sha256": "14723d885c486f5fe3f2c0b147a9e47ad84f8bbfdbee58b163f17b80a035f4ae",
+      "fast_start": true
+    },
+    "roboicl-film.mp4": {
+      "size": [
+        1920,
+        1080
+      ],
+      "frames": 10010,
+      "duration": 200.2,
+      "bytes": 36458965,
+      "sha256": "d79902c4d4fa9334dd79efef8624dc446563ecef8c85f657e0e9855e57f5967b",
+      "fast_start": true
+    }
+  },
+  "subtitles": {
+    "cues": 57,
+    "overlap": false
+  },
+  "audio": {
+    "final_sample_peak_dbfs": -4.909125328063965,
+    "native_tempo": true,
+    "voice": "en-US-AndrewMultilingualNeural",
+    "source_waveform_correlations": {
+      "intro": 0.9999999774057117,
+      "icl": 0.9999999757535019,
+      "wrist": 0.9999999769866603,
+      "tri": 0.999999974340518,
+      "plan": 0.999999976283146,
+      "evidence": 0.9999999735981477,
+      "outro": 0.9999999808186961
+    },
+    "auditory_review": "No listening tool available; auditory freedom from rasp not independently verified"
+  },
+  "visual": {
+    "question_end_seconds": 48.5955,
+    "reticle_reveal_seconds": 48.9955,
+    "complete_four_arm_reticle": true,
+    "source_rgb_interpolation": "motion compensated, original 25 fps to 200 fps intermediate samples; delivered at 50 fps",
+    "approach_consecutive_frame_differences": [
+      2.230873480902778,
+      1.97052734375,
+      1.6144921875,
+      1.8687434895833333,
+      1.799208984375,
+      1.904228515625,
+      1.7597580295138888,
+      1.7772894965277777,
+      1.940763888888889,
+      1.6465625,
+      1.2357020399305556
+    ],
+    "overlay_clear_before_playback": true
+  },
+  "website": {
+    "single_centered_project_heading": true,
+    "mxi_size_ratio": 1.05,
+    "peer_method_titles": true,
+    "fixed_1080p": true,
+    "browser_check": "Unavailable: computer-use request timed out; not visually verified in browser"
+  }
+}

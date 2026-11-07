@@ -1,0 +1,227 @@
+1
+00:00:00,550 --> 00:00:03,445
+Meet MXI RoboICL.
+
+2
+00:00:03,725 --> 00:00:07,200
+Our team builds on learning through context, with geometry
+
+3
+00:00:07,200 --> 00:00:09,607
+that helps robots act more precisely.
+
+4
+00:00:10,946 --> 00:00:12,765
+Start with one demonstration.
+
+5
+00:00:13,058 --> 00:00:16,658
+Short windows, sampled across time, show the model how the
+
+6
+00:00:16,658 --> 00:00:18,066
+task unfolds.
+
+7
+00:00:18,358 --> 00:00:22,078
+Each window connects what the robot sees, the actions taken,
+
+8
+00:00:22,370 --> 00:00:23,566
+and what happens next.
+
+9
+00:00:23,858 --> 00:00:26,528
+The current episode follows the same format.
+
+10
+00:00:26,808 --> 00:00:30,420
+Selected earlier interactions and the latest result join the
+
+11
+00:00:30,420 --> 00:00:32,665
+demonstration in the model’s context.
+
+12
+00:00:32,958 --> 00:00:36,140
+The model decides, acts, and observes again.
+
+13
+00:00:36,433 --> 00:00:37,716
+Its weights stay frozen.
+
+14
+00:00:38,008 --> 00:00:40,290
+Experience changes the conversation.
+
+15
+00:00:44,958 --> 00:00:46,716
+The robot sees the object.
+
+16
+00:00:46,996 --> 00:00:48,716
+But where will its fingers close?
+
+17
+00:00:48,996 --> 00:00:51,478
+Our wrist guides reveal the closing center.
+
+18
+00:00:51,758 --> 00:00:53,153
+The camera is already there.
+
+19
+00:00:53,433 --> 00:00:56,640
+We project the gripper geometry into its image.
+
+20
+00:00:56,908 --> 00:00:59,016
+Watch the target approach the crosshair.
+
+21
+00:00:59,296 --> 00:00:59,916
+Align.
+
+22
+00:01:00,208 --> 00:01:00,878
+Close.
+
+23
+00:01:01,158 --> 00:01:01,666
+Lift.
+
+24
+00:01:01,946 --> 00:01:06,433
+Geometry makes the offset visible; the moving object reveals
+
+25
+00:01:06,433 --> 00:01:07,116
+the result.
+
+26
+00:01:08,958 --> 00:01:12,166
+A pixel tells us a direction, but not a distance.
+
+27
+00:01:12,446 --> 00:01:16,716
+Now match the same vase opening in two calibrated camera views.
+
+28
+00:01:17,008 --> 00:01:19,053
+Each observation defines a ray.
+
+29
+00:01:19,321 --> 00:01:23,208
+Together, they constrain a three dimensional position, without
+
+30
+00:01:23,208 --> 00:01:24,103
+a depth map.
+
+31
+00:01:24,433 --> 00:01:27,778
+Here, the reconstructed depth is about half a metre.
+
+32
+00:01:28,058 --> 00:01:31,090
+The third view is occluded, so it is excluded.
+
+33
+00:01:31,383 --> 00:01:35,366
+Back in the recorded rollout, the robot uses geometric information
+
+34
+00:01:35,458 --> 00:01:36,716
+while adjusting the pour.
+
+35
+00:01:38,958 --> 00:01:40,941
+A target is only the beginning.
+
+36
+00:01:41,220 --> 00:01:43,340
+The arm still needs a route it can execute.
+
+37
+00:01:43,658 --> 00:01:47,153
+Here, the first preview fails inverse kinematics.
+
+38
+00:01:47,446 --> 00:01:48,628
+No motion is sent.
+
+39
+00:01:48,908 --> 00:01:50,453
+A revised plan passes.
+
+40
+00:01:50,733 --> 00:01:53,828
+Now watch a translucent preview of the recorded arm motion:
+
+41
+00:01:54,133 --> 00:01:58,016
+approach, grasp, lift, transfer, and pour.
+
+42
+00:01:58,296 --> 00:02:00,466
+Joint targets change along the route.
+
+43
+00:02:00,746 --> 00:02:04,658
+This preview explains the accepted sequence; it is not a second
+
+44
+00:02:04,658 --> 00:02:05,803
+physical robot.
+
+45
+00:02:06,083 --> 00:02:10,140
+The overlay clears, and the recorded arm completes the task.
+
+46
+00:02:10,420 --> 00:02:12,278
+The episode scores one hundred.
+
+47
+00:02:16,920 --> 00:02:20,966
+MXI RoboICL keeps a compact foundation.
+
+48
+00:02:21,246 --> 00:02:25,028
+The audited interface contains about six thousand characters.
+
+49
+00:02:25,320 --> 00:02:29,696
+Across three exploratory task groups, our system loses fewer
+
+50
+00:02:29,696 --> 00:02:33,466
+points than Q0 when readable task information is removed.
+
+51
+00:02:33,746 --> 00:02:38,028
+Our updated system reaches seventy-five point nine in team
+
+52
+00:02:38,208 --> 00:02:39,328
+self-evaluation.
+
+53
+00:02:39,608 --> 00:02:43,903
+These results motivate a simple direction: learn from experience,
+
+54
+00:02:44,158 --> 00:02:48,203
+make geometry explicit, and check motion before execution.
+
+55
+00:03:12,862 --> 00:03:15,794
+MXI RoboICL.
+
+56
+00:03:16,074 --> 00:03:18,232
+An MXI team upgrade.
+
+57
+00:03:18,537 --> 00:03:19,394
+Thank you for watching.
