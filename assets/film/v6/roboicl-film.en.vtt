@@ -1,0 +1,160 @@
+WEBVTT
+
+00:00:00.632 --> 00:00:01.966
+MXI.
+
+00:00:02.219 --> 00:00:05.308
+Our team extends RoboICL with
+
+00:00:05.308 --> 00:00:07.495
+clearer geometry and checked motion.
+
+00:00:08.518 --> 00:00:10.131
+Start with one demonstration.
+
+00:00:10.394 --> 00:00:14.242
+Sample short windows to show the model how the task unfolds.
+
+00:00:14.891 --> 00:00:18.201
+Each window connects an observation, recorded actions,
+
+00:00:18.445 --> 00:00:21.060
+execution feedback, and the resulting observation.
+
+00:00:21.708 --> 00:00:24.280
+The current episode uses the same format.
+
+00:00:24.557 --> 00:00:27.008
+Completed actions become experience.
+
+00:00:28.059 --> 00:00:30.908
+Earlier time anchors and the latest segment join the
+
+00:00:30.908 --> 00:00:33.984
+demonstration and current view in the agent context.
+
+00:00:35.284 --> 00:00:38.469
+MXI keeps this feedback loop: decide, act, observe.
+
+00:00:38.734 --> 00:00:40.596
+The model weights stay frozen.
+
+00:00:42.529 --> 00:00:44.020
+Where will the fingers close?
+
+00:00:44.260 --> 00:00:47.601
+MXI makes the grasp center explicit in the wrist image.
+
+00:00:48.692 --> 00:00:50.431
+The camera already exists.
+
+00:00:50.684 --> 00:00:53.574
+MXI adds a projected center and inner
+
+00:00:53.574 --> 00:00:55.302
+finger edges from known geometry.
+
+00:00:55.963 --> 00:00:59.267
+Watch the guide: an offset is visible, then
+
+00:00:59.267 --> 00:01:01.442
+the tube approaches the closing center.
+
+00:01:02.025 --> 00:01:03.262
+Align, close, lift.
+
+00:01:03.507 --> 00:01:05.224
+The highlight explains alignment.
+
+00:01:05.457 --> 00:01:07.527
+Object motion shows retention.
+
+00:01:08.506 --> 00:01:11.543
+MXI target geometry locates the vase
+
+00:01:11.543 --> 00:01:13.903
+opening from recorded R G B views.
+
+00:01:14.459 --> 00:01:17.440
+Match the same opening in the head and wrist images.
+
+00:01:17.704 --> 00:01:19.856
+Each pixel defines a spatial ray.
+
+00:01:20.846 --> 00:01:22.721
+One ray leaves depth unknown.
+
+00:01:22.986 --> 00:01:26.723
+Two calibrated rays recover a position, without a depth map.
+
+00:01:27.646 --> 00:01:30.098
+The reconstructed depth is half a metre.
+
+00:01:30.362 --> 00:01:32.598
+The occluded right view is excluded.
+
+00:01:34.446 --> 00:01:36.862
+The recorded lip-to-mouth offset falls from
+
+00:01:36.862 --> 00:01:40.263
+seventy-eight to three millimetres before pouring.
+
+00:01:42.504 --> 00:01:44.778
+MXI checks motion before execution.
+
+00:01:45.019 --> 00:01:48.263
+A destination alone does not guarantee a reachable route.
+
+00:01:48.896 --> 00:01:51.636
+The first preview fails inverse kinematics.
+
+00:01:51.913 --> 00:01:53.223
+The robot stays still.
+
+00:01:54.834 --> 00:01:56.036
+Another plan passes.
+
+00:01:56.312 --> 00:02:00.134
+Watch the ghost hand preview recorded joint targets, step by step.
+
+00:02:00.784 --> 00:02:04.038
+These translucent poses visualize recorded commands.
+
+00:02:04.253 --> 00:02:06.039
+The numbers track the joint targets.
+
+00:02:06.746 --> 00:02:11.262
+Then the recorded arm grasps, lifts, transfers, aligns, and pours.
+
+00:02:11.837 --> 00:02:13.105
+Task score: one hundred.
+
+00:02:13.345 --> 00:02:15.618
+A later return-home warning remains logged.
+
+00:02:16.561 --> 00:02:21.622
+MXI builds on a compact RoboICL foundation: about
+
+00:02:21.622 --> 00:02:24.076
+six thousand characters in the authored-text audit.
+
+00:02:24.775 --> 00:02:28.957
+Across three exploratory task groups, our context-based system
+
+00:02:28.957 --> 00:02:32.912
+loses fewer points than Q0 when readable priors are removed.
+
+00:02:34.402 --> 00:02:40.179
+MXI RoboICL: seventy-five point nine in our self-evaluation.
+
+00:02:40.441 --> 00:02:42.401
+Geometry meets deliberate action.
+
+00:03:07.370 --> 00:03:09.233
+MXI RoboICL.
+
+00:03:09.569 --> 00:03:10.759
+Extended by our team.
+
+00:03:11.060 --> 00:03:11.576
+Thank you.

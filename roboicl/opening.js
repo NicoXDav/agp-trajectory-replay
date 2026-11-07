@@ -47,3 +47,16 @@ const reelObserver = new IntersectionObserver(([entry]) => {
   }
 }, {threshold:.1});
 reelObserver.observe(reel);
+
+// Use the smaller rendition on narrow displays. Preserve position on user changes.
+const qualitySelect=document.getElementById('film-quality');
+if(qualitySelect){
+ function qualityURL(q){return new URL('../assets/film/v6/'+(q==='720p'?'roboicl-film-720p.mp4':'roboicl-film.mp4'),document.baseURI).href;}
+ qualitySelect.addEventListener('change',()=>{
+  const time=reel.currentTime,playing=!reel.paused;
+  reel.src=qualityURL(qualitySelect.value);
+  reel.addEventListener('loadedmetadata',()=>{reel.currentTime=Math.min(time,reel.duration);if(playing)reel.play().catch(()=>{});},{once:true});
+  reel.load();
+ });
+ if(matchMedia('(max-width:700px)').matches){qualitySelect.value='720p';reel.src=qualityURL('720p');}
+}

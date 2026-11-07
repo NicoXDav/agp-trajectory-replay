@@ -1,12 +1,12 @@
 {
-  "duration_seconds": 218.33333333333334,
+  "duration_seconds": 193,
   "resolution": [
     3840,
     2160
   ],
   "frame_rate": 24,
-  "narration": "Synthetic English neural narration: en-US-AndrewMultilingualNeural, edge-tts. Not a human recording.",
-  "music": "Original instrumental score; no narration from 188 to 211.333 seconds.",
+  "narration": "Synthetic English narration, en-US-AndrewMultilingualNeural. MXI is pronounced as three letters. New script and subtitles.",
+  "music": "Original instrumental score; no narration between 163 and 186.333 seconds.",
   "footage": {
     "wrist": {
       "episode": "task2-best77-tubes-pour10-20261103-r1-insert_tubes-standard-s0-l13-tubes-focused-v1",
@@ -2538,5 +2538,62 @@
   },
   "video_alignment": {
     "planner": "Continuous native execution mapped by video_frame = command_step + 37. Offset inferred from 591 source video frames and final step 553, then checked visually at source seconds 4, 6, 8 and 10. Editorial alignment, not a per-frame simulator timestamp proof."
-  }
+  },
+  "identity": "MXI-RoboICL \u2014 the MXI team\u2019s upgrade to RoboICL",
+  "visual_revision": {
+    "wrist": "High-contrast nominal grasp reticle, editorial alignment pulse, and same-RGB enlarged detail. Highlight is not a measured contact or success detector.",
+    "triangulation": "Calibrated cross-projections with a luminous core and particle flow; matching two views, with occluded third view excluded.",
+    "planner": "Translucent simplified wrist-and-finger outlines projected from FK at recorded joint targets 105, 125, 145, 165 and 185. Nominal aperture; not a new simulated robot or reconstructed rejected route.",
+    "pacing": "193 seconds; narrated chapters tightened; full 35-second success reel preserved at 1.5x."
+  },
+  "chapters": [
+    {
+      "id": "intro",
+      "start": 0.0,
+      "end": 8.0,
+      "title": "MXI \u2014 RoboICL, extended"
+    },
+    {
+      "id": "icl",
+      "start": 8.0,
+      "end": 42.0,
+      "title": "Experience becomes context"
+    },
+    {
+      "id": "wrist",
+      "start": 42.0,
+      "end": 68.0,
+      "title": "Where will the fingers close?"
+    },
+    {
+      "id": "tri",
+      "start": 68.0,
+      "end": 102.0,
+      "title": "A direction becomes a position"
+    },
+    {
+      "id": "plan",
+      "start": 102.0,
+      "end": 136.0,
+      "title": "From destination to motion"
+    },
+    {
+      "id": "evidence",
+      "start": 136.0,
+      "end": 163.0,
+      "title": "Simple. Elegant. Effective."
+    },
+    {
+      "id": "grid",
+      "start": 163.0,
+      "end": 186.33333333333175,
+      "title": "Nine tasks in action"
+    },
+    {
+      "id": "outro",
+      "start": 186.33333333333175,
+      "end": 193,
+      "title": "MXI-RoboICL"
+    }
+  ]
 }

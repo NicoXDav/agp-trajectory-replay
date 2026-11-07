@@ -24,11 +24,11 @@ const studies = [
   const saved=fmt(q0Drop-roboDrop);
   return {...d, headline:'+'+saved, label:'points less decline than Q0',
     advantage:saved+'-point smaller drop',
-    detail:'RoboICL drops '+fmt(roboDrop)+' points; Q0 drops '+fmt(q0Drop)+'.'};
+    detail:'MXI-RoboICL drops '+fmt(roboDrop)+' points; Q0 drops '+fmt(q0Drop)+'.'};
 });
 document.getElementById('ablation-chart').innerHTML = studies.map(d => {
   const x = n => 25 + n * 2.68;
-  const rows = [['RoboICL',d.r,'var(--accent)'],['Q0',d.q,'var(--muted)']].map(([name,v,c],i) => {
+  const rows = [['MXI-RoboICL',d.r,'var(--accent)'],['Q0',d.q,'var(--muted)']].map(([name,v,c],i) => {
     const y = 88 + i*92;
     return '<text x="25" y="'+(y-26)+'" class="'+(i?'task-model':'task-model ours-text')+'">'+name+'</text>'+
       '<text x="293" y="'+(y-26)+'" text-anchor="end" class="task-score">'+fmt(v[0])+' → '+fmt(v[1])+'</text>'+
@@ -40,7 +40,7 @@ document.getElementById('ablation-chart').innerHTML = studies.map(d => {
   }).join('');
   return '<div class="task-card"><h3>'+d.name+'</h3><span class="task-sample">'+d.n+'</span>'+
     '<div class="task-highlight"><strong>'+d.headline+'</strong><span>'+d.label+'</span></div>'+
-    '<svg viewBox="0 0 320 235" role="img" aria-label="'+d.name+': RoboICL '+fmt(d.r[0])+' to '+fmt(d.r[1])+', Q0 '+fmt(d.q[0])+' to '+fmt(d.q[1])+'. Higher progress score is better.">'+
+    '<svg viewBox="0 0 320 235" role="img" aria-label="'+d.name+': MXI-RoboICL '+fmt(d.r[0])+' to '+fmt(d.r[1])+', Q0 '+fmt(d.q[0])+' to '+fmt(d.q[1])+'. Higher progress score is better.">'+
     [0,50,100].map(n=>'<text x="'+x(n)+'" y="20" text-anchor="middle" class="task-tick">'+n+'</text>').join('')+rows+'</svg>'+
     '<div class="task-takeaway"><strong>'+d.advantage+'</strong><p>'+d.detail+'</p></div></div>';
 }).join('');
