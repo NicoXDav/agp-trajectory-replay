@@ -1,11 +1,11 @@
 {
-  "duration_seconds": 200.2,
+  "duration_seconds": 199.78,
   "resolution": [
     3840,
     2160
   ],
   "frame_rate": 50,
-  "narration": "Synthetic English paragraph narration, en-US-AndrewMultilingualNeural. Native speed, no post-generation tempo changes, one shared gain.",
+  "narration": "Synthetic English paragraph narration, en-US-AndrewMultilingualNeural. Native speed, shared gain, no voice effects or post-generation time stretching.",
   "music": "Continuous original instrumental bed, generated without repeated-buffer seams. Music-only success reel.",
   "footage": {
     "wrist": {
@@ -514,7 +514,7 @@
     "path_scope": "Forward-kinematic projection of recorded commanded joint targets, using the ARX URDF, standard robot base poses, fixed head calibration and nominal 150 mm grasp-center reference. Not a measured object path or a reconstruction of the rejected candidate."
   },
   "wrist_guide": "Guide reconstructed with verified fixed camera-to-link6 transform and nominal gripper opening from executed-command ledger. It is a geometric reference, not measured aperture/contact. Alignment glow is editorial.",
-  "icl_diagram": "Verified J18/H15 and B6 time-anchor rules. Timeline numbers use the audited Stack Bowls record. Thumbnail footage is from separate successful Stack Bowls episodes and illustrates the format; it is not the exact TRAIN/LIVE bundle of that audit.",
+  "icl_diagram": "From approximately 25.6 seconds, one persistent composition links a demonstration, a stylized frozen-agent avatar, live Stack Bowls footage, and retained interaction windows. Arrow cycles and window arrival times explain the method; they are not a synchronized replay of recorded model calls. Uniform demonstration sampling and anchored-plus-latest memory remain the stated selection rules.",
   "image_quality": "Native 4K typography/composition. Recorded camera streams originate at 640x480 and are upscaled.",
   "evidence": {
     "original_icl": {
@@ -547,8 +547,8 @@
   },
   "edit_timing": "Chapter lengths follow native-speed paragraph narration. Recorded scenes are retimed for presentation; success grid runs at 1.5x.",
   "success_grid_evidence": "../../showcase/episode-evidence.json",
-  "triangulation_diagram": "Calibrated rays only at the frozen observation; all overlays clear before the moving footage",
-  "planner_diagram": "Continuous FK reconstruction of recorded joints with actual ARX forearm/hand meshes; native commanded opening; distance-based editorial retiming; disappears before real execution",
+  "triangulation_diagram": "Real head and wrist image planes unfold using calibrated camera poses, intrinsics and optical-axis image-plane coordinates. Two rays constrain the logged vase-mouth point. The occluded third view is not used. The observer view is orthographic and animated for readability. Dashed viewing cues in the recorded image are schematic.",
+  "planner_diagram": "Rejected preview has no retained candidate joint trace. The first known commanded arm configuration is held and tinted red on rejection; no failed waypoint or IK iteration trace is fabricated. The accepted continuous kinematic preview is retained.",
   "triangulation_measurements": [
     {
       "turn": 14,
@@ -2461,69 +2461,65 @@
   "video_alignment": {
     "planner": "Continuous native execution mapped by video_frame = command_step + 37. Offset inferred from 591 source video frames and final step 553, then checked visually at source seconds 4, 6, 8 and 10. Editorial alignment, not a per-frame simulator timestamp proof."
   },
-  "identity": "MXI-RoboICL \u2014 the MXI team\u2019s upgrade to RoboICL",
+  "identity": "1011 MXI organization prelude dissolves into the centered MXI-RoboICL wordmark.",
   "visual_revision": {
-    "identity": "Single MXI-RoboICL wordmark",
-    "planner": "Continuous FK reconstruction of recorded joints with actual ARX forearm/hand meshes; native commanded opening; distance-based editorial retiming; disappears before real execution",
-    "wrist": "Nominal center and finger guides; white-tube segmentation supplies an explanatory target offset, not a model output or metric position",
-    "triangulation": "Calibrated rays only at the frozen observation; all overlays clear before the moving footage",
+    "icl": "From approximately 25.6 seconds, one persistent composition links a demonstration, a stylized frozen-agent avatar, live Stack Bowls footage, and retained interaction windows. Arrow cycles and window arrival times explain the method; they are not a synchronized replay of recorded model calls. Uniform demonstration sampling and anchored-plus-latest memory remain the stated selection rules.",
+    "triangulation": "Real head and wrist image planes unfold using calibrated camera poses, intrinsics and optical-axis image-plane coordinates. Two rays constrain the logged vase-mouth point. The occluded third view is not used. The observer view is orthographic and animated for readability. Dashed viewing cues in the recorded image are schematic.",
+    "planner": "Rejected preview has no retained candidate joint trace. The first known commanded arm configuration is held and tinted red on rejection; no failed waypoint or IK iteration trace is fabricated. The accepted continuous kinematic preview is retained.",
+    "wrist": "V8 motion-compensated RGB, word-timed complete reticle and alignment cue retained. The old leading chapter-boundary frame is removed.",
     "success_reel_speed": 1.5
   },
   "chapters": [
     {
       "id": "intro",
       "start": 0,
-      "end": 10.408
+      "end": 11.558
     },
     {
       "id": "icl",
-      "start": 10.408,
-      "end": 44.408
+      "start": 11.558,
+      "end": 45.558
     },
     {
       "id": "wrist",
-      "start": 44.408,
-      "end": 68.408
+      "start": 45.558,
+      "end": 69.55799999999999
     },
     {
       "id": "tri",
-      "start": 68.408,
-      "end": 98.408
+      "start": 69.55799999999999,
+      "end": 99.55799999999999
     },
     {
       "id": "plan",
-      "start": 98.408,
-      "end": 136.40800000000002
+      "start": 99.55799999999999,
+      "end": 137.558
     },
     {
       "id": "evidence",
-      "start": 136.40800000000002,
-      "end": 169.01600000000002
+      "start": 137.558,
+      "end": 168.654
     },
     {
       "id": "grid",
-      "start": 169.01600000000002,
-      "end": 192.34933333333336
+      "start": 168.654,
+      "end": 191.98733333333334
     },
     {
       "id": "outro",
-      "start": 192.34933333333336,
-      "end": 200.18933333333337
+      "start": 191.98733333333334,
+      "end": 199.77933333333334
     }
   ],
-  "version": "v8",
+  "version": "v9",
   "audio": {
     "voice": "en-US-AndrewMultilingualNeural",
     "paragraph_generation": true,
     "post_tempo": 1,
-    "gain": "One shared narration gain; no per-sentence loudness processing"
-  },
-  "v8_presentation": {
-    "identity": "MXI is 5% larger and slightly heavier, within one centered MXI-RoboICL wordmark.",
-    "wrist": "Original 25 fps RGB receives motion-compensated interpolation before frame-by-frame 50 fps overlays. Selected observation is held while the reference is explained. Reticle starts after the question.",
-    "alignment": "Editorial target overlap cue; not a contact sensor or proof of grasp success.",
-    "camera_direction": "Dashed camera-icon guides show viewing direction schematically. Solid cross-view rays use calibration at the frozen observation. A ray in its own camera projects to a pixel, so the dashed cue is not claimed to be a calibrated own-image ray.",
-    "provenance": "Explanatory provenance is retained here instead of microtext below footage.",
-    "scientific_scope": "Interpolation and geometric overlays are editorial. They do not add measured observations or establish causal performance gains."
+    "gain": "One shared narration gain; no per-sentence loudness processing",
+    "brand_reading": "Em Ex Eye phonetic input; displayed as MXI. Intro, results and closing paragraphs regenerated in the same Andrew voice.",
+    "intro_voice_lead_seconds": 1.6,
+    "music_ducking": "Reduced beneath the first brand phrase in intro, results and closing.",
+    "auditory_review": "No independent listening verification available; no claim that subjective timbre is fully resolved."
   }
 }

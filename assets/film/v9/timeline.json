@@ -1,0 +1,49 @@
+{
+  "duration": 199.78,
+  "chapters": [
+    {
+      "id": "intro",
+      "start": 0,
+      "end": 11.558
+    },
+    {
+      "id": "icl",
+      "start": 11.558,
+      "end": 45.558
+    },
+    {
+      "id": "wrist",
+      "start": 45.558,
+      "end": 69.55799999999999
+    },
+    {
+      "id": "tri",
+      "start": 69.55799999999999,
+      "end": 99.55799999999999
+    },
+    {
+      "id": "plan",
+      "start": 99.55799999999999,
+      "end": 137.558
+    },
+    {
+      "id": "evidence",
+      "start": 137.558,
+      "end": 168.654
+    },
+    {
+      "id": "grid",
+      "start": 168.654,
+      "end": 191.98733333333334
+    },
+    {
+      "id": "outro",
+      "start": 191.98733333333334,
+      "end": 199.77933333333334
+    }
+  ],
+  "voice": "en-US-AndrewMultilingualNeural",
+  "rate": "+0%",
+  "post_tempo": 1,
+  "shared_voice_gain": true
+}

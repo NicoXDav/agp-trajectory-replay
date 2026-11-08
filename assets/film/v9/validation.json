@@ -1,0 +1,62 @@
+{
+  "media": {
+    "roboicl-film-4k.mp4": {
+      "size": [
+        3840,
+        2160
+      ],
+      "frames": 9989,
+      "duration": 199.78,
+      "bytes": 67115534,
+      "sha256": "d003cc7419f032d38dde3c3d81ea35fc9ec6569acc227b3ff1bcd519acf3feea",
+      "fast_start": true
+    },
+    "roboicl-film.mp4": {
+      "size": [
+        1920,
+        1080
+      ],
+      "frames": 9989,
+      "duration": 199.78,
+      "bytes": 37938845,
+      "sha256": "e6b7f7692f943ccbaec11b6ea77f5329a2bdc251a51e43c52095bb64401ff644",
+      "fast_start": true
+    }
+  },
+  "subtitles": {
+    "cues": 57,
+    "overlap": false
+  },
+  "audio": {
+    "final_sample_peak_dbfs": -5.150728702545166,
+    "native_tempo": true,
+    "voice": "en-US-AndrewMultilingualNeural",
+    "brand_paragraphs_regenerated": true,
+    "source_waveform_correlations": {
+      "intro": 0.9999999756804562,
+      "icl": 0.9999999757535019,
+      "wrist": 0.9999999769866603,
+      "tri": 0.999999974340518,
+      "plan": 0.999999976283146,
+      "evidence": 0.9999999751228307,
+      "outro": 0.9999999776337469
+    },
+    "auditory_review": "No independent listening verification available"
+  },
+  "visual": {
+    "camera_plane_max_reprojection_error_px": 5.115907697472721e-13,
+    "unfold_min_affine_determinant": 0.180966923490948,
+    "wrist_boundary_mean_absolute_pixel_difference": 0.4533456709747942,
+    "intro_narration_after_organization_reveal": true,
+    "ik_rejection_time_seconds": 106.42049999999999,
+    "failed_candidate_trace_available": false,
+    "failure_visualization": "Known pose held; red rejection, no invented failed waypoint",
+    "wrist_constant_frame_rate": 50.0,
+    "wrist_duration_seconds": 24.0,
+    "projection_check_scope": "Mathematical consistency of the constructed image planes, not measured localization accuracy."
+  },
+  "website": {
+    "fixed_1080p": true,
+    "browser_check": "Verified local IAB playback at 1920x1080, duration 199.78s; reviewed combined ICL, spatial views and IK rejection. Final ICL label clearance checked after re-export."
+  }
+}
