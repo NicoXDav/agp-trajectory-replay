@@ -32,7 +32,7 @@ const STAGES = [
 
 async function boot(root) {
   const [{GraspLabView},data] = await Promise.all([
-    import('./grasp-lab-view.js?v=11'),
+    import('./grasp-lab-view.js?v=13'),
     fetch(new URL('../assets/arx-x5/grasp-lab.json?v=11',import.meta.url)).then(response => {
       if (!response.ok) throw new Error('Grasp trajectories unavailable');
       return response.json();

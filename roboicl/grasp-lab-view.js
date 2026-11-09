@@ -149,7 +149,11 @@ export class GraspLabView {
     this.intersection=mesh(this.scene,new THREE.SphereGeometry(.018,16,10),new THREE.MeshBasicMaterial({color:0xbaffda,depthTest:false}));
     this.intersection.renderOrder=7;
 
+    // Presentation overlays belong to the spectator view, not the robot's cameras.
+    for (const overlay of [this.route,this.intersection,...this.nodes,...this.rays,this.destinationRing,...this.parts.map(part=>part.halo)]) overlay.layers.set(1);
+    this.ghost.root.traverse(object=>object.layers.set(1));
     this.camera=new THREE.PerspectiveCamera(36,1,.01,22);
+    this.camera.layers.enable(1);
     this.wristCamera=new THREE.PerspectiveCamera(72,232/160,.008,12);
     this.controls=new OrbitControls(this.camera,this.canvas);
     this.controls.enablePan=false;this.controls.minDistance=2.8;this.controls.maxDistance=7;this.controls.minPolarAngle=.38;this.controls.maxPolarAngle=1.36;
