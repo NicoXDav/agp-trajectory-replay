@@ -47,7 +47,7 @@ async function boot(root) {
   const tools = new Set(['wrist']);
   const slider = find('time'), play = find('play');
   let part = 'pin', layout = 0, liveTime = 0, demoTime = 0, demo = null;
-  let playing = false, visible = false, tickId = 0, lastTick = 0;
+  let playing = false, tickId = 0, lastTick = 0;
   let shownStage = -1, thumbnailsFor = '';
   const view = new GraspLabView(root,data,choosePart,()=>{if(view.width)draw();});
   const thumbCanvases = windows.map(button=>button.querySelector('canvas'));
@@ -102,16 +102,16 @@ async function boot(root) {
     playing=value;play.textContent=playing?'Pause':'Play';
     root.toggleAttribute('data-playing',playing&&demo===null);
     cancelAnimationFrame(tickId);
-    if(playing&&visible){lastTick=performance.now();tickId=requestAnimationFrame(tick);}
+    if(playing){lastTick=performance.now();tickId=requestAnimationFrame(tick);}
   }
 
   function tick(now) {
-    const dt=Math.min(.08,(now-lastTick)/1000);lastTick=now;
+    const dt=Math.max(0,Math.min(.08,(now-lastTick)/1000));lastTick=now;
     if(demo===null)liveTime=Math.min(data.duration,liveTime+dt);
     else demoTime=Math.min(WINDOWS[demo][1],demoTime+dt);
     draw();
     const end=demo===null?liveTime>=data.duration:demoTime>=WINDOWS[demo][1];
-    if(end)setPlaying(false);else if(playing&&visible)tickId=requestAnimationFrame(tick);
+    if(end)setPlaying(false);else if(playing)tickId=requestAnimationFrame(tick);
   }
 
   function selectView() {
@@ -172,10 +172,9 @@ async function boot(root) {
     selectView();
   });
   const observer = new IntersectionObserver(([entry])=>{
-    visible=entry.isIntersecting;
-    if(!visible)setPlaying(false);
+    if(!entry.isIntersecting&&playing)setPlaying(false);
   },{threshold:0});
-  observer.observe(root.querySelector('.lab-workspace'));
+  observer.observe(root.querySelector('.grasp-lab'));
   document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlaying(false);});
   motionPreference.addEventListener('change',()=>{if(motionPreference.matches)setPlaying(false);});
   find('canvas').addEventListener('webglcontextlost',event=>{
