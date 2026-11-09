@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="scenes.css">
 <link rel="stylesheet" href="opening.css">
 <link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=9">
-<link rel="stylesheet" href="context-loop.css?v=14">
+<link rel="stylesheet" href="context-loop.css?v=15">
 <link rel="preload" href="../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
-<script type="module" src="context-loop.js?v=14"></script>
+<script type="module" src="context-loop.js?v=15"></script>
 <script src="opening.js?v=9" defer></script>
 <script type="importmap">{"imports":{"three":"../assets/three/build/three.module.js","three/addons/":"../assets/three/examples/jsm/"}}</script>
 <script type="module" src="scene-loader.js?v=9"></script>
@@ -79,38 +79,36 @@
         </section>
         <section class="lab-memory" aria-label="Live context from the robot">
           <div class="lab-side-header"><h3>Live context</h3><span>From the robot ↵</span></div>
-          <div class="lab-observation" data-lab-observation>
-            <div class="lab-observation-photo"><canvas data-lab-observation-photo width="320" height="200" aria-label="Latest observation from the execution scene"></canvas><span data-lab-observation-label>Awaiting the first view</span></div>
-            <div class="lab-observation-info"><strong>Current observation</strong><p data-lab-observation-state>Image + robot state</p><span data-lab-observation-receipt>Waiting for observation</span></div>
-          </div>
-          <div class="lab-history" aria-label="Retained execution history">
-            <div data-lab-anchor class="lab-history-item" data-empty><canvas width="240" height="150" aria-hidden="true"></canvas><span>Earlier anchor</span></div>
+          <p class="lab-live-sub">Selected experience from the current episode</p>
+          <div class="lab-live-strip" data-lab-observation>
+            <div class="lab-anchor-wrap" data-lab-anchor data-empty><canvas width="240" height="150" aria-label="Retained earlier execution"></canvas><span>Earlier anchor</span></div>
             <span class="lab-history-gap" title="Omitted history intervals">···</span>
-            <div data-lab-latest class="lab-history-item" data-empty><canvas width="240" height="150" aria-hidden="true"></canvas><span>Latest segment</span></div>
-            <p>Past actions.<br>Actual outcomes.</p>
+            <div class="lab-latest-pair">
+              <div><canvas data-lab-live-start width="320" height="200" aria-label="Start of the latest execution segment"></canvas><span>Start</span></div>
+              <b aria-hidden="true">→</b>
+              <div><canvas data-lab-observation-photo width="320" height="200" aria-label="Result of the latest execution segment"></canvas><span>Result</span></div>
+            </div>
           </div>
+          <div class="lab-live-record"><span data-lab-observation-label>Current episode</span><p data-lab-observation-state>New experience arrives as the robot moves.</p><small data-lab-observation-receipt>Images · actions · execution receipts</small></div>
         </section>
       </div>
-      <section class="lab-agent" aria-label="MXI Agent with frozen model weights">
-        <div class="lab-agent-portrait">
-          <svg viewBox="0 0 180 180" aria-hidden="true" fill="none">
-            <defs><linearGradient id="agent-shell" x1="40" y1="35" x2="140" y2="150" gradientUnits="userSpaceOnUse"><stop stop-color="#e8f6ff"/><stop offset=".5" stop-color="#97bad2"/><stop offset="1" stop-color="#38576e"/></linearGradient><radialGradient id="agent-aura"><stop stop-color="#8bbfe7" stop-opacity=".22"/><stop offset="1" stop-color="#8bbfe7" stop-opacity="0"/></radialGradient></defs>
-            <circle cx="90" cy="90" r="88" fill="url(#agent-aura)"/>
-            <circle class="lab-agent-orbit" cx="90" cy="90" r="77" stroke="#7fb0d0" stroke-opacity=".4" stroke-dasharray="90 26 12 35"/>
-            <path d="M39 148c4-25 20-34 51-34s47 9 51 34" fill="url(#agent-shell)" stroke="#c6e2f3"/>
-            <rect x="46" y="40" width="88" height="80" rx="30" fill="url(#agent-shell)" stroke="#d2eaf7"/>
-            <rect x="54" y="56" width="72" height="45" rx="19" fill="#112534" stroke="#6396ad"/>
-            <path class="lab-agent-eyes" d="M68 76h10m24 0h10" stroke="#b6ffe8" stroke-width="5" stroke-linecap="round"/>
-            <path d="M80 90q10 6 20 0" stroke="#75c7bd" stroke-width="2" stroke-linecap="round"/>
-            <path d="M84 128h12" stroke="#2d526b" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="90" cy="28" r="4" fill="#b9f9e7"/><path d="M90 32v8" stroke="#b7d8e9" stroke-width="2"/>
-          </svg>
+      <section class="lab-agent" aria-label="Shared context enters the frozen MXI Agent">
+        <div class="lab-shared-context">
+          <div class="lab-context-stack" data-lab-shared-source><i></i><canvas data-lab-shared-demo width="240" height="150" aria-hidden="true"></canvas><canvas data-lab-shared-live width="240" height="150" aria-hidden="true"></canvas></div>
+          <span>Shared<br>context</span>
+          <i class="lab-port" data-lab-merge-port></i>
         </div>
-        <h3>MXI Agent</h3>
-        <span class="lab-frozen">Frozen vision-language model</span>
-        <p data-lab-agent-state>Read the demonstration</p>
-        <div class="lab-agent-context"><span>Demonstration</span><span>History + current view</span></div>
-        <span class="lab-weight-note">No weight updates</span>
+        <div class="lab-model-core">
+          <i class="lab-port lab-input-port" data-lab-input-port></i>
+          <div class="lab-model-brand">
+            <svg class="lab-model-icon" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="model-metal" x1="12" y1="8" x2="50" y2="58" gradientUnits="userSpaceOnUse"><stop stop-color="#eff8ff"/><stop offset=".52" stop-color="#a9c2d3"/><stop offset="1" stop-color="#4b7289"/></linearGradient></defs><rect x="8" y="12" width="48" height="43" rx="15" fill="url(#model-metal)" stroke="#d1e6ef"/><rect x="14" y="21" width="36" height="23" rx="8" fill="#152c3a" stroke="#698ea1"/><path d="M22 31h5m10 0h5" stroke="#b9ffe5" stroke-width="3" stroke-linecap="round"/><path d="M28 38h8" stroke="#83bba9" stroke-width="1.5" stroke-linecap="round"/><path d="M32 12V7" stroke="#a9c6d6"/><circle cx="32" cy="5" r="2" fill="#b9edda"/></svg>
+            <div><h3>MXI Agent</h3><span>Frozen VLM</span></div>
+          </div>
+          <div class="lab-core-channels" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <span class="lab-model-note">Examples inform action</span>
+          <i class="lab-port lab-output-port" data-lab-output-port></i>
+          <div class="lab-core-scan" aria-hidden="true"></div>
+        </div>
       </section>
       <section class="lab-stage" aria-label="3D robot workspace">
         <canvas data-lab-canvas aria-label="Click a glowing object to change the grasp. Keys 1, 2, 3 select steel pin, USB drive, or hex coupler. Drag to orbit." tabindex="0" aria-keyshortcuts="1 2 3"></canvas>
@@ -135,15 +133,16 @@
       <svg class="lab-flow" aria-hidden="true"><defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1L8 5L1 9" fill="none" stroke="context-stroke" stroke-width="1.4"/></marker></defs>
         <path data-lab-path="reference" marker-end="url(#flow-arrow)"/>
         <path data-lab-path="observation" marker-end="url(#flow-arrow)"/>
+        <path data-lab-path="context" marker-end="url(#flow-arrow)"/>
         <path data-lab-path="action" marker-end="url(#flow-arrow)"/>
         <path data-lab-path="feedback" marker-end="url(#flow-arrow)"/>
-        <path class="lab-ion-trace" data-lab-ion-trace pathLength="1"/>
-        <g class="lab-ions" data-lab-ions></g>
+        <g class="lab-streams" data-lab-streams></g>
       </svg>
-      <div class="lab-photo-packet" data-lab-photo-packet aria-hidden="true"><canvas width="240" height="150"></canvas><span>Observation</span></div>
-      <div class="lab-action-packet" data-lab-action-packet aria-hidden="true">Action chunk →</div>
-      <span class="lab-action-label" data-lab-action-label>Next action</span>
-      <span class="lab-feedback-label" data-lab-feedback-label>Images · state · execution receipt</span>
+      <div class="lab-photo-packet" data-lab-demo-packet aria-hidden="true"><canvas width="480" height="150"></canvas><span>Demo window</span></div>
+      <div class="lab-photo-packet" data-lab-feedback-packet aria-hidden="true"><canvas width="480" height="150"></canvas><span>Execution segment</span></div>
+      <div class="lab-photo-packet lab-context-packet" data-lab-context-packet aria-hidden="true"><canvas width="240" height="150"></canvas><span>Live context</span></div>
+      <span class="lab-action-label" data-lab-action-label>Action</span>
+      <span class="lab-feedback-label" data-lab-feedback-label>Execution becomes context</span>
     </div>
     <div class="lab-bottom">
       <p><span data-lab-cycle-label>Click a glowing object to explore another grasp.</span></p>
@@ -154,7 +153,7 @@
       </div>
     </div>
   </div>
-  <figcaption><span>Figure 1</span> The MXI-RoboICL loop. Fixed demonstration windows and live execution records share one context; each new observation comes from the robot’s latest action. Interactive illustration with simulated camera images and computed ARX motion.</figcaption>
+  <figcaption><span>Figure 1</span> The MXI-RoboICL loop. Fixed demonstration windows and live execution records share one context; each new observation comes from the robot’s latest action. Interactive illustration with simulated camera images and computed ARX motion. Motion plays continuously while completed segments return to context; particle flow illustrates the information pathways.</figcaption>
 </figure>
 
 <div class="reading-layout wrap"><article class="prose">
