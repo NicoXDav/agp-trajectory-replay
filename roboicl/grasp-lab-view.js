@@ -124,6 +124,15 @@ export class GraspLabView {
       return camera;
     });
 
+    // Center gantry camera provides an unobstructed observation between the arms.
+    this.observationCamera=new THREE.PerspectiveCamera(64,1.6,.02,9);
+    this.observationCamera.position.set(0,1.61,-.91);
+    this.observationCamera.lookAt(0,.13,.48);
+    this.observationCamera.updateMatrixWorld();
+    const head=new THREE.Group();head.position.copy(this.observationCamera.position);head.lookAt(0,.13,.48);this.scene.add(head);
+    box(head,[.18,.075,.055],steel,[0,0,-.03],.01);
+    box(head,[.10,.025,.006],marker(0x99c6df),[0,0,0],.003);
+
     this.arm=createArm(this.scene,motion.leftBase,0xa0f1db);
     this.idle=createArm(this.scene,data.rightBase,0x9ac9f8);this.idle.pose(motion.idle,.041);
     this.ghost=createArm(this.scene,motion.leftBase,0x9ac9f8);
@@ -159,29 +168,39 @@ export class GraspLabView {
     this.controls.enablePan=false;this.controls.minDistance=2.8;this.controls.maxDistance=7;this.controls.minPolarAngle=.38;this.controls.maxPolarAngle=1.36;
     this.resetCamera();
     this.controls.addEventListener('change',redraw);
-    this.resize = new ResizeObserver(() => {
+    const resizeCanvas = () => {
       this.width=this.stage.clientWidth;this.height=this.stage.clientHeight;
       this.renderer.setSize(this.width,this.height,false);
       this.camera.aspect=this.width/Math.max(1,this.height);
-      this.camera.fov=this.width<450?46:36;
+      this.camera.fov=THREE.MathUtils.radToDeg(2*Math.atan(Math.tan(THREE.MathUtils.degToRad(18))/Math.min(1,this.camera.aspect/1.3)));
       this.camera.updateProjectionMatrix();redraw();
-    });
+    };
+    resizeCanvas();
+    this.resize = new ResizeObserver(resizeCanvas);
     this.resize.observe(this.stage);
 
     let start;
-    this.canvas.addEventListener('pointerdown',event=>{ start=[event.clientX,event.clientY]; });
-    this.canvas.addEventListener('pointerup',event=>{
-      if(!start||Math.hypot(event.clientX-start[0],event.clientY-start[1])>6)return;
+    const hitPart = event => {
       const rect=this.canvas.getBoundingClientRect();
       const ray=new THREE.Raycaster();
       ray.setFromCamera(new THREE.Vector2(2*(event.clientX-rect.left)/rect.width-1,1-2*(event.clientY-rect.top)/rect.height),this.camera);
       const candidates=this.parts.map(part=>{
-        const point=ray.ray.intersectBox(new THREE.Box3().setFromCenterAndSize(part.object.position,vector(...part.size).addScalar(.05)),vector());
+        const point=ray.ray.intersectBox(new THREE.Box3().setFromCenterAndSize(part.object.position,vector(...part.size).addScalar(.08)),vector());
         return {id:part.id,distance:point?point.distanceTo(ray.ray.origin):Infinity};
       }).sort((a,b)=>a.distance-b.distance);
-      if(Number.isFinite(candidates[0].distance))selectPart(candidates[0].id);
+      return Number.isFinite(candidates[0].distance)?candidates[0].id:null;
+    };
+    this.canvas.addEventListener('pointerdown',event=>{start=[event.clientX,event.clientY];});
+    this.canvas.addEventListener('pointerup',event=>{
+      if(!start||Math.hypot(event.clientX-start[0],event.clientY-start[1])>6)return;
+      const id=hitPart(event);if(id)selectPart(id);
     });
+    this.canvas.addEventListener('pointermove',event=>{
+      this.hovered=hitPart(event);this.canvas.style.cursor=this.hovered?'pointer':'grab';redraw();
+    });
+    this.canvas.addEventListener('pointerleave',()=>{this.hovered=null;redraw();});
     this.canvas.addEventListener('keydown',event=>{
+      if(['1','2','3'].includes(event.key)){event.preventDefault();selectPart(this.parts[Number(event.key)-1].id);return;}
       if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','+','-'].includes(event.key))return;
       event.preventDefault();
       const orbit=new THREE.Spherical().setFromVector3(this.camera.position.clone().sub(this.controls.target));
@@ -203,7 +222,7 @@ export class GraspLabView {
     for(const part of this.parts){
       part.object.position.fromArray(this.data.layouts[layout][part.id].pick);
       part.stand.position.x=part.object.position.x;part.stand.position.z=part.object.position.z;
-      part.halo.position.set(part.stand.position.x,.008,part.stand.position.z);part.halo.visible=part.id===id;
+      part.halo.position.set(part.stand.position.x,.008,part.stand.position.z);part.halo.visible=true;part.halo.material.color.set(part.id===id?0xa7f3db:0x80aeca);part.halo.material.transparent=true;part.halo.material.opacity=part.id===id?1:.55;
     }
     const place=vector(...this.sequence.place);
     this.destination.position.set(place.x,this.data.support/2,place.z);this.destinationRing.position.set(place.x,.007,place.z);
@@ -222,24 +241,35 @@ export class GraspLabView {
   }
 
   thumbnails(times, canvases) {
-    const camera = new THREE.PerspectiveCamera(37,64/40,.01,20);
-    const target = vector(...this.sequence.pick);
-    camera.position.copy(target).add(vector(.68,.82,1.08));camera.lookAt(target.clone().add(vector(0,.16,0)));
-    this.rays.forEach(ray=>{ray.visible=false;});this.intersection.visible=false;
-    this.route.visible=false;this.ghost.root.visible=false;this.nodes.forEach(node=>{node.visible=false;});
-    const dpr=this.renderer.getPixelRatio();
-    times.forEach((time,i)=>{
-      const frame=frameAt(this.data,this.sequence,time);
-      this.arm.pose(frame.slice(0,6),frame[6]);this.active.object.position.fromArray(frame.slice(10,13));
-      this.renderer.setViewport(0,0,64,40);this.renderer.render(this.scene,camera);
-      canvases[i].getContext('2d').drawImage(this.canvas,0,this.canvas.height-40*dpr,64*dpr,40*dpr,0,0,64,40);
-    });
+    const camera = new THREE.PerspectiveCamera(40,1.6,.01,20);
+    const center = vector(...this.sequence.pick).lerp(vector(...this.sequence.place),.45);
+    camera.position.copy(center).add(vector(.7,1.25,1.65));
+    camera.lookAt(center.clone().add(vector(0,.22,0)));
+    times.forEach((time,i)=>this.capture(time,canvases[i],camera));
+  }
+
+  capture(time, canvas, camera = this.observationCamera) {
+    const frame=frameAt(this.data,this.sequence,time);
+    this.arm.pose(frame.slice(0,6),frame[6]);
+    this.active.object.position.fromArray(frame.slice(10,13));
+    const shot=camera.clone();shot.layers.set(0);
+    shot.aspect=canvas.width/canvas.height;shot.updateProjectionMatrix();
+    const width=Math.min(canvas.width,this.width);
+    const height=width/shot.aspect,dpr=this.renderer.getPixelRatio();
+    this.renderer.setViewport(0,0,width,height);
+    this.renderer.render(this.scene,shot);
+    canvas.getContext('2d').drawImage(this.canvas,0,this.canvas.height-height*dpr,width*dpr,height*dpr,0,0,canvas.width,canvas.height);
   }
 
   render(time, tools, reference) {
     if(!this.width||!this.height)return;
     const frame=frameAt(this.data,this.sequence,time);
     this.arm.pose(frame.slice(0,6),frame[6]);this.active.object.position.fromArray(frame.slice(10,13));
+    for(const part of this.parts){
+      const selected=part.id===this.active.id,hover=part.id===this.hovered;
+      part.halo.material.opacity=selected ? 1 : hover ? .95 : .44 + .12*Math.sin(time*1.7);
+      part.halo.scale.setScalar(hover?1.13:1);
+    }
     const rays=tools.has('tri')&&!reference&&time<8.35;
     this.rays.forEach(ray=>{ray.visible=rays;});this.intersection.visible=rays;
     const route=tools.has('plan')&&!reference&&time<8.35;
@@ -253,9 +283,10 @@ export class GraspLabView {
     this.wrist.hidden=!wrist;
     if(wrist)this.renderWrist();
     this.renderer.setViewport(0,0,this.width,this.height);this.renderer.render(this.scene,this.camera);
-    const label=this.active.object.position.clone().add(vector(0,.14,0)).project(this.camera);
+    const labeled=this.parts.find(part=>part.id===this.hovered)||this.active;
+    const label=labeled.object.position.clone().add(vector(0,.14,0)).project(this.camera);
     this.target.hidden=Math.abs(label.x)>.91||Math.abs(label.y)>.84||label.z>1;
-    this.target.textContent=this.active.name;
+    this.target.textContent=labeled.name+(labeled!==this.active?' · click to grasp':'');
     this.target.style.left=`${(label.x/2+.5)*100}%`;this.target.style.top=`${(.5-label.y/2)*100}%`;
   }
 

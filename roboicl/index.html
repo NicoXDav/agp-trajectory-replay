@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="scenes.css">
 <link rel="stylesheet" href="opening.css">
 <link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=9">
-<link rel="stylesheet" href="context-loop.css?v=13">
+<link rel="stylesheet" href="context-loop.css?v=14">
 <link rel="preload" href="../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
-<script type="module" src="context-loop.js?v=13"></script>
+<script type="module" src="context-loop.js?v=14"></script>
 <script src="opening.js?v=9" defer></script>
 <script type="importmap">{"imports":{"three":"../assets/three/build/three.module.js","three/addons/":"../assets/three/examples/jsm/"}}</script>
 <script type="module" src="scene-loader.js?v=9"></script>
@@ -48,29 +48,76 @@
   <p>In our RoboDojo self-evaluation, <strong>MXI-RoboICL scored 75.9</strong>, 3.79 points above Q0’s revised-rule reference of 72.11. Across three groups in our paired ablation study, MXI-RoboICL lost fewer points when task and scene information was removed. Stack Bowls retained its full score. The film above closes with eighteen full-score episodes across nine tasks.</p>
 </section>
 
-<figure id="context-loop" class="context-loop wrap" aria-labelledby="loop-title" data-stage="0" data-view="live">
+<figure id="context-loop" class="context-loop wrap" aria-labelledby="loop-title" data-phase="reference">
   <header class="loop-intro">
-    <div>
-      <h2 id="loop-title">Inside MXI-RoboICL</h2>
-      <p>Pick a part, inspect its demonstration, and follow how the agent adapts the grasp.</p>
+    <div><span class="loop-eyebrow">How MXI-RoboICL works</span>
+      <h2 id="loop-title">Demonstration. Context. Action.</h2>
+      <p>One demonstration guides the next action. Each result informs what comes next.</p>
     </div>
-    <a href="#method">Explore the method <span aria-hidden="true">↓</span></a>
   </header>
-  <div class="grasp-lab" aria-label="Interactive precision grasp simulation">
-    <div class="lab-toolbar">
-      <div class="lab-parts" role="group" aria-label="Select a grasp target">
-        <button type="button" data-lab-part="pin" aria-pressed="true"><i aria-hidden="true"></i> Steel pin</button>
-        <button type="button" data-lab-part="usb" aria-pressed="false"><i aria-hidden="true"></i> USB drive</button>
-        <button type="button" data-lab-part="hex" aria-pressed="false"><i aria-hidden="true"></i> Hex coupler</button>
-      </div>
-      <button type="button" data-lab-layout aria-pressed="false">Change layout <b>A</b></button>
-    </div>
+  <div class="grasp-lab" aria-label="Interactive diagram of the MXI-RoboICL context loop">
     <div class="lab-workspace">
+      <div class="lab-context">
+        <section class="lab-reference" aria-label="Fixed demonstration">
+          <div class="lab-side-header"><h3>One demonstration</h3><span>Fixed reference</span></div>
+          <p class="lab-reference-sub"><span data-lab-demo-title>Steel pin</span> · windows sampled across time</p>
+          <div class="lab-windows" role="group" aria-label="Inspect a demonstration window">
+            <button type="button" data-lab-window="0" aria-label="Demonstration window 1" aria-pressed="true"><canvas width="240" height="150" aria-hidden="true"></canvas><span>01</span></button>
+            <button type="button" data-lab-window="1" aria-label="Demonstration window 2" aria-pressed="false"><canvas width="240" height="150" aria-hidden="true"></canvas><span>02</span></button>
+            <button type="button" data-lab-window="2" aria-label="Demonstration window 3" aria-pressed="false"><canvas width="240" height="150" aria-hidden="true"></canvas><span>03</span></button>
+            <button type="button" data-lab-window="3" aria-label="Demonstration window 4" aria-pressed="false"><canvas width="240" height="150" aria-hidden="true"></canvas><span>04</span></button>
+            <button type="button" data-lab-window="4" aria-label="Demonstration window 5" aria-pressed="false"><canvas width="240" height="150" aria-hidden="true"></canvas><span>05</span></button>
+          </div>
+          <div class="lab-sampling"><span>Start</span><i></i><span>End</span></div>
+          <div class="lab-example" data-lab-demo-source>
+            <div><canvas data-lab-example-start width="320" height="200" aria-label="Demonstration starting observation"></canvas><span>Observation</span></div>
+            <div class="lab-example-arrow"><span>Action</span><b>→</b></div>
+            <div><canvas data-lab-example-end width="320" height="200" aria-label="Demonstration resulting observation"></canvas><span>Result</span></div>
+          </div>
+          <p class="lab-demo-caption" data-lab-window-action>Prepare above the part.</p>
+          <p class="lab-receipt" data-lab-window-receipt>Hand open; ready to approach.</p>
+        </section>
+        <section class="lab-memory" aria-label="Live context from the robot">
+          <div class="lab-side-header"><h3>Live context</h3><span>From the robot ↵</span></div>
+          <div class="lab-observation" data-lab-observation>
+            <div class="lab-observation-photo"><canvas data-lab-observation-photo width="320" height="200" aria-label="Latest observation from the execution scene"></canvas><span data-lab-observation-label>Awaiting the first view</span></div>
+            <div class="lab-observation-info"><strong>Current observation</strong><p data-lab-observation-state>Image + robot state</p><span data-lab-observation-receipt>Waiting for observation</span></div>
+          </div>
+          <div class="lab-history" aria-label="Retained execution history">
+            <div data-lab-anchor class="lab-history-item" data-empty><canvas width="240" height="150" aria-hidden="true"></canvas><span>Earlier anchor</span></div>
+            <span class="lab-history-gap" title="Omitted history intervals">···</span>
+            <div data-lab-latest class="lab-history-item" data-empty><canvas width="240" height="150" aria-hidden="true"></canvas><span>Latest segment</span></div>
+            <p>Past actions.<br>Actual outcomes.</p>
+          </div>
+        </section>
+      </div>
+      <section class="lab-agent" aria-label="MXI Agent with frozen model weights">
+        <div class="lab-agent-portrait">
+          <svg viewBox="0 0 180 180" aria-hidden="true" fill="none">
+            <defs><linearGradient id="agent-shell" x1="40" y1="35" x2="140" y2="150" gradientUnits="userSpaceOnUse"><stop stop-color="#e8f6ff"/><stop offset=".5" stop-color="#97bad2"/><stop offset="1" stop-color="#38576e"/></linearGradient><radialGradient id="agent-aura"><stop stop-color="#8bbfe7" stop-opacity=".22"/><stop offset="1" stop-color="#8bbfe7" stop-opacity="0"/></radialGradient></defs>
+            <circle cx="90" cy="90" r="88" fill="url(#agent-aura)"/>
+            <circle class="lab-agent-orbit" cx="90" cy="90" r="77" stroke="#7fb0d0" stroke-opacity=".4" stroke-dasharray="90 26 12 35"/>
+            <path d="M39 148c4-25 20-34 51-34s47 9 51 34" fill="url(#agent-shell)" stroke="#c6e2f3"/>
+            <rect x="46" y="40" width="88" height="80" rx="30" fill="url(#agent-shell)" stroke="#d2eaf7"/>
+            <rect x="54" y="56" width="72" height="45" rx="19" fill="#112534" stroke="#6396ad"/>
+            <path class="lab-agent-eyes" d="M68 76h10m24 0h10" stroke="#b6ffe8" stroke-width="5" stroke-linecap="round"/>
+            <path d="M80 90q10 6 20 0" stroke="#75c7bd" stroke-width="2" stroke-linecap="round"/>
+            <path d="M84 128h12" stroke="#2d526b" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="90" cy="28" r="4" fill="#b9f9e7"/><path d="M90 32v8" stroke="#b7d8e9" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>MXI Agent</h3>
+        <span class="lab-frozen">Frozen vision-language model</span>
+        <p data-lab-agent-state>Read the demonstration</p>
+        <div class="lab-agent-context"><span>Demonstration</span><span>History + current view</span></div>
+        <span class="lab-weight-note">No weight updates</span>
+      </section>
       <section class="lab-stage" aria-label="3D robot workspace">
-        <canvas data-lab-canvas aria-label="ARX robot workbench. Drag to orbit and click a part to select it." tabindex="0"></canvas>
+        <canvas data-lab-canvas aria-label="Click a glowing object to change the grasp. Keys 1, 2, 3 select steel pin, USB drive, or hex coupler. Drag to orbit." tabindex="0" aria-keyshortcuts="1 2 3"></canvas>
         <div class="lab-loading" data-lab-loading role="status">Loading the 3D workbench…</div>
         <div class="lab-viewport-header">
-          <span class="lab-live-label"><i></i><span data-lab-view-label>Current episode</span></span>
+          <span class="lab-live-label"><i></i><span data-lab-view-label>Current episode · steel pin</span></span>
+          <button type="button" data-lab-layout aria-pressed="false" aria-label="Change object arrangement">Scene <b>B</b> ↔</button>
           <button type="button" data-lab-reset aria-label="Reset camera" title="Reset camera">⌖</button>
         </div>
         <span class="lab-target" data-lab-target hidden></span>
@@ -81,69 +128,33 @@
         </div>
         <div class="lab-tool-result" data-lab-tool-result hidden></div>
         <div class="lab-viewport-footer">
-          <span data-lab-view-status>Ready for a new grasp</span><span class="lab-orbit-hint">Drag to orbit</span>
+          <span data-lab-view-status>Observe · act · learn from the result</span>
         </div>
       </section>
-      <aside class="lab-context" aria-label="In-context learning panel">
-        <div class="lab-reference">
-          <div class="lab-side-header"><span>01 / Demonstration</span><span class="lab-fixed">Fixed</span></div>
-          <h3 data-lab-demo-title>Steel pin</h3>
-          <p data-lab-demo-note>One example, sampled across time.</p>
-          <div class="lab-windows" role="group" aria-label="Open a demonstration window">
-            <button type="button" data-lab-window="0" aria-label="Demonstration window 1" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>01</button>
-            <button type="button" data-lab-window="1" aria-label="Demonstration window 2" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>02</button>
-            <button type="button" data-lab-window="2" aria-label="Demonstration window 3" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>03</button>
-            <button type="button" data-lab-window="3" aria-label="Demonstration window 4" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>04</button>
-            <button type="button" data-lab-window="4" aria-label="Demonstration window 5" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>05</button>
-          </div>
-          <div class="lab-inspector" data-lab-inspector hidden>
-            <div><button type="button" data-lab-demo-start aria-pressed="true">Start view</button><button type="button" data-lab-demo-end aria-pressed="false">Result view</button></div>
-            <p data-lab-window-note></p>
-            <dl class="lab-window-record">
-              <div><dt>Action</dt><dd data-lab-window-action></dd></div>
-              <div><dt>Receipt</dt><dd data-lab-window-receipt></dd></div>
-            </dl>
-            <button type="button" data-lab-return>Back to current episode <span aria-hidden="true">↗</span></button>
-          </div>
-        </div>
-        <div class="lab-agent">
-          <svg viewBox="0 0 42 42" aria-hidden="true" fill="none"><circle cx="21" cy="21" r="19" stroke="#29475b"/><path d="M21 6v5m0 20v5M6 21h5m20 0h5M10 10l4 4m14 14 4 4m0-22-4 4M14 28l-4 4" stroke="#a9eddb"/><rect x="13" y="13" width="16" height="16" rx="5" stroke="#a9eddb"/><circle cx="21" cy="21" r="3" fill="#a9eddb"/></svg>
-          <div><strong>Frozen VLM</strong><span data-lab-agent-state>Read the reference</span></div>
-          <div class="lab-agent-link" aria-hidden="true"><i></i></div>
-        </div>
-        <div class="lab-memory">
-          <div class="lab-side-header"><span>02 / Live history</span><span class="lab-fixed">Updates</span></div>
-          <div class="lab-memory-steps">
-            <button type="button" data-lab-anchor disabled>Anchor</button><span aria-hidden="true">···</span><button type="button" data-lab-latest disabled>Latest</button>
-          </div>
-          <p data-lab-memory-note>Executed results will appear here.</p>
-        </div>
-      </aside>
-      <svg class="lab-flow" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
-        <path data-lab-path="reference" d="M820 144 C820 155 790 160 790 183"/>
-        <path data-lab-path="observation" d="M661 205 C688 205 690 191 714 191"/>
-        <path data-lab-path="action" d="M713 216 C690 216 688 232 661 232"/>
-        <path data-lab-path="feedback" d="M661 283 C694 283 688 308 729 308"/>
-        <path data-lab-path="return" d="M830 309 C830 276 884 254 884 215"/>
-        <path data-lab-flow-trail pathLength="1"/>
-        <g data-lab-flow-packet><rect x="-7" y="-5" width="14" height="10" rx="2"/><path d="M-4 -1H4M-4 2H1"/></g>
+
+      <svg class="lab-flow" aria-hidden="true"><defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1L8 5L1 9" fill="none" stroke="context-stroke" stroke-width="1.4"/></marker></defs>
+        <path data-lab-path="reference" marker-end="url(#flow-arrow)"/>
+        <path data-lab-path="observation" marker-end="url(#flow-arrow)"/>
+        <path data-lab-path="action" marker-end="url(#flow-arrow)"/>
+        <path data-lab-path="feedback" marker-end="url(#flow-arrow)"/>
+        <path class="lab-ion-trace" data-lab-ion-trace pathLength="1"/>
+        <g class="lab-ions" data-lab-ions></g>
       </svg>
+      <div class="lab-photo-packet" data-lab-photo-packet aria-hidden="true"><canvas width="240" height="150"></canvas><span>Observation</span></div>
+      <div class="lab-action-packet" data-lab-action-packet aria-hidden="true">Action chunk →</div>
+      <span class="lab-action-label" data-lab-action-label>Next action</span>
+      <span class="lab-feedback-label" data-lab-feedback-label>Images · state · execution receipt</span>
     </div>
-    <div class="lab-controls">
-      <div class="lab-playback" role="group" aria-label="Episode playback">
-        <button type="button" data-lab-play>Play</button><button type="button" data-lab-next aria-label="Next step" title="Next step">Step <span aria-hidden="true">›</span></button>
-        <input data-lab-time aria-label="Episode timeline" type="range" min="0" max="16" step="0.01" value="0">
-        <output data-lab-clock>00:00 / 00:16</output>
-      </div>
-      <div class="lab-tools" role="group" aria-label="Toggle geometric tools">
-        <span>MXI tools</span>
+    <div class="lab-bottom">
+      <p><span data-lab-cycle-label>Click a glowing object to explore another grasp.</span></p>
+      <div class="lab-tools" role="group" aria-label="Toggle geometric tools"><span>Geometry assists execution</span>
         <button type="button" data-lab-tool="wrist" aria-pressed="true">Wrist guide</button>
-        <button type="button" data-lab-tool="tri" aria-pressed="false">Triangulate</button>
-        <button type="button" data-lab-tool="plan" aria-pressed="false">Motion preview</button>
+        <button type="button" data-lab-tool="tri" aria-pressed="false">Triangulation</button>
+        <button type="button" data-lab-tool="plan" aria-pressed="false">Motion check</button>
       </div>
     </div>
   </div>
-  <figcaption><span>Figure 1</span> Interactive simulation of the RoboICL loop on three precision grasps. The ARX model follows computed joint trajectories. The context flow, demo windows, and execution receipts illustrate how a frozen model can use examples and feedback.</figcaption>
+  <figcaption><span>Figure 1</span> The MXI-RoboICL loop. Fixed demonstration windows and live execution records share one context; each new observation comes from the robot’s latest action. Interactive illustration with simulated camera images and computed ARX motion.</figcaption>
 </figure>
 
 <div class="reading-layout wrap"><article class="prose">
