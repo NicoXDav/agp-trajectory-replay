@@ -12,7 +12,9 @@
 <link rel="stylesheet" href="scenes.css">
 <link rel="stylesheet" href="opening.css">
 <link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=9">
-<link rel="preload" href="../assets/fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="context-loop.css?v=10">
+<link rel="preload" href="../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
+<script src="context-loop.js?v=10" defer></script>
 <script src="opening.js?v=9" defer></script>
 <script type="importmap">{"imports":{"three":"../assets/three/build/three.module.js","three/addons/":"../assets/three/examples/jsm/"}}</script>
 <script type="module" src="scene-loader.js?v=9"></script>
@@ -24,7 +26,7 @@
 
 <nav class="contents" aria-label="Article sections">
 <button class="contents-toggle" aria-expanded="false" aria-controls="section-links">On this page <span aria-hidden="true">＋</span></button>
-<div id="section-links"><span class="contents-label">In this article</span><a href="#showreel">In action</a><a href="#background">Overview</a><a href="#method">Wrist guides</a><a href="#triangulation">Triangulation</a><a href="#execution">Execution</a><a href="#results">Results</a><a href="#ablation">Ablation</a><a href="#simplicity">Simplicity</a><a href="#next">Outlook</a></div>
+<div id="section-links"><span class="contents-label">In this article</span><a href="#showreel">In action</a><a href="#background">Overview</a><a href="#context-loop">Context loop</a><a href="#method">Wrist guides</a><a href="#triangulation">Triangulation</a><a href="#execution">Execution</a><a href="#results">Results</a><a href="#ablation">Ablation</a><a href="#simplicity">Simplicity</a><a href="#next">Outlook</a></div>
 </nav>
 <div class="article-head wrap">
 <div class="edition"><span>MXI Research</span><span>November 2026</span></div>
@@ -41,26 +43,119 @@
 </figure>
 </section>
 <section id="background" class="opening-overview wrap" aria-label="Overview">
-
-<p><strong>MXI-RoboICL is the MXI team’s extension of a simple idea: let a frozen vision-language model learn robot control through context.</strong> The original RoboICL framework keeps the model frozen and brings two complementary sources of experience into the same conversation: a recorded demonstration of the task, when available, and the robot’s own interaction history. Both follow a shared observation–action–receipt–observation format, connecting what the robot sees to what it does and what changes afterward. Non-overlapping demonstration windows cover different stages of a task. During execution, bounded anchored memory keeps selected earlier interactions alongside the latest completed action, preserving useful experience without replaying every frame. Explicit trajectory gaps distinguish retained records from consecutive motion. The model then produces continuous action chunks through a compact control interface. This makes demonstrations, execution feedback, and online correction part of one inference-time process, without robot-specific parameter updates or a separately trained action model.</p>
-<p><strong>The MXI contribution makes geometry explicit at the point of action: wrist-camera guides, task-relevant triangulation, and checked motion.</strong> A robot may recognize an object yet miss it by a small offset, or choose a plausible destination that is difficult to reach. Wrist-camera guides project the nominal grasp center and inner finger-pad edges into the current image, exposing the relationship between the hand’s closing region and the target. Calibrated multi-view triangulation complements this cue: corresponding pixels and camera poses recover task-relevant 3D points from RGB, without a depth map. Sparse, reliable evidence can already guide a position correction; it need not wait for a dense point cloud. Our execution experiments additionally check reachability and motion continuity before applying a route. These MXI additions preserve the original feedback loop: the agent sees the actual executed motion, receives a fresh observation, and adjusts its next decision to the scene in front of it.</p>
-<p><strong>Our current self-evaluation reaches 75.9 on RoboDojo, 3.79 points above Q0’s revised-rule reference of 72.11.</strong> This team-reported state-of-the-art result builds on the original work’s evidence that structured context can strengthen precision, long-horizon behavior, and memory with a frozen model. The opening film explains the method through annotated recordings and closes with eighteen selected 100-point episodes across nine tasks and different layouts. Beyond the headline score, our paired information-ablation study finds smaller score drops for MXI-RoboICL across all three tested task groups, with Stack Bowls retaining its original performance. An authored-text audit also shows a smaller authored interface in the measured subset. Together, these results motivate a practical direction: retain the simplicity of learning from examples and interaction, while supplying the geometric evidence needed for more precise control. The benchmark comparison, paired scores, and audit scope are detailed below.</p>
+  <p class="overview-lead"><strong>What can a robot learn from one demonstration?</strong> MXI-RoboICL builds on RoboICL, which gives a frozen vision-language model a recorded example and its own execution history. Each retained segment shows the starting observation, the action, the execution receipt, and the result. The model uses these examples alongside the current view to choose its next action.</p>
+  <p>MXI adds geometric references for the moments that demand precision. Wrist guides show where the fingers will close. Calibrated camera views can locate a relevant target in three dimensions. Motion checks preview whether a proposed route is reachable and continuous. After the arm moves, the model sees what actually happened and can adjust its next action.</p>
+  <p>In our RoboDojo self-evaluation, <strong>MXI-RoboICL scored 75.9</strong>, 3.79 points above Q0’s revised-rule reference of 72.11. Across three groups in our paired ablation study, MXI-RoboICL lost fewer points when task and scene information was removed. Stack Bowls retained its full score. The film above closes with eighteen full-score episodes across nine tasks.</p>
 </section>
 
-<figure class="hero-figure wrap">
-<div class="figure-heading"><div><span class="eyebrow">SYSTEM OVERVIEW</span><h2>Inside MXI-RoboICL</h2></div><div class="figure-key"><span><i></i>RoboICL foundation</span><span><i class="new-key"></i>MXI geometry and motion extensions</span></div></div>
-<div class="architecture">
-<div class="context-bank">
-<div class="context-row"><div class="track-heading"><b>01</b><h3>Demonstration</h3><span>TRAIN · fixed reference</span></div><div class="record"><span>Observation</span><i>→</i><span>Expert action</span><i>→</i><span>Receipt</span><i>→</i><span>Result</span></div><p>Selected windows from one successful trajectory.</p></div>
-<div class="context-row"><div class="track-heading"><b>02</b><h3>Interaction memory</h3><span>LIVE · current episode</span></div><div class="record"><span>Observation</span><i>→</i><span>Executed action</span><i>→</i><span>Receipt</span><i>→</i><span>Result</span></div><p>Earlier anchors + latest segment; omitted intervals marked as gaps.</p></div>
-<div class="current-row"><b>03</b><h3>Current observation</h3><p>Head + wrist RGB · robot state · camera calibration</p></div>
-</div>
-<div class="model-stage"><span class="flow-label">Shared conversation</span><span class="flow-arrow">→</span><div class="model-node"><span class="model-icon">✳</span><h3>Frozen VLM</h3><p>Infer the next<br>action chunk</p><span class="model-tag">No weight updates</span></div><span class="flow-arrow">→</span></div>
-<div class="execution-stage"><span class="eyebrow">CLOSED-LOOP CONTROL</span><div><h3>Execute</h3><p>Send a bounded action chunk to the environment.</p></div><span class="vertical-arrow">↓</span><div><h3>Observe the result</h3><p>New RGB + state<br>Actual execution receipt</p></div></div>
-</div>
-<div class="feedback"><span>↶</span><p>Feed the actual outcome back into LIVE memory and the next observation.</p><span>←</span></div>
-<div class="extensions"><div class="extension-label"><span class="eyebrow">MXI CONTRIBUTIONS</span><p>Additional evidence<br>at each decision.</p></div><div><span class="extension-num">A / PERCEPTION</span><h3>Wrist guides</h3><p>Project the nominal grasp center and finger-pad edges into RGB.</p></div><div><span class="extension-num">B / LOCALIZATION</span><h3>Target geometry</h3><p>Use calibrated views to recover and validate task-relevant 3D points.</p></div><div><span class="extension-num">C / EXECUTION</span><h3>Motion checks</h3><p>Test reachability and continuity in task-local pouring tools.</p></div></div>
-<figcaption><span>Figure 1</span> MXI’s geometry and motion extensions around the original RoboICL context loop. Demonstrations and live experience use the same observation–action–receipt–result format. Geometry enriches the inputs; motion checks support execution; fresh observations close the loop.</figcaption>
+<figure id="context-loop" class="context-loop wrap" aria-labelledby="loop-title" data-mode="icl" data-phase="0">
+  <header class="loop-intro">
+    <div>
+      <h2 id="loop-title">Inside MXI-RoboICL</h2>
+      <p>Follow an action from demonstration to execution, then see where MXI’s geometry tools enter the loop.</p>
+    </div>
+    <a href="#method">Explore the method <span aria-hidden="true">↓</span></a>
+  </header>
+  <div class="loop-player">
+    <div class="loop-modes" role="group" aria-label="Choose an interactive chapter">
+      <button type="button" data-loop-mode="icl" aria-pressed="true"><span>01</span> ICL loop</button>
+      <button type="button" data-loop-mode="wrist" aria-pressed="false"><span>02</span> Wrist guides</button>
+      <button type="button" data-loop-mode="triangulation" aria-pressed="false"><span>03</span> Triangulation</button>
+      <button type="button" data-loop-mode="motion" aria-pressed="false"><span>04</span> Motion checks</button>
+    </div>
+    <div class="loop-stage">
+      <section class="loop-input" aria-label="Model input">
+        <span class="loop-label" data-loop-input-label>Reference context</span>
+        <h3 data-loop-input-title>One demonstration</h3>
+        <div class="loop-reference">
+          <div class="loop-filmstrip" aria-label="Four views from the Stack Bowls demonstration">
+            <img src="../assets/overview/demo-1.webp" alt="" loading="lazy" width="380" height="285">
+            <img src="../assets/overview/demo-2.webp" alt="" loading="lazy" width="380" height="285">
+            <img src="../assets/overview/demo-3.webp" alt="" loading="lazy" width="380" height="285">
+            <img src="../assets/overview/demo-4.webp" alt="" loading="lazy" width="380" height="285">
+          </div>
+          <div class="loop-windows" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <p>18 windows sampled across time</p>
+        </div>
+        <div class="loop-evidence" hidden>
+          <img data-loop-evidence-img alt="" width="380" height="285">
+          <p data-loop-evidence-note></p>
+        </div>
+        <div class="loop-memory">
+          <span class="loop-label">Interaction memory</span>
+          <div class="loop-memory-cards">
+            <div><img src="../assets/overview/memory-anchor.webp" alt="" loading="lazy" width="380" height="285"><small>Earlier anchors</small></div>
+            <div aria-hidden="true" class="loop-gap">···</div>
+            <div><img src="../assets/overview/memory-latest.webp" alt="" loading="lazy" width="380" height="285"><small>Latest chunk</small></div>
+          </div>
+        </div>
+      </section>
+      <section class="loop-agent" aria-label="Frozen vision-language model">
+        <div class="loop-agent-art" aria-hidden="true">
+          <svg viewBox="0 0 160 160" fill="none">
+            <defs>
+              <linearGradient id="loop-shell" x1="34" y1="45" x2="119" y2="133" gradientUnits="userSpaceOnUse"><stop stop-color="#f0f9fc"/><stop offset="1" stop-color="#68879c"/></linearGradient>
+              <linearGradient id="loop-glass" x1="50" y1="56" x2="106" y2="102" gradientUnits="userSpaceOnUse"><stop stop-color="#1e4052"/><stop offset="1" stop-color="#091622"/></linearGradient>
+            </defs>
+            <circle cx="80" cy="80" r="72" class="loop-orbit"/>
+            <circle cx="80" cy="80" r="64" class="loop-orbit inner"/>
+            <path d="M80 38V26" stroke="#9cb7cb" stroke-width="2"/><circle cx="80" cy="24" r="4" fill="#9ee8dc"/>
+            <rect x="24" y="62" width="13" height="32" rx="5" fill="#7798ab"/><rect x="123" y="62" width="13" height="32" rx="5" fill="#7798ab"/>
+            <rect x="32" y="43" width="96" height="71" rx="24" fill="url(#loop-shell)" stroke="#ecf9ff" stroke-opacity=".75"/>
+            <rect x="42" y="53" width="76" height="50" rx="17" fill="url(#loop-glass)" stroke="#557589"/>
+            <path d="M51 64Q55 60 63 60H99" stroke="#acd9ef" stroke-opacity=".24" stroke-linecap="round"/>
+            <g class="loop-eyes" fill="#a5fae7"><rect x="56" y="71" width="16" height="8" rx="4"/><rect x="88" y="71" width="16" height="8" rx="4"/></g>
+            <path d="M73 88Q80 94 87 88" stroke="#9ee8dc" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M57 123Q80 114 103 123L109 133Q110 142 99 142H61Q50 142 51 133Z" fill="url(#loop-shell)"/>
+            <path d="M74 132H86" stroke="#2b5765" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="loop-label">Frozen VLM</span>
+        <strong data-loop-agent>Read context</strong>
+        <span class="loop-model-note">Weights stay fixed</span>
+      </section>
+      <section class="loop-output" aria-label="Recorded robot execution">
+        <div class="loop-camera-head">
+          <span class="loop-label" data-loop-camera>Head camera</span>
+          <span class="loop-camera-task" data-loop-task>Stack Bowls</span>
+        </div>
+        <div class="loop-camera">
+          <video data-loop-video playsinline muted preload="auto" poster="../assets/overview/icl.webp" width="800" height="600" aria-label="Recorded Stack Bowls execution"></video>
+          <img class="loop-poster" data-loop-poster src="../assets/overview/icl.webp" alt="" loading="lazy" width="640" height="480">
+          <span class="loop-camera-cue" data-loop-cue>Current scene ready</span>
+        </div>
+      </section>
+      <svg class="loop-links" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
+        <path data-loop-path="0" d="M248 95 C270 95 280 160 313 160"/>
+        <path data-loop-path="1" d="M248 272 C275 272 278 220 313 220"/>
+        <path data-loop-path="2" d="M434 164 C465 164 473 123 511 123"/>
+        <path data-loop-path="3" d="M511 310 C478 310 460 224 435 224"/>
+        <path data-loop-path="4" d="M351 287 C320 309 309 333 272 333"/>
+        <path class="loop-trail" data-loop-trail pathLength="1"/>
+        <circle r="5" data-loop-signal="4"/><circle r="5" data-loop-signal="0"/><circle r="5" data-loop-signal="1"/><circle r="5" data-loop-signal="2"/><circle r="5" data-loop-signal="3"/>
+      </svg>
+    </div>
+    <div class="loop-transport">
+      <div class="loop-transport-top">
+        <div class="loop-playback" role="group" aria-label="Animation playback">
+          <button type="button" data-loop-play>Play</button>
+          <button type="button" data-loop-replay aria-label="Replay chapter" title="Replay chapter">↻</button>
+        </div>
+        <p data-loop-caption>Time-spaced examples from one demonstration enter the context.</p>
+      </div>
+      <div class="loop-steps" role="group" aria-label="Jump to a stage">
+        <button type="button" data-loop-step="0" aria-current="step"><span>01</span> <b>Read the demo</b></button>
+        <button type="button" data-loop-step="1"><span>02</span> <b>Observe</b></button>
+        <button type="button" data-loop-step="2"><span>03</span> <b>Execute</b></button>
+        <button type="button" data-loop-step="3"><span>04</span> <b>Update memory</b></button>
+      </div>
+      <p class="loop-status" data-loop-error hidden>Playback could not start. <a href="../assets/overview/icl.mp4">Open this clip directly</a>.</p>
+      <noscript><p class="loop-status"><a href="../assets/overview/icl.mp4">Watch the recorded Stack Bowls clip</a>.</p></noscript>
+    </div>
+  </div>
+  <figcaption><span>Figure 1</span> Recorded simulation, with animated context flow. The ICL view illustrates how fixed demonstration windows and retained live history reach the model. Tool views show separate episodes and highlight where each extension enters a decision.</figcaption>
 </figure>
 
 <div class="reading-layout wrap"><article class="prose">
