@@ -1,205 +1,187 @@
-(() => {
-  const root = document.querySelector('#context-loop');
-  if (!root) return;
+const root = document.querySelector('#context-loop');
 
-  // The footage clock drives the explainer. Stage boundaries are editorial cues.
-  const chapters = {
-    icl: {
-      task: 'Stack Bowls', camera: 'Head camera', label: 'Reference context', title: 'One demonstration',
-      stages: [
-        [0, 'Read the demo', 'Read context', 'Current scene ready', 'Time-spaced windows from one demonstration enter the context.', [0]],
-        [1.5, 'Observe', 'Read the scene', 'Current observation', 'The model sees the current scene and the retained interaction history.', [3, 1]],
-        [2.8, 'Execute', 'Send an action', 'Action chunk', 'The model sends an action chunk and the arm moves in the recorded episode.', [2]],
-        [16, 'Update memory', 'Keep the result', 'Execution feedback', 'The new observation and execution receipt feed the next decision. Earlier anchors stay in memory.', [3, 4]],
-      ],
-    },
-    wrist: {
-      task: 'Insert Tubes', camera: 'Wrist camera', label: 'MXI · Wrist guides', title: 'Where the fingers close',
-      evidence: [['wrist-evidence', 'A second view shows the arm and target in the scene.']],
-      stages: [
-        [0, 'Inspect', 'Read the wrist view', 'Original wrist view', 'The wrist camera sees the target before the guides appear.', [3]],
-        [1.45, 'Project', 'Use the guide', 'Projected grasp center', 'Camera calibration projects the nominal closing center and the inner finger edges.', [0]],
-        [3.2, 'Align', 'Align the grasp', 'Approach the reticle', 'As the arm approaches, the projected center gives the model a reference for correcting the offset.', [2]],
-        [6.55, 'Close and lift', 'Read the result', 'Close and lift', 'The wrist view follows the fingers as they close and lift the tube.', [2, 3]],
-      ],
-    },
-    triangulation: {
-      task: 'Target localization', camera: 'Head camera', label: 'MXI · Triangulation', title: 'From rays to a 3D point',
-      evidence: [
-        ['triangulation-input', 'A single image leaves the distance along the viewing ray open.'],
-        ['triangulation-input', 'A corresponding landmark in the wrist view adds a second constraint.'],
-        ['triangulation-evidence', 'The calibrated views constrain the same target point.'],
-      ],
-      stages: [
-        [0, 'One ray', 'Inspect the pixel', 'Depth unknown', 'One pixel defines a direction. The distance along that ray is still unknown.', [3]],
-        [5.65, 'Two views', 'Match the target', 'Second viewing ray', 'A matching point in the wrist view adds a second calibrated ray.', [0]],
-        [9.55, 'Resolve depth', 'Read the 3D point', 'Depth · 0.507 m', 'The rays constrain the target position. Its estimated optical-axis depth is 0.507 m in the head view.', [0]],
-        [12.2, 'Return to motion', 'Observe the arm', 'Recorded motion', 'The view returns to the recorded episode after the geometry explanation.', [2, 3]],
-      ],
-    },
-    motion: {
-      task: 'Pouring', camera: 'Head camera', label: 'MXI · Motion checks', title: 'Preview before execution',
-      evidence: [
-        ['motion-check', 'The candidate is checked before the arm moves.'],
-        ['motion-rejected', 'The controller receives no motion for this candidate.'],
-        ['motion-evidence', 'The accepted preview reconstructs motion from recorded joint targets.'],
-      ],
-      stages: [
-        [0, 'Check', 'Propose a pose', 'Checking the candidate', 'The motion tool checks whether the proposed pose has an IK solution.', [2]],
-        [1.2, 'Reject', 'Revise the proposal', 'IK rejected · no motion', 'The first proposal has no valid IK solution. The arm stays at its current pose.', [3]],
-        [2.6, 'Preview', 'Preview the route', 'Accepted kinematic preview', 'The translucent arm previews the accepted route before the recorded arm moves.', [2]],
-        [10.2, 'Execute', 'Observe the result', 'Recorded execution', 'The preview clears and the recorded arm executes the motion.', [2, 3]],
-      ],
-    },
-  };
-
-  const asset = name => new URL(`../assets/overview/${name}`, document.baseURI).href;
-  const find = name => root.querySelector(`[data-loop-${name}]`);
-  const video = find('video');
-  const stage = root.querySelector('.loop-stage');
-  const cameraFrame = root.querySelector('.loop-camera');
-  const reference = root.querySelector('.loop-reference');
-  const evidence = root.querySelector('.loop-evidence');
-  const modeButtons = [...root.querySelectorAll('[data-loop-mode]')];
-  const stepButtons = [...root.querySelectorAll('[data-loop-step]')];
-  const paths = [...root.querySelectorAll('[data-loop-path]')];
-  const signals = [...root.querySelectorAll('[data-loop-signal]')];
-  const lengths = paths.map(path => path.getTotalLength());
-  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
-  const error = find('error');
-  const trail = find('trail');
-  let activeRoute = -1;
-  const play = find('play');
-  let mode = 'icl';
-  let phase = -1;
-  let frame = 0;
-  let pendingTime = 0;
-  let visible = false;
-  let wantsPlayback = !motionPreference.matches;
-
-  function paint(time) {
-    const { stages, evidence: images } = chapters[mode];
-    const index = stages.findLastIndex(([start]) => start <= time);
-    const [start, , agent, cue, caption, routes] = stages[Math.max(0, index)];
-    if (index !== phase) {
-      phase = index;
-      root.dataset.phase = index;
-      find('agent').textContent = agent;
-      find('cue').textContent = cue;
-      find('caption').textContent = caption;
-      if (images) {
-        const [image, note] = images[Math.min(Math.max(0, index), images.length - 1)];
-        find('evidence-img').src = asset(`${image}.webp`);
-        find('evidence-note').textContent = note;
-      }
-      stepButtons.forEach((button, i) => {
-        if (i === index) button.setAttribute('aria-current', 'step');
-        else button.removeAttribute('aria-current');
-      });
-    }
-    const pulse = (Math.max(0, time - start) / 1.45) % routes.length;
-    const active = routes[Math.floor(pulse)];
-    const position = paths[active].getPointAtLength(lengths[active] * (pulse % 1));
-    signals[active].setAttribute('cx', position.x);
-    signals[active].setAttribute('cy', position.y);
-    const flowing = !video.paused && !motionPreference.matches;
-    if (activeRoute !== active) {
-      activeRoute = active;
-      trail.setAttribute('d', paths[active].getAttribute('d'));
-    }
-    trail.setAttribute('stroke-dashoffset', .2 - (pulse % 1));
-    trail.toggleAttribute('data-active', flowing);
-    paths.forEach((path, i) => path.toggleAttribute('data-active', routes.includes(i)));
-    signals.forEach((signal, i) => signal.toggleAttribute('data-active', i === active && flowing));
-  }
-
-  function tick() {
-    paint(video.currentTime);
-    if (!video.paused) frame = requestAnimationFrame(tick);
-  }
-
-  function loadClip() {
-    if (!video.hasAttribute('src')) video.src = asset(`${mode}.mp4`);
-  }
-
-  function syncPlayback() {
-    if (!wantsPlayback || !visible || document.hidden || (video.ended && !video.seeking)) {
-      video.pause();
-      play.textContent = 'Play';
-      return;
-    }
-    loadClip();
-    const requestedSource = video.src;
-    video.play().catch(reason => {
-      if (reason.name === 'AbortError' || requestedSource !== video.src) return;
-      play.textContent = 'Play';
-      // Autoplay policies may require a user gesture. The Play control stays available.
-      if (reason.name !== 'NotAllowedError') error.hidden = false;
+if (root) {
+  const load = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    load.disconnect();
+    boot(root).catch(error => {
+      console.error('Could not open the MXI grasp workbench', error);
+      root.querySelector('[data-lab-loading]').textContent = 'The 3D workbench could not load. Reload to try again.';
     });
+  }, {rootMargin:'300px 0px'});
+  load.observe(root);
+}
+
+const WINDOWS = [
+  [3.25,4.6,'Approach','Move above the part.','Approach completed · hand open.'],
+  [6.1,7.45,'Align','Refine alignment and lower the wrist.','Grasp height reached.'],
+  [8.95,10.3,'Lift','Raise the closed gripper.','Part lifted with the hand.'],
+  [11.8,13.15,'Place','Lower onto the receiving stand.','Part supported · opening begins.'],
+  [14.65,16,'Retract','Withdraw the open gripper.','Hand clear · part stays on stand.'],
+];
+const STAGES = [
+  [0,'Read the reference','Sample the fixed demonstration','reference'],
+  [1.65,'Observe the layout','Locate the selected part in the current scene','observation'],
+  [3.25,'Send an approach','Move toward the observed target','action'],
+  [4.6,'Observe and correct','Use the latest view to refine alignment','return'],
+  [7.5,'Close the gripper','Aligned · close the fingers around the part','action'],
+  [8.35,'Verify the lift','Feed the new observation back into history','feedback'],
+  [10.6,'Place and release','Transfer, support, and release the part','action'],
+  [15.1,'Keep the outcome','Part placed · hand clear','feedback'],
+];
+
+async function boot(root) {
+  const [{GraspLabView},data] = await Promise.all([
+    import('./grasp-lab-view.js?v=11'),
+    fetch(new URL('../assets/arx-x5/grasp-lab.json?v=11',import.meta.url)).then(response => {
+      if (!response.ok) throw new Error('Grasp trajectories unavailable');
+      return response.json();
+    }),
+  ]);
+  const find = name => root.querySelector(`[data-lab-${name}]`);
+  const parts = [...root.querySelectorAll('[data-lab-part]')];
+  const windows = [...root.querySelectorAll('[data-lab-window]')];
+  const toolButtons = [...root.querySelectorAll('[data-lab-tool]')];
+  const paths = Object.fromEntries([...root.querySelectorAll('[data-lab-path]')].map(path=>[path.dataset.labPath,path]));
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  const tools = new Set(['wrist']);
+  const slider = find('time'), play = find('play');
+  let part = 'pin', layout = 0, liveTime = 0, demoTime = 0, demo = null;
+  let playing = false, visible = false, tickId = 0, lastTick = 0;
+  let shownStage = -1, thumbnailsFor = '';
+  const view = new GraspLabView(root,data,choosePart,()=>{if(view.width)draw();});
+  const thumbCanvases = windows.map(button=>button.querySelector('canvas'));
+  const lengths = Object.fromEntries(Object.entries(paths).map(([key,path])=>[key,path.getTotalLength()]));
+
+  function clock(value) { return `00:${String(Math.floor(value+.0001)).padStart(2,'0')}`; }
+
+  function readouts(time) {
+    const index = STAGES.findLastIndex(([start])=>time>=start);
+    const [start,agent,caption,flow] = STAGES[index];
+    if (shownStage!==index) {
+      shownStage=index;root.dataset.stage=index;
+      find('agent-state').textContent=agent;
+      find('view-status').textContent=caption;
+      Object.entries(paths).forEach(([name,path])=>path.toggleAttribute('data-active',name===flow));
+      find('flow-trail').setAttribute('d',paths[flow].getAttribute('d'));
+    }
+    const pulse=((time-start)/1.15)%1;
+    const p=paths[flow].getPointAtLength(lengths[flow]*pulse);
+    find('flow-packet').setAttribute('transform',`translate(${p.x} ${p.y})`);
+    find('flow-trail').setAttribute('stroke-dashoffset',.25-pulse);
+    find('anchor').disabled=liveTime<4.6;
+    find('latest').disabled=liveTime<6.2;
+    const memory=liveTime>=15.1?'Latest · released and clear':liveTime>=9.9?'Latest · part lifted':liveTime>=6.2?'Latest · alignment corrected':liveTime>=4.6?'Anchor · approach complete':'Executed results will appear here.';
+    if(find('memory-note').textContent!==memory)find('memory-note').textContent=memory;
   }
 
-  function seek(time) {
-    loadClip();
-    if (video.readyState) video.currentTime = time;
-    else pendingTime = time;
-    paint(time);
+  function draw() {
+    if (!view.width) return;
+    if (thumbnailsFor!==part) {
+      view.arrange(part,0);view.thumbnails(WINDOWS.map(([start])=>start),thumbCanvases);
+      view.arrange(part,demo===null?layout:0);thumbnailsFor=part;
+    }
+    const time = demo===null?liveTime:demoTime;
+    readouts(demo===null?time:0);
+    view.render(time,tools,demo!==null);
+    slider.value=time;
+    find('clock').textContent=`${clock(time)} / ${clock(data.duration)}`;
+    if(demo!==null){
+      const [start,end,title,action,receipt]=WINDOWS[demo];
+      find('view-status').textContent=`Reference · ${title}`;
+      const description=`${clock(start)}–${clock(end)} · ${title}`;
+      if(find('window-note').textContent!==description){
+        find('window-note').textContent=description;find('window-action').textContent=action;find('window-receipt').textContent=receipt;
+      }
+      find('demo-start').setAttribute('aria-pressed',String(time<=start+.02));
+      find('demo-end').setAttribute('aria-pressed',String(time>=end-.02));
+    }
   }
 
-  function choose(next) {
-    if (next === mode && phase >= 0) return;
-    mode = next;
-    phase = -1;
-    pendingTime = 0;
-    const chapter = chapters[mode];
-    root.dataset.mode = mode;
-    video.pause();
-    video.removeAttribute('src');
-    video.load();
-    cameraFrame.removeAttribute('data-ready');
-    video.poster = asset(`${mode}.webp`);
-    find('poster').src = video.poster;
-    video.setAttribute('aria-label', `Recorded ${chapter.task} sequence`);
-    find('task').textContent = chapter.task;
-    find('camera').textContent = chapter.camera;
-    find('input-label').textContent = chapter.label;
-    find('input-title').textContent = chapter.title;
-    reference.hidden = mode !== 'icl';
-    evidence.hidden = mode === 'icl';
-    error.hidden = true;
-    error.querySelector('a').href = asset(`${mode}.mp4`);
-    modeButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.loopMode === mode)));
-    stepButtons.forEach((button, i) => { button.querySelector('b').textContent = chapter.stages[i][1]; });
-    paint(0);
-    syncPlayback();
+  function setPlaying(value) {
+    playing=value;play.textContent=playing?'Pause':'Play';
+    root.toggleAttribute('data-playing',playing&&demo===null);
+    cancelAnimationFrame(tickId);
+    if(playing&&visible){lastTick=performance.now();tickId=requestAnimationFrame(tick);}
   }
 
-  video.addEventListener('loadedmetadata', () => { if (pendingTime) video.currentTime = pendingTime; pendingTime = 0; });
-  video.addEventListener('loadeddata', () => { cameraFrame.setAttribute('data-ready', ''); error.hidden = true; });
-  video.addEventListener('seeked', () => paint(video.currentTime));
-  video.addEventListener('playing', () => {
-    play.textContent = 'Pause';
-    cancelAnimationFrame(frame);
-    tick();
+  function tick(now) {
+    const dt=Math.min(.08,(now-lastTick)/1000);lastTick=now;
+    if(demo===null)liveTime=Math.min(data.duration,liveTime+dt);
+    else demoTime=Math.min(WINDOWS[demo][1],demoTime+dt);
+    draw();
+    const end=demo===null?liveTime>=data.duration:demoTime>=WINDOWS[demo][1];
+    if(end)setPlaying(false);else if(playing&&visible)tickId=requestAnimationFrame(tick);
+  }
+
+  function selectView() {
+    view.arrange(part,demo===null?layout:0);
+    root.dataset.view=demo===null?'live':'demo';
+    find('inspector').hidden=demo===null;
+    find('view-label').textContent=demo===null?'Current episode':'Fixed demonstration';
+    find('demo-note').textContent=layout===0?'One example, sampled across time.':'Same reference · the live layout has changed.';
+    windows.forEach((button,index)=>button.setAttribute('aria-pressed',String(index===demo)));
+    slider.min=demo===null?0:WINDOWS[demo][0];slider.max=demo===null?data.duration:WINDOWS[demo][1];
+    shownStage=-1;
+    draw();
+  }
+
+  function choosePart(id) {
+    setPlaying(false);part=id;demo=null;liveTime=0;
+    parts.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.labPart===id)));
+    find('demo-title').textContent=data.objects.find(object=>object.id===id).name;
+    selectView();
+  }
+
+  parts.forEach(button=>button.addEventListener('click',()=>choosePart(button.dataset.labPart)));
+  find('layout').addEventListener('click',()=>{
+    layout=1-layout;find('layout').querySelector('b').textContent=layout?'B':'A';
+    find('layout').setAttribute('aria-pressed',String(layout===1));choosePart(part);
   });
-  video.addEventListener('pause', () => {
-    play.textContent = 'Play';
-    cancelAnimationFrame(frame);
-    if (video.readyState) paint(video.currentTime);
+  windows.forEach((button,index)=>{
+    button.style.setProperty('--window',index);
+    button.addEventListener('click',()=>{
+      setPlaying(false);demo=index;demoTime=WINDOWS[index][0];selectView();
+    });
   });
-  video.addEventListener('error', () => { if (video.hasAttribute('src')) error.hidden = false; });
-  modeButtons.forEach(button => button.addEventListener('click', () => choose(button.dataset.loopMode)));
-  stepButtons.forEach((button, i) => button.addEventListener('click', () => seek(chapters[mode].stages[i][0])));
-  play.addEventListener('click', () => {
-    wantsPlayback = video.paused;
-    if (video.ended && wantsPlayback) seek(0);
-    syncPlayback();
+  find('demo-start').addEventListener('click',()=>{setPlaying(false);demoTime=WINDOWS[demo][0];draw();});
+  find('demo-end').addEventListener('click',()=>{setPlaying(false);demoTime=WINDOWS[demo][1];draw();});
+  find('return').addEventListener('click',()=>{setPlaying(false);demo=null;selectView();});
+  toolButtons.forEach(button=>button.addEventListener('click',()=>{
+    const name=button.dataset.labTool;
+    if(tools.has(name))tools.delete(name);else tools.add(name);
+    button.setAttribute('aria-pressed',String(tools.has(name)));draw();
+  }));
+  find('reset').addEventListener('click',()=>view.resetCamera());
+  slider.addEventListener('input',()=>{setPlaying(false);if(demo===null)liveTime=Number(slider.value);else demoTime=Number(slider.value);draw();});
+  play.addEventListener('click',()=>{
+    if(playing){setPlaying(false);return;}
+    if(demo===null&&liveTime>=data.duration)liveTime=0;
+    if(demo!==null&&demoTime>=WINDOWS[demo][1])demoTime=WINDOWS[demo][0];
+    setPlaying(true);draw();
   });
-  find('replay').addEventListener('click', () => { wantsPlayback = true; seek(0); syncPlayback(); });
-  document.addEventListener('visibilitychange', syncPlayback);
-  motionPreference.addEventListener('change', () => { wantsPlayback = !motionPreference.matches; syncPlayback(); });
-  new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting && entry.intersectionRatio >= .32;
-    syncPlayback();
-  }, { threshold: [.32] }).observe(stage);
-  choose(mode);
-})();
+  find('next').addEventListener('click',()=>{
+    setPlaying(false);
+    if(demo!==null)demoTime=WINDOWS[demo][1];
+    else liveTime=(STAGES.find(([start])=>start>liveTime+.02)||[data.duration])[0];
+    draw();
+  });
+  for(const [name,time] of [['anchor',4.6],['latest',null]])find(name).addEventListener('click',()=>{
+    setPlaying(false);demo=null;
+    liveTime=time??(liveTime>=15.1?15.1:liveTime>=9.9?9.9:6.2);
+    selectView();
+  });
+  const observer = new IntersectionObserver(([entry])=>{
+    visible=entry.isIntersecting;
+    if(!visible)setPlaying(false);
+  },{threshold:0});
+  observer.observe(root.querySelector('.lab-workspace'));
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlaying(false);});
+  motionPreference.addEventListener('change',()=>{if(motionPreference.matches)setPlaying(false);});
+  find('canvas').addEventListener('webglcontextlost',event=>{
+    event.preventDefault();setPlaying(false);find('loading').hidden=false;
+    find('loading').textContent='3D rendering was interrupted. Reload to restart.';
+  });
+  choosePart(part);
+  find('loading').hidden=true;
+}

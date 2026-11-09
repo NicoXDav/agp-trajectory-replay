@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="scenes.css">
 <link rel="stylesheet" href="opening.css">
 <link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=9">
-<link rel="stylesheet" href="context-loop.css?v=10">
+<link rel="stylesheet" href="context-loop.css?v=11">
 <link rel="preload" href="../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
-<script src="context-loop.js?v=10" defer></script>
+<script type="module" src="context-loop.js?v=11"></script>
 <script src="opening.js?v=9" defer></script>
 <script type="importmap">{"imports":{"three":"../assets/three/build/three.module.js","three/addons/":"../assets/three/examples/jsm/"}}</script>
 <script type="module" src="scene-loader.js?v=9"></script>
@@ -48,114 +48,102 @@
   <p>In our RoboDojo self-evaluation, <strong>MXI-RoboICL scored 75.9</strong>, 3.79 points above Q0’s revised-rule reference of 72.11. Across three groups in our paired ablation study, MXI-RoboICL lost fewer points when task and scene information was removed. Stack Bowls retained its full score. The film above closes with eighteen full-score episodes across nine tasks.</p>
 </section>
 
-<figure id="context-loop" class="context-loop wrap" aria-labelledby="loop-title" data-mode="icl" data-phase="0">
+<figure id="context-loop" class="context-loop wrap" aria-labelledby="loop-title" data-stage="0" data-view="live">
   <header class="loop-intro">
     <div>
       <h2 id="loop-title">Inside MXI-RoboICL</h2>
-      <p>Follow an action from demonstration to execution, then see where MXI’s geometry tools enter the loop.</p>
+      <p>Pick a part, inspect its demonstration, and follow how the agent adapts the grasp.</p>
     </div>
     <a href="#method">Explore the method <span aria-hidden="true">↓</span></a>
   </header>
-  <div class="loop-player">
-    <div class="loop-modes" role="group" aria-label="Choose an interactive chapter">
-      <button type="button" data-loop-mode="icl" aria-pressed="true"><span>01</span> ICL loop</button>
-      <button type="button" data-loop-mode="wrist" aria-pressed="false"><span>02</span> Wrist guides</button>
-      <button type="button" data-loop-mode="triangulation" aria-pressed="false"><span>03</span> Triangulation</button>
-      <button type="button" data-loop-mode="motion" aria-pressed="false"><span>04</span> Motion checks</button>
+  <div class="grasp-lab" aria-label="Interactive precision grasp simulation">
+    <div class="lab-toolbar">
+      <div class="lab-parts" role="group" aria-label="Select a grasp target">
+        <button type="button" data-lab-part="pin" aria-pressed="true"><i aria-hidden="true"></i> Steel pin</button>
+        <button type="button" data-lab-part="usb" aria-pressed="false"><i aria-hidden="true"></i> USB drive</button>
+        <button type="button" data-lab-part="hex" aria-pressed="false"><i aria-hidden="true"></i> Hex coupler</button>
+      </div>
+      <button type="button" data-lab-layout aria-pressed="false">Change layout <b>A</b></button>
     </div>
-    <div class="loop-stage">
-      <section class="loop-input" aria-label="Model input">
-        <span class="loop-label" data-loop-input-label>Reference context</span>
-        <h3 data-loop-input-title>One demonstration</h3>
-        <div class="loop-reference">
-          <div class="loop-filmstrip" aria-label="Four views from the Stack Bowls demonstration">
-            <img src="../assets/overview/demo-1.webp" alt="" loading="lazy" width="380" height="285">
-            <img src="../assets/overview/demo-2.webp" alt="" loading="lazy" width="380" height="285">
-            <img src="../assets/overview/demo-3.webp" alt="" loading="lazy" width="380" height="285">
-            <img src="../assets/overview/demo-4.webp" alt="" loading="lazy" width="380" height="285">
-          </div>
-          <div class="loop-windows" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-          </div>
-          <p>18 windows sampled across time</p>
+    <div class="lab-workspace">
+      <section class="lab-stage" aria-label="3D robot workspace">
+        <canvas data-lab-canvas aria-label="ARX robot workbench. Drag to orbit and click a part to select it." tabindex="0"></canvas>
+        <div class="lab-loading" data-lab-loading role="status">Loading the 3D workbench…</div>
+        <div class="lab-viewport-header">
+          <span class="lab-live-label"><i></i><span data-lab-view-label>Current episode</span></span>
+          <button type="button" data-lab-reset aria-label="Reset camera" title="Reset camera">⌖</button>
         </div>
-        <div class="loop-evidence" hidden>
-          <img data-loop-evidence-img alt="" width="380" height="285">
-          <p data-loop-evidence-note></p>
+        <span class="lab-target" data-lab-target hidden></span>
+        <div class="lab-wrist" data-lab-wrist hidden aria-label="Simulated wrist camera">
+          <canvas data-lab-wrist-canvas width="232" height="160" aria-hidden="true"></canvas>
+          <svg viewBox="0 0 232 160" aria-hidden="true"><line data-lab-offset-line/><circle data-lab-target-dot r="4"/><path data-lab-reticle/></svg>
+          <span>Wrist camera</span><b data-lab-wrist-readout></b>
         </div>
-        <div class="loop-memory">
-          <span class="loop-label">Interaction memory</span>
-          <div class="loop-memory-cards">
-            <div><img src="../assets/overview/memory-anchor.webp" alt="" loading="lazy" width="380" height="285"><small>Earlier anchors</small></div>
-            <div aria-hidden="true" class="loop-gap">···</div>
-            <div><img src="../assets/overview/memory-latest.webp" alt="" loading="lazy" width="380" height="285"><small>Latest chunk</small></div>
-          </div>
+        <div class="lab-tool-result" data-lab-tool-result hidden></div>
+        <div class="lab-viewport-footer">
+          <span data-lab-view-status>Ready for a new grasp</span><span class="lab-orbit-hint">Drag to orbit</span>
         </div>
       </section>
-      <section class="loop-agent" aria-label="Frozen vision-language model">
-        <div class="loop-agent-art" aria-hidden="true">
-          <svg viewBox="0 0 160 160" fill="none">
-            <defs>
-              <linearGradient id="loop-shell" x1="34" y1="45" x2="119" y2="133" gradientUnits="userSpaceOnUse"><stop stop-color="#f0f9fc"/><stop offset="1" stop-color="#68879c"/></linearGradient>
-              <linearGradient id="loop-glass" x1="50" y1="56" x2="106" y2="102" gradientUnits="userSpaceOnUse"><stop stop-color="#1e4052"/><stop offset="1" stop-color="#091622"/></linearGradient>
-            </defs>
-            <circle cx="80" cy="80" r="72" class="loop-orbit"/>
-            <circle cx="80" cy="80" r="64" class="loop-orbit inner"/>
-            <path d="M80 38V26" stroke="#9cb7cb" stroke-width="2"/><circle cx="80" cy="24" r="4" fill="#9ee8dc"/>
-            <rect x="24" y="62" width="13" height="32" rx="5" fill="#7798ab"/><rect x="123" y="62" width="13" height="32" rx="5" fill="#7798ab"/>
-            <rect x="32" y="43" width="96" height="71" rx="24" fill="url(#loop-shell)" stroke="#ecf9ff" stroke-opacity=".75"/>
-            <rect x="42" y="53" width="76" height="50" rx="17" fill="url(#loop-glass)" stroke="#557589"/>
-            <path d="M51 64Q55 60 63 60H99" stroke="#acd9ef" stroke-opacity=".24" stroke-linecap="round"/>
-            <g class="loop-eyes" fill="#a5fae7"><rect x="56" y="71" width="16" height="8" rx="4"/><rect x="88" y="71" width="16" height="8" rx="4"/></g>
-            <path d="M73 88Q80 94 87 88" stroke="#9ee8dc" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M57 123Q80 114 103 123L109 133Q110 142 99 142H61Q50 142 51 133Z" fill="url(#loop-shell)"/>
-            <path d="M74 132H86" stroke="#2b5765" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+      <aside class="lab-context" aria-label="In-context learning panel">
+        <div class="lab-reference">
+          <div class="lab-side-header"><span>01 / Demonstration</span><span class="lab-fixed">Fixed</span></div>
+          <h3 data-lab-demo-title>Steel pin</h3>
+          <p data-lab-demo-note>One example, sampled across time.</p>
+          <div class="lab-windows" role="group" aria-label="Open a demonstration window">
+            <button type="button" data-lab-window="0" aria-label="Demonstration window 1" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>01</button>
+            <button type="button" data-lab-window="1" aria-label="Demonstration window 2" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>02</button>
+            <button type="button" data-lab-window="2" aria-label="Demonstration window 3" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>03</button>
+            <button type="button" data-lab-window="3" aria-label="Demonstration window 4" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>04</button>
+            <button type="button" data-lab-window="4" aria-label="Demonstration window 5" aria-pressed="false"><canvas width="64" height="40" aria-hidden="true"></canvas><i></i>05</button>
+          </div>
+          <div class="lab-inspector" data-lab-inspector hidden>
+            <div><button type="button" data-lab-demo-start aria-pressed="true">Start view</button><button type="button" data-lab-demo-end aria-pressed="false">Result view</button></div>
+            <p data-lab-window-note></p>
+            <dl class="lab-window-record">
+              <div><dt>Action</dt><dd data-lab-window-action></dd></div>
+              <div><dt>Receipt</dt><dd data-lab-window-receipt></dd></div>
+            </dl>
+            <button type="button" data-lab-return>Back to current episode <span aria-hidden="true">↗</span></button>
+          </div>
         </div>
-        <span class="loop-label">Frozen VLM</span>
-        <strong data-loop-agent>Read context</strong>
-        <span class="loop-model-note">Weights stay fixed</span>
-      </section>
-      <section class="loop-output" aria-label="Recorded robot execution">
-        <div class="loop-camera-head">
-          <span class="loop-label" data-loop-camera>Head camera</span>
-          <span class="loop-camera-task" data-loop-task>Stack Bowls</span>
+        <div class="lab-agent">
+          <svg viewBox="0 0 42 42" aria-hidden="true" fill="none"><circle cx="21" cy="21" r="19" stroke="#29475b"/><path d="M21 6v5m0 20v5M6 21h5m20 0h5M10 10l4 4m14 14 4 4m0-22-4 4M14 28l-4 4" stroke="#a9eddb"/><rect x="13" y="13" width="16" height="16" rx="5" stroke="#a9eddb"/><circle cx="21" cy="21" r="3" fill="#a9eddb"/></svg>
+          <div><strong>Frozen VLM</strong><span data-lab-agent-state>Read the reference</span></div>
+          <div class="lab-agent-link" aria-hidden="true"><i></i></div>
         </div>
-        <div class="loop-camera">
-          <video data-loop-video playsinline muted preload="auto" poster="../assets/overview/icl.webp" width="800" height="600" aria-label="Recorded Stack Bowls execution"></video>
-          <img class="loop-poster" data-loop-poster src="../assets/overview/icl.webp" alt="" loading="lazy" width="640" height="480">
-          <span class="loop-camera-cue" data-loop-cue>Current scene ready</span>
+        <div class="lab-memory">
+          <div class="lab-side-header"><span>02 / Live history</span><span class="lab-fixed">Updates</span></div>
+          <div class="lab-memory-steps">
+            <button type="button" data-lab-anchor disabled>Anchor</button><span aria-hidden="true">···</span><button type="button" data-lab-latest disabled>Latest</button>
+          </div>
+          <p data-lab-memory-note>Executed results will appear here.</p>
         </div>
-      </section>
-      <svg class="loop-links" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true">
-        <path data-loop-path="0" d="M248 95 C270 95 280 160 313 160"/>
-        <path data-loop-path="1" d="M248 272 C275 272 278 220 313 220"/>
-        <path data-loop-path="2" d="M434 164 C465 164 473 123 511 123"/>
-        <path data-loop-path="3" d="M511 310 C478 310 460 224 435 224"/>
-        <path data-loop-path="4" d="M351 287 C320 309 309 333 272 333"/>
-        <path class="loop-trail" data-loop-trail pathLength="1"/>
-        <circle r="5" data-loop-signal="4"/><circle r="5" data-loop-signal="0"/><circle r="5" data-loop-signal="1"/><circle r="5" data-loop-signal="2"/><circle r="5" data-loop-signal="3"/>
+      </aside>
+      <svg class="lab-flow" viewBox="0 0 1000 420" preserveAspectRatio="none" aria-hidden="true">
+        <path data-lab-path="reference" d="M820 144 C820 155 790 160 790 183"/>
+        <path data-lab-path="observation" d="M661 205 C688 205 690 191 714 191"/>
+        <path data-lab-path="action" d="M713 216 C690 216 688 232 661 232"/>
+        <path data-lab-path="feedback" d="M661 283 C694 283 688 308 729 308"/>
+        <path data-lab-path="return" d="M830 309 C830 276 884 254 884 215"/>
+        <path data-lab-flow-trail pathLength="1"/>
+        <g data-lab-flow-packet><rect x="-7" y="-5" width="14" height="10" rx="2"/><path d="M-4 -1H4M-4 2H1"/></g>
       </svg>
     </div>
-    <div class="loop-transport">
-      <div class="loop-transport-top">
-        <div class="loop-playback" role="group" aria-label="Animation playback">
-          <button type="button" data-loop-play>Play</button>
-          <button type="button" data-loop-replay aria-label="Replay chapter" title="Replay chapter">↻</button>
-        </div>
-        <p data-loop-caption>Time-spaced examples from one demonstration enter the context.</p>
+    <div class="lab-controls">
+      <div class="lab-playback" role="group" aria-label="Episode playback">
+        <button type="button" data-lab-play>Play</button><button type="button" data-lab-next aria-label="Next step" title="Next step">Step <span aria-hidden="true">›</span></button>
+        <input data-lab-time aria-label="Episode timeline" type="range" min="0" max="16" step="0.01" value="0">
+        <output data-lab-clock>00:00 / 00:16</output>
       </div>
-      <div class="loop-steps" role="group" aria-label="Jump to a stage">
-        <button type="button" data-loop-step="0" aria-current="step"><span>01</span> <b>Read the demo</b></button>
-        <button type="button" data-loop-step="1"><span>02</span> <b>Observe</b></button>
-        <button type="button" data-loop-step="2"><span>03</span> <b>Execute</b></button>
-        <button type="button" data-loop-step="3"><span>04</span> <b>Update memory</b></button>
+      <div class="lab-tools" role="group" aria-label="Toggle geometric tools">
+        <span>MXI tools</span>
+        <button type="button" data-lab-tool="wrist" aria-pressed="true">Wrist guide</button>
+        <button type="button" data-lab-tool="tri" aria-pressed="false">Triangulate</button>
+        <button type="button" data-lab-tool="plan" aria-pressed="false">Motion preview</button>
       </div>
-      <p class="loop-status" data-loop-error hidden>Playback could not start. <a href="../assets/overview/icl.mp4">Open this clip directly</a>.</p>
-      <noscript><p class="loop-status"><a href="../assets/overview/icl.mp4">Watch the recorded Stack Bowls clip</a>.</p></noscript>
     </div>
   </div>
-  <figcaption><span>Figure 1</span> Recorded simulation, with animated context flow. The ICL view illustrates how fixed demonstration windows and retained live history reach the model. Tool views show separate episodes and highlight where each extension enters a decision.</figcaption>
+  <figcaption><span>Figure 1</span> Interactive simulation of the RoboICL loop on three precision grasps. The ARX model follows computed joint trajectories. The context flow, demo windows, and execution receipts illustrate how a frozen model can use examples and feedback.</figcaption>
 </figure>
 
 <div class="reading-layout wrap"><article class="prose">
