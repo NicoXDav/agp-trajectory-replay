@@ -8,16 +8,16 @@
 <script>try{document.documentElement.dataset.theme=localStorage.getItem('mxi-theme')||'dark'}catch(e){}</script>
 <link rel="icon" href="../assets/mxi-logo.png"><link rel="stylesheet" href="../assets/styles.c7ca676ddd0a.css"><link rel="stylesheet" href="blog.css">
 <link rel="stylesheet" href="research.css">
-<script src="blog.js?v=9" defer></script>
+<script src="blog.js?v=16" defer></script>
 <link rel="stylesheet" href="scenes.css">
 <link rel="stylesheet" href="opening.css">
 <link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=9">
-<link rel="stylesheet" href="context-loop.css?v=15">
+<link rel="stylesheet" href="context-loop.css?v=16"><link rel="stylesheet" href="report.css?v=1"><script type="module" src="report.js?v=1"></script>
 <link rel="preload" href="../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
-<script type="module" src="context-loop.js?v=15"></script>
+<script type="module" src="context-loop.js?v=16"></script>
 <script src="opening.js?v=9" defer></script>
 <script type="importmap">{"imports":{"three":"../assets/three/build/three.module.js","three/addons/":"../assets/three/examples/jsm/"}}</script>
-<script type="module" src="scene-loader.js?v=9"></script>
+<script type="module" src="scene-loader.js?v=16"></script>
 </head>
 <body>
 <a class="skip-link" href="#article">Skip to article</a>
@@ -30,31 +30,42 @@
 </nav>
 <div class="article-head wrap">
 <div class="edition"><span>MXI Research</span><span>November 2026</span></div>
-<h1 class="mxi-title"><span class="mxi-emphasis">MXI</span>-RoboICL</h1><p class="mxi-team-statement">An MXI team upgrade to RoboICL for more precise robot control.</p>
+<h1 class="mxi-title"><span class="mxi-emphasis">MXI</span>-RoboICL</h1><p class="mxi-team-statement">Geometry-aware embodied in-context learning</p>
 <div class="publication-meta"><span class="paper-slot" aria-hidden="true"></span><a href="https://github.com/Embodied-RSI/RoboICL"><span>RoboICL foundation</span>GitHub ↗</a></div>
 </div>
 <section id="showreel" class="showreel wrap" aria-label="MXI-RoboICL in action">
 <figure class="showreel-figure">
 <video id="showcase-video" controls playsinline preload="none" poster="../assets/film/v9/film-poster.jpg" aria-label="MXI-RoboICL: method film with English narration, captions and recorded successes">
-<source src="../assets/film/v9/roboicl-film.mp4" type="video/mp4">
-<a href="../assets/film/v9/roboicl-film.mp4">Watch the MXI-RoboICL method film</a>
+<source src="../assets/film/report/film.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" default src="../assets/film/report/new-lines.vtt">
+<a href="../assets/film/report/film.mp4">Watch the MXI-RoboICL method film</a>
 </video>
-<div class="film-links"><a href="../assets/film/v9/roboicl-film-4k.mp4">Watch in 4K ↗</a></div>
+<div class="film-links"><a href="../assets/film/report/film-4k.mp4">Watch in 4K ↗</a> <a href="../assets/film/report/en.vtt" download>English captions ↓</a></div>
 </figure>
 </section>
 <section id="background" class="opening-overview wrap" aria-label="Overview">
-  <p class="overview-lead"><strong>What can a robot learn from one demonstration?</strong> MXI-RoboICL builds on RoboICL, which gives a frozen vision-language model a recorded example and its own execution history. Each retained segment shows the starting observation, the action, the execution receipt, and the result. The model uses these examples alongside the current view to choose its next action.</p>
-  <p>MXI adds geometric references for the moments that demand precision. Wrist guides show where the fingers will close. Calibrated camera views can locate a relevant target in three dimensions. Motion checks preview whether a proposed route is reachable and continuous. After the arm moves, the model sees what actually happened and can adjust its next action.</p>
-  <p>In our RoboDojo self-evaluation, <strong>MXI-RoboICL scored 75.9</strong>, 3.79 points above Q0’s revised-rule reference of 72.11. Across three groups in our paired ablation study, MXI-RoboICL lost fewer points when task and scene information was removed. Stack Bowls retained its full score. The film above closes with eighteen full-score episodes across nine tasks.</p>
+<p class="overview-lead"><strong>A demonstration shows which object to pick up.</strong> When the pen starts somewhere else, the robot still has to bring its fingers around it. RoboICL gives a frozen vision-language model a recorded demonstration and selected portions of its own execution history. The model reads the images, actions and outcomes together, then predicts the next sequence of two-arm movements.</p>
+<p>MXI gives more of that context to the demonstration. Eighteen windows cover the expert trajectory, with room for six interactions from the current episode. In both sets of wrist images, a red cross marks the nominal grasp center and cyan lines trace the inner finger pads. The pen can change position, or even change hands, while those marks give the model the same reference for reading each grasp. Every wrist image carries the camera pose from the step when it was taken.</p>
+<p>On the 22 RoboDojo tasks shared with the original report, the three-category mean rose from <strong>52.27 to 80.58</strong>. Across 34 tasks, MXI-RoboICL scored <strong>75.93</strong> on the four-category mean, compared with 73.20 for Q0-Preview. Including the eight Open tasks gives MXI a five-category score of 75.37.</p>
 </section>
 
 <figure id="context-loop" class="context-loop wrap" aria-labelledby="loop-title" data-phase="reference">
   <header class="loop-intro">
     <div><span class="loop-eyebrow">How MXI-RoboICL works</span>
-      <h2 id="loop-title">Demonstration. Context. Action.</h2>
-      <p>One demonstration guides the next action. Each result informs what comes next.</p>
+      <h2 id="loop-title">What the policy sees</h2>
+      <p>In this archived Fill Pen Holder episode, the expert and the robot handle a purple pen with different hands.</p>
     </div>
   </header>
+<div class="observation-study">
+<div class="observation-pair" data-detail>
+<figure><figcaption>Expert demonstration <small>Right wrist · step 501</small></figcaption><div class="wrist-crop"><img width="640" height="480" src="../assets/observations/expert.webp" alt="Purple pen between the expert’s right fingers, above the red grasp center"></div></figure>
+<figure><figcaption>Current episode <small id="live-camera">Left wrist · step 87</small></figcaption><div class="wrist-crop"><img id="current-wrist" width="640" height="480" src="../assets/observations/approach.webp" alt="Purple pen to the right of the red cross in the left wrist image"></div></figure></div>
+<div class="observation-tools"><span><b class="cross-key">＋</b> Nominal grasp center <b class="pads-key">╱ ╲</b> Inner finger pads</span><div aria-label="Recorded observation"><button id="crop-mode" aria-pressed="true">Enlarge both</button> <button data-frame="approach" aria-pressed="true">Approach · 87</button><button data-frame="hold" aria-pressed="false">Holding · 266</button></div></div>
+<p id="wrist-caption" aria-live="polite">The expert holds the pen between the right pads. At step 87 the pen is still to the right of the other hand’s cross.</p>
+<details><summary>Camera poses for these frames</summary><div class="pose-grid" id="wrist-poses"></div><small>Camera to environment · translation in metres. Expert pad spacing comes from the gripper command. The live record uses measured finger joints.</small></details>
+</div>
+<div class="allocation"><h3>How the context is allocated</h3>
+<div><b>RoboICL</b><i style="--expert:50%"></i><span>12 expert · 12 online</span></div><div><b>MXI-RoboICL</b><i style="--expert:75%"></i><span>18 expert · 6 online</span></div>
+<p>Each slot holds one transition. The five thumbnails in the interactive grasp below illustrate windows sampled across a demonstration. The archived pen images above come from an earlier 12/12 run.</p></div>
   <div class="grasp-lab" aria-label="Interactive diagram of the MXI-RoboICL context loop">
     <div class="lab-workspace">
       <div class="lab-context">
@@ -105,7 +116,7 @@
             <div><h3>MXI Agent</h3><span>Frozen VLM</span></div>
           </div>
           <div class="lab-core-channels" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-          <span class="lab-model-note">Examples inform action</span>
+          <span class="lab-model-note">Bimanual action chunk</span>
           <i class="lab-port lab-output-port" data-lab-output-port></i>
           <div class="lab-core-scan" aria-hidden="true"></div>
         </div>
@@ -119,10 +130,11 @@
           <button type="button" data-lab-reset aria-label="Reset camera" title="Reset camera">⌖</button>
         </div>
         <span class="lab-target" data-lab-target hidden></span>
+        <div class="lab-wrist lab-ref-wrist" data-lab-ref-wrist hidden><canvas width="232" height="160"></canvas><span>Expert wrist · grasp</span></div>
         <div class="lab-wrist" data-lab-wrist hidden aria-label="Simulated wrist camera">
           <canvas data-lab-wrist-canvas width="232" height="160" aria-hidden="true"></canvas>
-          <svg viewBox="0 0 232 160" aria-hidden="true"><line data-lab-offset-line/><circle data-lab-target-dot r="4"/><path data-lab-reticle/></svg>
-          <span>Wrist camera</span><b data-lab-wrist-readout></b>
+          <svg viewBox="0 0 232 160" aria-hidden="true"><line data-lab-offset-line/><circle data-lab-target-dot r="4"/></svg>
+          <span>Current wrist</span><b data-lab-wrist-readout></b>
         </div>
         <div class="lab-tool-result" data-lab-tool-result hidden></div>
         <div class="lab-viewport-footer">
@@ -161,11 +173,11 @@
 <div class="context-strip"><div><span>Demonstration context</span><p>Selected windows from a separate reference trajectory.</p></div><div><span>Interaction memory</span><p>Retained execution records from the active episode.</p></div><div><span>Current observation</span><p>Three camera views, robot state, and calibration.</p></div></div>
 <p class="small">A demonstration window includes its starting observation, an action chunk, an execution receipt, and its ending observation. Omitted intervals are marked explicitly. Temporal sampling provides coverage, but does not guarantee that every brief contact or handover is retained.</p></section>
 
-<section id="method" class="method-chapter"><h2 class="method-group-title">Method</h2><h3>Wrist-camera guides</h3><p>A wrist image becomes more useful when the agent can relate the visible object to the hand that will grasp it. We project the arm’s nominal grasp center and inner finger-pad edges into its wrist image using the current camera calibration and public gripper geometry. For a narrow target, recognizing the object is only half the problem: the hand’s closing center must also land on it. The projected guide makes that offset visible before closure.</p>
+<section id="method" class="method-chapter"><h2 class="method-group-title">Method</h2><h3>Grasp references in the wrist views</h3><p>A wrist image becomes more useful when the agent can relate the visible object to the hand that will grasp it. We project the arm’s nominal grasp center and inner finger-pad edges into its wrist image using the current camera calibration and public gripper geometry. For a narrow target, recognizing the object is only half the problem: the hand’s closing center must also land on it. The projected guide makes that offset visible before closure.</p>
 
 <figure class="scene-figure" id="wrist-animation" data-scene="grasp">
-<div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>See the offset. Guide the grasp.</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><button data-guides aria-pressed="true">Hide reticle</button></div></div>
-<div class="scene-stage" role="group" aria-label="See the offset. Guide the grasp.">
+<div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>Aligning the pin with the grasp center</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><button data-raw aria-pressed="false">Raw wrist RGB</button><button data-guides aria-pressed="true">Hide reticle</button></div></div>
+<div class="scene-stage" role="group" aria-label="Aligning the pin with the grasp center">
 <canvas aria-label="First-person wrist view of precision grasp alignment, with a small full-arm context view" tabindex="0"></canvas>
 <div class="scene-loading">Loading 3D visualization…</div>
 <div class="scene-label main-label">Wrist RGB · precision pin pickup</div><div class="context-inset"><span>Robot context</span></div><div class="comparison-status" data-comparison>Bring target onto the crosshair</div>
@@ -177,10 +189,10 @@
 <figcaption><span>Figure 2</span> Search, cross the target, move past it, then correct and hold alignment before grasping. The crosshair is projected from the gripper geometry; the target moves relative to it. A green pulse visualizes alignment within 1 mm at the target-center plane. The correction view is digitally enlarged. The target marker, alignment cue and grasp sequence are illustrative, not a contact sensor or an experimental success-rate comparison.</figcaption>
 </figure>
 
-<p>The camera intrinsics <em>K</em> map a camera-frame point to image coordinates. The transform <em>T</em> connects the camera to the environment frame. Wrist extrinsics change with arm motion, so the overlay must use the transform for the same observation.</p>
-</section><section id="triangulation" class="method-chapter"><h3>Target triangulation</h3><p>Triangulation uses corresponding image points and calibrated camera poses to estimate a target’s 3D location. Two sufficiently separated views can be enough. A third view adds a consistency check; it is not a requirement for the basic geometry. This recovers metric depth from RGB and calibration, without requiring a depth map.</p>
+<p>In the archived gripper model, the nominal grasp center is 150 mm forward of the link-6 origin. The camera intrinsics <em>K</em> map a camera-frame point to image coordinates. The transform <em>T</em> connects the camera to the environment frame. Wrist extrinsics change with arm motion, so the overlay must use the transform for the same observation.</p>
+</section><section id="triangulation" class="method-chapter"><h3>Optional multi-view localization</h3><p>Triangulation uses corresponding image points and calibrated camera poses to estimate a target’s 3D location. Two sufficiently separated views can be enough. A third view adds a consistency check; it is not a requirement for the basic geometry. This recovers metric depth from RGB and calibration, without requiring a depth map.</p>
 <figure class="scene-figure" id="tri-animation" data-scene="tri">
-<div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>3D localization from RGB alone</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><button data-outlier aria-pressed="false">Try mismatched view</button><button data-reset>Reset view</button></div></div>
+<div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>3D localization from RGB alone</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><label class="ray-control">Explore one ray <input aria-label="Candidate position along the head ray" type="range" min="45" max="115" value="81" data-ray-slider></label><button data-outlier aria-pressed="false">Try mismatched view</button><button data-reset>Reset view</button></div></div>
 <div class="scene-stage" role="group" aria-label="3D localization from RGB alone">
 <canvas aria-label="Head camera on a gantry and wrist cameras attached to complete ARX arms, revealing depth before a reach; drag to orbit. Use arrow keys to rotate and plus or minus to zoom." tabindex="0"></canvas>
 <div class="scene-loading">Loading 3D visualization…</div>
@@ -192,11 +204,11 @@
 <div class="scene-progress"><i></i></div>
 <figcaption><span>Figure 3</span> A pixel alone leaves depth ambiguous. Corresponding RGB pixels and calibrated camera poses recover a metric 3D point without a depth map. The head image shows why points along one ray remain ambiguous; another view resolves that ambiguity. The spread cloud is computed from 128 trials with 1.5 px Gaussian noise and a 600 px focal length, magnified ×20 for visibility. It illustrates this camera arrangement, not measured hardware accuracy. The grasp sequence is scripted.</figcaption>
 </figure><p>Real rays rarely intersect perfectly. The useful estimate is a point near the rays, checked for positive depth, adequate baseline, and reprojection consistency. Equally important is identity: geometrically consistent pixels on a pen do not locate the holder the robot is trying to grasp.</p><div class="evidence-steps"><div><b>Match</b><span>The same target landmark in two views.</span></div><div><b>Check</b><span>Calibration, ray geometry, and reprojection.</span></div><div><b>Use</b><span>A bounded claim tied to the current action.</span></div></div>
-<p>A reliable single point can support a position correction. Two can suggest a direction if their identities are meaningful. Neither establishes a full object pose or a surface plane. The aim of the target-geometry work is to use sparse evidence at the level it supports, rather than discard everything below a fixed point count.</p><details><summary>Why timestamp alignment matters</summary><p>Pairing an older RGB frame with the latest wrist pose moves its ray in the wrong direction. Render synchronization and observation-aligned state are prerequisites for useful geometry. Historical demonstrations also require their own calibration and provenance checks.</p></details></section>
+<p>A reliable single point can support a position correction. Two can suggest a direction if their identities are meaningful. Neither establishes a full object pose or a surface plane. In the archived Fill Pen Holder query shown in the film, the head and right wrist rays passed 0.12 mm apart at a 27.1° angle. Those values describe the rays; the policy still has to identify the rim.</p><details><summary>Why timestamp alignment matters</summary><p>Pairing an older RGB frame with the latest wrist pose moves its ray in the wrong direction. Render synchronization and observation-aligned state are prerequisites for useful geometry. Historical demonstrations also require their own calibration and provenance checks.</p></details></section>
 
-<section id="execution" class="method-chapter"><h3>Checked execution</h3><p><strong>A destination is only the beginning of a motion.</strong> In our pouring experiments, route tools turn target poses into a sequence the arm can follow. Nearby Cartesian samples are solved with inverse kinematics, checked against joint limits and neighboring configurations, then timed for execution. The model returns to fresh images and execution feedback to decide what to do next.</p>
-<figure class="scene-figure" id="planning-animation" data-scene="planning">
-<div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>Plan, place, release</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><button data-reset>Reset view</button></div></div>
+<section id="execution" class="method-chapter"><h3>Route preview for pouring</h3><p><strong>A destination is only the beginning of a motion.</strong> In our pouring experiments, route tools turn target poses into a sequence the arm can follow. Nearby Cartesian samples are solved with inverse kinematics, checked against joint limits and neighboring configurations, then timed for execution. The model returns to fresh images and execution feedback to decide what to do next.</p>
+<p>On ten matched Pour Balls into Vase layouts, the mean rose from <strong>70 to 100</strong> with route tools available. L0, L8 and L20 improved and the other seven retained full scores. In L0, a route passed preview, execution stopped on a tracking error, and a later transfer completed the task. The simulation below lets you inspect the preview separately.</p><figure class="scene-figure" id="planning-animation" data-scene="planning">
+<div class="scene-heading"><div><span class="scene-kicker">Interactive 3D illustration</span><h4>Plan, place, release</h4></div><div class="scene-controls"><button data-play aria-pressed="false">Pause</button><button data-replay>Replay</button><button data-failed>Preview unreachable target</button><button data-reset>Reset view</button></div></div>
 <div class="scene-stage" role="group" aria-label="Path sampling, inverse kinematics, continuity checks and execution">
 <canvas aria-label="Full ARX arms placing a cup on a coaster, releasing it and retracting after a sampled and checked path. Drag to orbit; arrow keys rotate, plus and minus zoom." tabindex="0"></canvas>
 <div class="scene-loading">Loading motion visualization…</div>
@@ -216,30 +228,16 @@
 <p>The tool checks <strong>how the arm can move</strong>; the next observation tells the agent <strong>what actually happened</strong>. Execution receipts distinguish the requested route from the executed prefix and any discarded suffix. Reaching a pose alone does not establish object retention or a successful pour.</p></section>
 
 <section id="results"><h2>Benchmark results</h2>
-<p><strong>MXI-RoboICL achieves a self-evaluated score of 75.9.</strong> Against Q0’s revised-rule reference of 72.11, the reported difference is <strong>3.79 points</strong>. A single demonstration and a frozen model remain at the heart of the system.</p>
-<figure class="benchmark-figure">
-<div class="benchmark-heading"><div class="benchmark-lead"><span>MXI-RoboICL · self-evaluated</span><strong class="benchmark-score">75.9</strong><h3>Stronger control.<br>A frozen model.</h3></div><div class="score-delta"><strong>+3.79</strong><span>points above Q0’s<br>revised-rule reference</span></div></div>
-<div class="benchmark-rows">
-<div class="benchmark-row our-score"><div><strong>MXI-RoboICL</strong><span>Our method · self-evaluated</span></div><div class="benchmark-track"><i style="width:75.9%"></i></div><b>75.9</b></div>
-<div class="benchmark-row"><div><strong>Q0</strong><span>Revised-rule reference</span></div><div class="benchmark-track"><i style="width:72.11%"></i></div><b>72.11</b></div>
-</div><div class="benchmark-axis"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
-<figcaption>Higher score is better. MXI-RoboICL: team-reported self-evaluation. Q0: 72.11 under the organizers’ revised rules, as communicated to our team. This comparison does not imply an officially verified leaderboard placement.</figcaption>
-<details><summary>Evaluation provenance</summary><p>The 75.9 result and the revised Q0 reference are reported by the MXI team. The Q0 reference reflects the organizers’ revised rules as communicated to the team and may differ from the public leaderboard. This aggregate comparison is a team-reported result; the full run-level record and exact evaluation configuration are not included in this summary.</p></details>
-</figure>
-</section>
-<section id="ablation"><h2>Information ablation</h2><p>Our paired evaluation compares each system with its original context and with readable task/scene priors removed. <strong>MXI-RoboICL shows smaller score drops in all three tested task groups.</strong> Compared with Q0, the score decline is smaller by 50 points on Stack Bowls, 32.5 on Pack Objects, and 6.7 on Insert Tubes.</p><figure class="chart-figure"><div class="figure-top"><span>Information-ablation study</span><div class="legend"><i class="robo"></i>MXI-RoboICL <i class="qzero"></i>Q0</div></div><div class="ablation-summary"><strong>More performance retained.</strong><span>Original and ablated scores shown together · higher progress is better</span></div><div id="ablation-chart" class="task-grid"></div><figcaption><span>Figure 5</span> Mean progress score before and after information removal. Seed 0; 8 paired layouts and 32 scored trajectories across the full study. Public control backends were retained. This is exploratory evidence, not a significance claim.</figcaption><details><summary>Paired scores and sampling methodology</summary><div class="table-scroll"><table><thead><tr><th>Task / layout</th><th>MXI-RoboICL original → ablated</th><th>Q0 original → ablated</th></tr></thead><tbody><tr><td>Bowls / standard L8</td><td>100 → 100</td><td>100 → 100</td></tr><tr><td>Bowls / random L19</td><td>100 → 100</td><td>100 → 0</td></tr><tr><td>Pack / standard L20</td><td>50 → 50</td><td>50 → 25</td></tr><tr><td>Pack / random L1</td><td>10 → 0</td><td>50 → 0</td></tr><tr><td>Tubes / standard L9</td><td>100 → 40</td><td>100 → 0</td></tr><tr><td>Tubes / standard L50</td><td>20 → 20</td><td>40 → 40</td></tr><tr><td>Tubes / standard L53</td><td>40 → 20</td><td>20 → 20</td></tr><tr><td>Tubes / standard L27*</td><td>40 → 100</td><td>40 → 100</td></tr></tbody></table></div><p>* L27 was added after the initial results. It is displayed in the table but excluded from the primary Insert Tubes chart. Strong task/layout variation and the single seed limit generalization.</p></details></figure><p><strong>MXI-RoboICL loses fewer points than Q0: 50 fewer on Stack Bowls, 32.5 fewer on Pack Objects, and 6.7 fewer on Insert Tubes.</strong> These are complementary signs of resilience in the tested pairs. Packing starts from a lower original score, and the small, single-seed study remains exploratory.</p></section>
-
-<section id="simplicity"><h2>Simple. Elegant. Effective.</h2><p>MXI-RoboICL retains the foundation’s common interaction format, bringing demonstration and live experience into the same conversation. Shared control conventions are expressed once; bounded history preserves selected earlier interactions and the latest feedback. Geometry can then enrich a familiar loop without turning every task into a separate agent.</p><figure class="chart-figure"><div class="figure-top"><span><strong>A smaller interface.</strong> Less authored text is better ↓</span><span class="small">Authored-text audit · Unicode characters</span></div><div class="footprint-highlight"><div><strong>76% less</strong><span>audited text than Q0</span></div><div><strong>84% less</strong><span>audited text than HexaShell</span></div><p><span class="footprint-label">MXI-RoboICL · foundation interface</span><b>6,258</b><span>characters in the audited subset</span></p></div><div class="audit-legend"><span><i class="shared-key"></i> Shared instructions + tool schemas</span><span><i class="task-key"></i> Median task text</span></div>
-<div class="audit-axis"><span>0</span><span>15k</span><span>30k</span><span>45k characters</span></div>
-<div class="audit-rows">
-<div class="audit-row ours"><strong>MXI-RoboICL <small>Shortest in this audit</small></strong><div class="audit-track"><i style="width:13.91%" class="shared"></i></div><span>6,258</span></div>
-<div class="audit-row"><strong>Q0</strong><div class="audit-track"><i style="width:56.83%" class="shared"></i><i style="width:1.83%" class="task"></i></div><span>26,395.5</span></div>
-<div class="audit-row"><strong>HexaShell</strong><div class="audit-track"><i style="width:80.09%" class="shared"></i><i style="width:9.27%" class="task"></i></div><span>40,212.5</span></div>
-</div>
-<div class="audit-breakdown"><div><span>Shared / median task text</span><b>6,258 / 0</b><small>MXI-RoboICL</small></div><div><span>Shared / median task text</span><b>25,573 / 822.5</b><small>Q0</small></div><div><span>Shared / median task text</span><b>36,041 / 4,171.5</b><small>HexaShell</small></div></div>
-<figcaption><span>Figure 6</span> Authored-text audit of shared instructions and tool schemas plus median task text. Demonstrations, dynamic state, and on-demand files are excluded; benchmark-derived task text is not comprehensively classified. This measures authored instructions, not the full inference context: demonstration images and actions still consume tokens. It does not measure full implementation complexity.</figcaption><details><summary>Audit methodology and scope</summary><p>The audit covers the shared instructions, tool schemas, and median task text in the measured implementations. Coverage of RoboICL’s task-local pouring interface and runtime prompt variants is incomplete. The reported counts therefore describe the audited subset rather than all active prompt paths or total system complexity.</p></details></figure><p><strong>A compact interface is a core design choice.</strong> MXI-RoboICL organizes demonstration and live feedback through the same grammar, keeping the control loop easy to inspect and extend. The audited text footprint is smaller; full inference cost also includes demonstration images, action records, and runtime tools.</p></section>
-
-<section id="next"><h2>Outlook</h2><p><strong>MXI is extending context-based learning toward more precise robot control:</strong> learn from examples, preserve useful interaction history, and make the consequences of each action visible. The current upgrade adds explicit geometry to that foundation while keeping the model frozen.</p><div class="outlook-pillars"><div><h3>Learn from context</h3><p>A demonstration and retained experience inform the next action.</p></div><div><h3>Ground each action</h3><p>Wrist guides and calibrated target points connect intent to the scene.</p></div><div><h3>Improve through feedback</h3><p>Actual outcomes guide corrections throughout the episode.</p></div></div><p>The next step is to isolate the gains from wrist guides, target geometry, and checked execution under matched layouts and seeds. We want to establish when sparse geometric evidence improves a decision, how reliably that benefit transfers across tasks, and how much capability a simple, auditable interface can support.</p><div class="closing"><a href="https://github.com/Embodied-RSI/RoboICL">Explore the RoboICL foundation ↗</a></div></section>
+<div class="report-score"><div><small>MXI-RoboICL · four-category mean</small><strong>75.93</strong></div><p>34 tasks, 591 scored layouts. Each category carries equal weight. Q0-Preview scored 73.20 in the 18 November 2026 leaderboard snapshot used in the report.</p></div>
+<div class="table-scroll"><table><thead><tr><th>Evaluation</th><th>MXI-RoboICL</th><th>Comparison</th><th>Difference</th></tr></thead><tbody>
+<tr><th>22 shared tasks · 3 categories</th><td>80.58</td><td>Original RoboICL · 52.27</td><td>+28.32¹</td></tr>
+<tr><th>34 tasks · 4 categories</th><td>75.93</td><td>Q0-Preview · 73.20</td><td>+2.73</td></tr>
+<tr><th>42 tasks · 5 categories</th><td>75.37</td><td>Q0-Preview · 74.20</td><td>+1.17</td></tr></tbody></table></div>
+<div class="category-chart" aria-label="Four-category comparison"><p><strong>Where the scores differ</strong>　 MXI / Q0-Preview</p><div><span>Generalization</span><i style="--lo:61.95%;--hi:64%;--m:61.95%;--q:64%"></i><b>61.95 / 64.00</b></div><div><span>Precision</span><i style="--lo:65.3%;--hi:72.13%;--m:72.13%;--q:65.3%"></i><b>72.13 / 65.30</b></div><div><span>Long-Horizon</span><i style="--lo:69.8%;--hi:71.48%;--m:71.48%;--q:69.8%"></i><b>71.48 / 69.80</b></div><div><span>Memory</span><i style="--lo:93.68%;--hi:98.15%;--m:98.15%;--q:93.68%"></i><b>98.15 / 93.68</b></div></div><p class="small">Task progress on a 0–100 scale. ¹ Calculated before rounding. Including Open gives its eight tasks the weight of one category.</p>
+</section><section id="ablation"><h2>Removing scoring information</h2><p>What happens when the policy receives the task in ordinary language with fewer evaluator details? The RoboICL experiment removed the scoring tiers and restated task requirements in words. The Q0 intervention also removed completion tolerances and selected scene measurements. Both retained a task description.</p>
+<div class="table-scroll"><table><thead><tr><th>Task</th><th>Scenes</th><th>RoboICL<br>original → reduced</th><th>Q0<br>original → reduced</th><th>Difference in changes</th></tr></thead><tbody><tr><td>Build Tower</td><td>7</td><td>64.3 → 100.0</td><td>67.1 → 58.6</td><td>+44.3</td></tr><tr><td>Fasten Screws</td><td>7</td><td>62.9 → 70.0</td><td>48.6 → 50.0</td><td>+5.7</td></tr><tr><td>Insert Tubes</td><td>6</td><td>76.7 → 80.0</td><td>43.3 → 66.7</td><td>−20.0</td></tr><tr><td>Play Stacking Toy</td><td>3</td><td>30.0 → 26.7</td><td>53.3 → 53.3</td><td>−3.3</td></tr><tr><td>Organize Table</td><td>2</td><td>100.0 → 87.5</td><td>87.5 → 75.0</td><td>0.0</td></tr></tbody></table></div><p class="small">Table 23 of the report. Each scene has scores in all four conditions. The last column subtracts Q0’s change from RoboICL’s change before rounding. The two interventions remove different information.</p></section>
+<section id="simplicity"><h2>How much task guidance is written by hand?</h2><div class="report-score"><div><small>Configurations with no extra task note</small><strong>22 / 34</strong></div><p>The median authored specification was 6,258 characters, including shared instructions, tool schemas and additional task notes. That is 76.3% shorter than Q0’s and 84.5% shorter than HexaShell’s in this audit.</p></div><p>Each inference request also includes the demonstration, observations, actions and geometry. In three archived 12/12 requests, the text alone ranged from 161,162 to 205,786 characters.</p></section>
+<section id="next"><h2>Where grasps still fail</h2><p>A pen can line up with the cross while the other hand tips its holder. Two camera rays can agree on a point on the wrong object. After each action chunk the policy sees the new images and the execution receipt, giving it a chance to check what moved and whether the object is still supported.</p></section>
 <section class="references"><h3>Sources & further reading</h3><ol><li><a href="https://github.com/Embodied-RSI/RoboICL">RoboICL source code</a> — implementation and configuration.</li><li><a href="https://robodojo-benchmark.com/">RoboDojo</a> — benchmark and evaluation context.</li><li><a href="https://openrua.ai/uni-robot-agent">uni-robot-agent</a> — related work on robot-use harnesses.</li></ol></section>
 </article></div></main><footer class="wrap"><a href="https://mxiteam.github.io/">MXI: Mathematics × Intelligence</a><span>© 2026 MXI Research</span></footer>
 </body></html>

@@ -79,6 +79,7 @@ export class GraspLabView {
     this.stage = root.querySelector('.lab-stage');
     this.canvas = root.querySelector('[data-lab-canvas]');
     this.target = root.querySelector('[data-lab-target]');
+    this.rootRef = root.querySelector('[data-lab-ref-wrist]');
     this.wrist = root.querySelector('[data-lab-wrist]');
     this.wristContext = root.querySelector('[data-lab-wrist-canvas]').getContext('2d');
     this.toolResult = root.querySelector('[data-lab-tool-result]');
@@ -280,8 +281,8 @@ export class GraspLabView {
     this.toolResult.hidden=!result;this.toolResult.textContent=result;
 
     const wrist=tools.has('wrist')&&!reference&&time>=2.1&&time<9.9;
-    this.wrist.hidden=!wrist;
-    if(wrist)this.renderWrist();
+    this.wrist.hidden=!wrist;this.rootRef.hidden=!wrist;
+    if(wrist)this.renderWrist(frame[6]);
     this.renderer.setViewport(0,0,this.width,this.height);this.renderer.render(this.scene,this.camera);
     const labeled=this.parts.find(part=>part.id===this.hovered)||this.active;
     const label=labeled.object.position.clone().add(vector(0,.14,0)).project(this.camera);
@@ -290,7 +291,15 @@ export class GraspLabView {
     this.target.style.left=`${(label.x/2+.5)*100}%`;this.target.style.top=`${(.5-label.y/2)*100}%`;
   }
 
-  renderWrist() {
+  captureReferenceWrist() {
+    const frame=frameAt(this.data,this.sequence,8.35);
+    this.arm.pose(frame.slice(0,6),frame[6]);
+    this.active.object.position.fromArray(frame.slice(10,13));
+    this.renderWrist(frame[6]);
+    this.rootRef.querySelector('canvas').getContext('2d').drawImage(this.wristContext.canvas,0,0);
+  }
+
+  renderWrist(opening) {
     this.arm.cameraPose(this.wristCamera);
     const {renderer,wristCamera}=this;
     const w=232,h=160,dpr=renderer.getPixelRatio();
@@ -301,7 +310,13 @@ export class GraspLabView {
     const [tx,ty]=imagePoint(this.active.object.position);
     const visible=tx>0&&ty>0&&tx<w&&ty<h;
     const offset=Math.hypot(x-tx,y-ty);
-    this.wrist.querySelector('[data-lab-reticle]').setAttribute('d',`M${x-11} ${y}h22M${x} ${y-11}v22`);
+    const ctx=this.wristContext;
+    ctx.strokeStyle='#ff6868';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x-8,y);ctx.lineTo(x+8,y);ctx.moveTo(x,y-8);ctx.lineTo(x,y+8);ctx.stroke();
+    ctx.strokeStyle='#59ece4';
+    for(const sign of [-1,1]){
+      const edge=[.13,.15].map(length=>imagePoint(this.arm.links.link6.localToWorld(vector(length,sign*(opening+.0005),0))));
+      ctx.beginPath();ctx.moveTo(...edge[0]);ctx.lineTo(...edge[1]);ctx.stroke();
+    }
     const target=this.wrist.querySelector('[data-lab-target-dot]');target.setAttribute('cx',tx);target.setAttribute('cy',ty);target.style.visibility=visible?'visible':'hidden';
     const line=this.wrist.querySelector('[data-lab-offset-line]');
     for(const [key,value] of Object.entries({x1:x,y1:y,x2:tx,y2:ty}))line.setAttribute(key,value);

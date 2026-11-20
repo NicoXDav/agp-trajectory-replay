@@ -1,0 +1,21 @@
+.observation-study{border:1px solid var(--line);border-radius:14px;padding:clamp(15px,2.6vw,38px);background:var(--panel);color:var(--text)}
+.observation-pair,.pose-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2.4vw,34px)}
+.observation-pair figure{margin:0;min-width:0}.observation-pair figcaption{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.3em;margin:0 0 10px;font:500 clamp(19px,2vw,32px)/1.2 Georgia,serif;color:inherit}
+.observation-pair small,.observation-study details small{color:var(--muted);font:400 14px/1.45 system-ui}
+.observation-pair img{width:100%;height:auto;display:block;border-radius:5px}
+.observation-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.cross-key{color:#ec5353;font-size:1.45em}.pads-key{margin-left:12px;color:#219caa}
+.observation-tools button,.ray-control{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:5px;padding:8px 12px;font:inherit;cursor:pointer}
+.observation-tools button[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 -2px var(--accent)}.observation-study details{border-top:1px solid var(--line);padding-top:10px}.observation-study summary{cursor:pointer}.pose-grid pre{overflow:auto;font-size:clamp(10px,1vw,16px)}
+.allocation{margin:30px auto 24px}.allocation h3{font:500 27px Georgia,serif}.allocation>div{display:grid;grid-template-columns:120px minmax(60px,1fr) 185px;align-items:center;gap:16px;margin:9px 0}
+.allocation i{height:12px;background:repeating-linear-gradient(90deg,transparent 0 calc(100% / 24 - 2px),var(--panel) calc(100% / 24 - 2px) calc(100% / 24)),linear-gradient(90deg,#83a8cf var(--expert),#4fa98f var(--expert));border-radius:2px}
+.allocation p,.observation-tools{font-size:15px}.report-score{border-block:1px solid var(--line);padding:24px 0;display:grid;grid-template-columns:minmax(180px,.7fr) 1fr;gap:30px;align-items:center}.report-score strong{display:block;font:500 clamp(48px,7vw,90px)/1.2 Georgia,serif;color:var(--accent)}
+.prose .report-score p{margin:0}.table-scroll th,.table-scroll td{text-align:left;font-variant-numeric:tabular-nums}
+.ray-control{display:inline-flex;align-items:center;gap:5px;font-size:12px}.ray-control input{width:70px}.raw-wrist :is(.wrist-frame,.guide-key,.precision-metrics,.comparison-status){visibility:hidden}
+@media(max-width:680px){.allocation>div{grid-template-columns:76px 1fr 109px;font-size:12px;gap:6px}.observation-pair figcaption{display:grid;font-size:17px}.observation-pair small{font-size:11px}.report-score{grid-template-columns:1fr;gap:8px}.observation-tools button{font-size:13px}.pose-grid{grid-template-columns:1fr}.observation-study p{font-size:15px}.scene-controls{flex-wrap:wrap}}
+.wrist-crop{overflow:hidden;border-radius:5px}.observation-pair[data-detail] .wrist-crop img{transform:scale(1.55);transform-origin:50% 62%}.observation-study #wrist-caption{margin:.8rem 0 1rem}
+.category-chart{margin:2em 0}.category-chart>div{display:grid;align-items:center;grid-template-columns:minmax(90px,1fr) 2fr minmax(95px,1fr);gap:12px;margin:.7em 0;font-size:.85em}.category-chart i{position:relative;height:3px;background:linear-gradient(to right,var(--line) var(--lo),var(--muted) var(--lo) var(--hi),var(--line) var(--hi))}.category-chart i:before,.category-chart i:after{content:'';position:absolute;top:50%;transform:translate(-50%,-50%);width:9px;height:9px;border-radius:50%}.category-chart i:before{left:var(--q);background:var(--panel);border:1px solid var(--muted)}.category-chart i:after{left:var(--m);background:var(--accent)}.category-chart b{font-variant-numeric:tabular-nums}
+@media(max-width:680px){.observation-pair figcaption{min-height:4.1em;align-content:space-between}.observation-tools>div{display:flex;gap:3px;flex-wrap:wrap}.category-chart>div{font-size:12px}}
+.lab-stage .lab-wrist{width:30%;right:2%;bottom:48px}
+.lab-stage .lab-ref-wrist{right:33%}
+@media(max-width:680px){.lab-stage .lab-wrist{width:36%;bottom:39px}.lab-stage .lab-ref-wrist{right:39%}}

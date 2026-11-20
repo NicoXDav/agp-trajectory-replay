@@ -124,6 +124,11 @@ class GraspIllustration extends Illustration {
   this.wristCamera=new THREE.PerspectiveCamera(78,1,.008,20);
   this.contextInset=figure.querySelector('.context-inset');
   this.wrist=figure.querySelector('.wrist-frame');this.bracket=figure.querySelector('.target-bracket');this.line=figure.querySelector('.alignment-line');this.reticle=figure.querySelector('.reticle');this.readout=figure.querySelector('.wrist-readout');
+  figure.querySelector('[data-raw]').addEventListener('click', event => {
+   const raw=figure.classList.toggle('raw-wrist');
+   event.currentTarget.setAttribute('aria-pressed',String(raw));
+   figure.querySelector('[data-guides]').disabled=raw;
+  });
   figure.querySelector('[data-guides]').addEventListener('click',e=>{
    const show=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(show));e.currentTarget.textContent=show?'Hide reticle':'Show reticle';this.wrist.classList.toggle('hide-reticle',!show);
   });
@@ -213,6 +218,10 @@ class TriIllustration extends Illustration {
   });
   this.headCamera=new THREE.PerspectiveCamera(55,1,.01,20);
   this.headFrame=figure.querySelector('.head-frame');
+  this.raySlider=figure.querySelector('[data-ray-slider]');
+  this.raySlider.addEventListener('input',()=>{
+   this.time=1;this.paused=true;this.sync();this.update(0);this.render();
+  });
   this.depthRange=figure.querySelector('[data-depth-range]');this.depthPoint=figure.querySelector('[data-depth-point]');
   this.camera=new THREE.PerspectiveCamera(37,1,.01,30);this.camera.position.set(3.9,2.6,3.1);
   this.controls=new OrbitControls(this.camera,this.canvas);this.controls.target.set(0,.85,0);this.controls.enablePan=false;this.controls.enableDamping=true;this.controls.minDistance=4.2;this.controls.maxDistance=9;this.controls.minPolarAngle=.35;this.controls.maxPolarAngle=1.5;this.controls.autoRotateSpeed=.45;
@@ -243,7 +252,7 @@ class TriIllustration extends Illustration {
   this.headCamera.lookAt(this.rig.headOptical.localToWorld(V(0,0,1)));this.headCamera.updateMatrixWorld();
   const index=t<4?0:t<8?1:t<14?2:t<21?3:4;
   // Each wrist camera appears with its whole arm; the head stays on its gantry.
-  this.rig.left.root.visible=index>=1;this.rig.right.root.visible=index>=2;
+  this.rig.left.root.visible=true;this.rig.right.root.visible=true;
   this.world.visible=true;this.ground.visible=true;
   this.story(index,t>=28?'Return the object':['One pixel. Several possible depths.','Two views recover depth','A third view tightens the estimate','Reach to the 3D position','Close at the right place'][index],t>=28?'The arm places the object down and opens the gripper.':['The amber hypotheses project onto the same head-camera pixel.','Pixel uncertainty becomes a spread of possible 3D estimates.','A complementary view reduces the spread in this simulated example.','The full ARX arm approaches the estimated 3D location.','The fingers close around the target and the arm lifts it.'][index]);
   this.figure.querySelector('[data-geometry]').textContent=['Depth unresolved','Two-view estimate','Three-view agreement','Metric reach target','Object retained'][index];
@@ -257,7 +266,7 @@ class TriIllustration extends Illustration {
   const rejected=index>=2&&pixelResidual>4;
   this.rays.forEach((ray,i)=>{ray.visible=i<=index;ray.material.opacity=i===2&&rejected?.3:t<14?.85:.23;ray.material.color.setHex(i===2&&rejected?0xff7984:colors[i]);setSegment(ray,this.positions[i],rayTargets[i]);this.packets[i].visible=t<14&&i<=index&&!(i===2&&rejected);this.packets[i].position.copy(this.positions[i]).lerp(rayTargets[i],(t*.36+i*.2)%1);});
   this.labels[2].textContent=rejected?'Right wrist · rejected':'Right wrist';
-  this.ambiguity.forEach((dot,i)=>{dot.visible=index===0;dot.position.copy(this.positions[0]).lerp(this.target,[.62,.81,1][i]);});
+  this.ambiguity.forEach((dot,i)=>{dot.visible=index===0&&i===1;dot.position.copy(this.positions[0]).lerp(this.target,Number(this.raySlider.value)/100);});
   const count=index===0?1:index===1||rejected?2:3;
   if(count>1){const origins=this.positions.slice(0,count).map(v=>v.toArray());const directions=rayTargets.slice(0,count).map((v,i)=>v.clone().sub(this.positions[i]).normalize().toArray());this.estimate=V(...triangulateRays(origins,directions));}
   // The noisy trial cloud is explanatory geometry, separate from scripted arm motion.
@@ -283,7 +292,7 @@ class TriIllustration extends Illustration {
   const z=(index>0?this.estimate:this.target).clone().sub(this.headCamera.position).dot(this.headCamera.getWorldDirection(V()))/motion.scale;
   this.figure.querySelector('[data-depth-label]').textContent=index===0?'Example depths on the same ray':'Recovered head-camera depth Z';
   this.figure.querySelector('[data-depth]').innerHTML=index===0?'Unknown':z.toFixed(3)+' <small>m</small>';
-  this.figure.querySelector('[data-geometry-detail]').textContent=index===0?[.62,.81,1].map(n=>(z*n).toFixed(2)+' m').join(' · ')+' — same pixel.':this.figure.querySelector('[data-geometry-detail]').textContent;
+  this.figure.querySelector('[data-geometry-detail]').textContent=index===0?'Candidate Z: '+(z*Number(this.raySlider.value)/100).toFixed(2)+' m · same head pixel':this.figure.querySelector('[data-geometry-detail]').textContent;
   const band=30*spread.rms/this.spreadCache[0].rms;this.depthRange.style.width=index===0?'74%':band+'%';this.depthRange.style.left=index===0?'13%':(50-band/2)+'%';this.depthPoint.hidden=index===0;
   this.figure.querySelector('[data-ray-explanation]').textContent=index===0?'Same pixel · depth still ambiguous':'Same landmark · depth recovered from other views';
   this.controls.autoRotate=!this.paused&&!this.manual&&!reduced.matches;this.controls.update(delta);
@@ -353,6 +362,16 @@ class PlanningIllustration extends Illustration {
   this.label=figure.querySelector('[data-waypoint-label]');this.goalLabel=figure.querySelector('[data-goal-label]');
   this.checks=[...figure.querySelectorAll('[data-check]')];
   this.jointBars=[...figure.querySelectorAll('.joint-bars i')];
+  // The illustrative rejected point is beyond even the fully extended serial chain.
+  const reach=motion.joints.filter(j=>j.type==='revolute').reduce((sum,j)=>sum+Math.hypot(...j.xyz),Math.hypot(...motion.tcp))*motion.scale;
+  const base=V(...motion.leftBase);
+  const unreachable=base.clone().add(this.points.at(-1).clone().sub(base).normalize().multiplyScalar(reach*1.18));
+  this.rejection=ball(this.scene,.045,0xff565b,unreachable.toArray());this.rejection.visible=false;
+  const failureButton=figure.querySelector('[data-failed]');
+  failureButton.addEventListener('click',()=>{
+   this.failed=!this.failed;this.time=this.failed&&reduced.matches?13:9;this.paused=this.failed&&reduced.matches;this.sync();this.update(0);this.render();
+  });
+  figure.querySelectorAll('[data-replay],[data-play],[data-stage]').forEach(b=>b.addEventListener('click',()=>{this.failed=false;this.update(0);this.render();}));
   this.nodeStrip=figure.querySelector('.planning-nodes');
   this.nodeStrip.innerHTML=this.nodes.map(()=>'<i></i>').join('');this.nodeStrip.style.gridTemplateColumns='repeat('+this.nodes.length+',1fr)';
   this.nodeDots=[...this.nodeStrip.children];this.update(0);this.measure();
@@ -391,7 +410,21 @@ class PlanningIllustration extends Illustration {
   this.figure.querySelector('[data-executed]').textContent=phase<4?'Waiting':t>=38?'Complete':Math.min(100,Math.round((t-21)/17*100))+'%';
   const titles=['Place the cup on the coaster','Turn a route into nearby poses','Find a joint solution for each point','Keep the configuration continuous','Lower the cup onto its support',t<33?'Release only after placement':t<38?'Open fingers. Retract the hand.':'Placed, released, and clear'];
   const desc=['Move the held cup to the outlined coaster and leave it standing there.','Lift, translate, lower. Insert samples at no more than 20 mm.','The translucent arm previews each pose while the real arm waits.','Check joint limits and changes between neighboring IK solutions.','The cup base reaches the coaster before the fingers open.','The cup remains on the coaster as the open hand moves away.'];
-  this.story(phase,titles[phase],desc[phase]);this.controls.update(delta);
+  if(this.failed&&this.time>=13){
+   this.time=13;if(!this.paused){this.paused=true;this.sync();}
+  }
+  this.rejection.visible=Boolean(this.failed);
+  if(this.failed)this.ghost.root.traverse(o=>{if(o.isMesh)o.material.color.setHex(this.time>=13?0xff6d72:0x87baff);});
+  if(!this.failed&&this.wasFailed)this.ghost.root.traverse(o=>{if(o.isMesh)o.material.color.setHex(0x87baff);});
+  this.wasFailed=this.failed;
+  this.figure.querySelector('[data-failed]').textContent=this.failed?'Use reachable route':'Preview unreachable target';
+  if(this.failed){
+   this.story(2,'Target outside arm reach','The red point lies beyond the fully extended arm. The ghost stops at a feasible sample; the physical arm holds its starting pose.');
+   this.checks[0].querySelector('b').textContent='Outside reach';this.checks[0].classList.remove('passed','checking');
+   this.figure.querySelector('[data-route-status]').textContent='Route rejected';
+   this.figure.querySelector('[data-executed]').textContent='No motion sent';
+  }else this.story(phase,titles[phase],desc[phase]);
+  this.controls.update(delta);
  }
  render(){
   if(!this.width||!this.height)return;

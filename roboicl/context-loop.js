@@ -13,7 +13,7 @@ if(root){
 
 async function boot(root){
   const [{GraspLabView},data]=await Promise.all([
-    import('./grasp-lab-view.js?v=15'),
+    import('./grasp-lab-view.js?v=16'),
     fetch(new URL('../assets/arx-x5/grasp-lab.json?v=11',import.meta.url)).then(r=>{if(!r.ok)throw new Error('Trajectories unavailable');return r.json();}),
   ]);
   const find=name=>root.querySelector(`[data-lab-${name}]`);
@@ -84,7 +84,7 @@ async function boot(root){
   }
   function prepare(){
     if(referencePart!==part){
-      view.arrange(part,0);
+      view.arrange(part,0);view.captureReferenceWrist();
       referenceImages=DEMO_WINDOWS.map(([start,end])=>{
         const canvases=[start,end].map(()=>{const c=document.createElement('canvas');c.width=320;c.height=200;return c;});
         view.thumbnails([start,end],canvases);return canvases;
