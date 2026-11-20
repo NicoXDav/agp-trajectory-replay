@@ -18,9 +18,9 @@ frameButtons.forEach(button => button.addEventListener('click', () => {
   current = button.dataset.frame;
   const held = current === 'hold';
   image.src = '../assets/observations/' + current + '.webp';
-  image.alt = held ? 'Purple pen between the left pads at step 266' : 'Purple pen to the right of the left grasp center at step 87';
+  image.alt = held ? 'Purple pen between the left finger pads at step 266' : 'Purple pen to the right of the left grasp center at step 87';
   document.querySelector('#live-camera').textContent = 'Left wrist · step ' + (held ? 266 : 87);
-  caption.textContent = held ? 'At step 266 the left pads flank the purple pen. Compare its position against the red cross in both hands.' : 'The expert holds the pen between the right pads. At step 87 the pen is still to the right of the other hand’s cross.';
+  caption.textContent = held ? 'At step 266, the pen is between the left finger pads. The projected grasp center provides the same reference for comparing this view with the expert’s right-hand grasp.' : 'The expert’s right hand holds the pen. At step 87 in the current episode, the pen lies to the right of the left hand’s projected grasp center.';
   frameButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
   showPoses();
 }));

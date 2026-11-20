@@ -189,7 +189,7 @@ class GraspIllustration extends Illustration {
   Object.assign(this.line.style,{left:tcp.x+'px',top:tcp.y+'px',width:error+'px',transform:'rotate('+Math.atan2(dy,dx)+'rad)',opacity:target.visible&&!aligned?'.95':'0'});
   this.figure.querySelector('[data-offset]').innerHTML=offset.toFixed(1)+' <small>mm</small>';
   const held=this.pose.t>=28&&this.pose.t<34,closing=this.pose.t>=26&&this.pose.t<28;
-  const status=held?'Pin lifted · retention visible':closing?'Aligned · closing':aligned&&this.alignedHold>=.5&&this.pose.t>=22?'Aligned — ready to close':aligned?'Target aligned · hold position':this.pose.t>=8&&this.pose.t<12?'Alignment lost · correct the hand':'Bring target onto the crosshair';
+  const status=held?'Pin lifted · retention visible':closing?'Aligned · closing':aligned&&this.alignedHold>=.5&&this.pose.t>=22?'Aligned — ready to close':aligned?'Target aligned · hold position':this.pose.t>=8&&this.pose.t<12?'Alignment lost · correct the hand':'Align the target with the crosshair';
   this.figure.querySelector('[data-comparison]').textContent=status;
   this.figure.querySelector('[data-comparison]').classList.toggle('guided',aligned);
   this.figure.querySelector('[data-grasp-outcome]').textContent=held?'The pin moves with the gripper.':aligned?'Green indicates alignment, not grasp success.':'Shorten the line to reduce the alignment error.';
@@ -255,8 +255,8 @@ class TriIllustration extends Illustration {
   this.rig.left.root.visible=true;this.rig.right.root.visible=true;
   this.world.visible=true;this.ground.visible=true;
   this.story(index,t>=28?'Return the object':['One pixel. Several possible depths.','Two views recover depth','A third view tightens the estimate','Reach to the 3D position','Close at the right place'][index],t>=28?'The arm places the object down and opens the gripper.':['The amber hypotheses project onto the same head-camera pixel.','Pixel uncertainty becomes a spread of possible 3D estimates.','A complementary view reduces the spread in this simulated example.','The full ARX arm approaches the estimated 3D location.','The fingers close around the target and the arm lifts it.'][index]);
-  this.figure.querySelector('[data-geometry]').textContent=['Depth unresolved','Two-view estimate','Three-view agreement','Metric reach target','Object retained'][index];
-  this.figure.querySelector('[data-geometry-detail]').textContent=['One image point fixes direction, not distance.','Intersect calibrated RGB rays to recover depth.','A useful third view reduces the simulated scatter.','Use the recovered position to approach the object.','The object now moves with the gripper.'][index];
+  this.figure.querySelector('[data-geometry]').textContent=['Depth unresolved','Two-view estimate','Three-view agreement','3D target position','Object retained'][index];
+  this.figure.querySelector('[data-geometry-detail]').textContent=['One image point fixes direction, not distance.','Combine calibrated rays to estimate depth.','A useful third view reduces the simulated scatter.','Use the recovered position to approach the object.','The object now moves with the gripper.'][index];
   const disturbed=this.outlier&&index>=2&&index<=3;
   const rayTargets=this.positions.map((_,i)=>this.target.clone().add(i===2&&disturbed?V(.6,.1,0):V()));
   const provisional=V(...triangulateRays(this.positions.slice(0,2).map(v=>v.toArray()),this.positions.slice(0,2).map(v=>this.target.clone().sub(v).toArray())));
@@ -398,7 +398,7 @@ class PlanningIllustration extends Illustration {
   this.halos.forEach(h=>{h.visible=true;});this.goal.visible=t<31;
   this.nodeDots.forEach((d,i)=>{d.className=i<checked?'checked':i<revealed?'sampled':'';});
   this.figure.querySelector('[data-node-count]').textContent=String(revealed).padStart(2,'0')+' / '+n;
-  this.figure.querySelector('[data-route-status]').textContent=['Place cup on coaster','Sampling the route','Solving each pose','Checking the joint chain','Moving to the coaster',t<33?'Cup supported · opening gripper':t<38?'Retracting the open hand':'Complete · cup stays on coaster'][phase];
+  this.figure.querySelector('[data-route-status]').textContent=['Place cup on coaster','Sampling the route','Solving each pose','Checking joint continuity','Moving to the coaster',t<33?'Cup supported · opening gripper':t<38?'Retracting the open hand':'Complete · cup stays on coaster'][phase];
   const statuses=[phase<2?'Pending':checked<n?checked+' / '+n:n+' / '+n+' solved',phase<2?'Pending':checked<n?'Checking':'Within limits',phase<3?'Pending':continuity<n?'Checking':'Continuous'];
   this.checks.forEach((e,i)=>{e.querySelector('b').textContent=statuses[i];e.classList.toggle('passed',i<2?checked===n:continuity===n);e.classList.toggle('checking',i<2?phase===2:phase===3);});
   const node=this.nodes[Math.max(0,phase>=4?Math.min(n-1,Math.round(frame.progress)):scan)];
@@ -409,7 +409,7 @@ class PlanningIllustration extends Illustration {
   this.figure.querySelector('[data-ik-error]').textContent=phase<2?'—':maxError<.01?'< 0.01 mm':maxError.toFixed(2)+' mm';
   this.figure.querySelector('[data-executed]').textContent=phase<4?'Waiting':t>=38?'Complete':Math.min(100,Math.round((t-21)/17*100))+'%';
   const titles=['Place the cup on the coaster','Turn a route into nearby poses','Find a joint solution for each point','Keep the configuration continuous','Lower the cup onto its support',t<33?'Release only after placement':t<38?'Open fingers. Retract the hand.':'Placed, released, and clear'];
-  const desc=['Move the held cup to the outlined coaster and leave it standing there.','Lift, translate, lower. Insert samples at no more than 20 mm.','The translucent arm previews each pose while the real arm waits.','Check joint limits and changes between neighboring IK solutions.','The cup base reaches the coaster before the fingers open.','The cup remains on the coaster as the open hand moves away.'];
+  const desc=['Move the held cup to the outlined coaster and leave it standing there.','Lift, translate, and lower, with samples no more than 20 mm apart.','The translucent arm previews each pose while the solid arm waits.','Check joint limits and changes between neighboring IK solutions.','The cup base reaches the coaster before the fingers open.','The cup remains on the coaster as the open hand moves away.'];
   if(this.failed&&this.time>=13){
    this.time=13;if(!this.paused){this.paused=true;this.sync();}
   }
@@ -419,7 +419,7 @@ class PlanningIllustration extends Illustration {
   this.wasFailed=this.failed;
   this.figure.querySelector('[data-failed]').textContent=this.failed?'Use reachable route':'Preview unreachable target';
   if(this.failed){
-   this.story(2,'Target outside arm reach','The red point lies beyond the fully extended arm. The ghost stops at a feasible sample; the physical arm holds its starting pose.');
+   this.story(2,'Target outside arm reach','The red point lies beyond the fully extended arm. The preview stops at a feasible sample; the solid arm holds its starting pose.');
    this.checks[0].querySelector('b').textContent='Outside reach';this.checks[0].classList.remove('passed','checking');
    this.figure.querySelector('[data-route-status]').textContent='Route rejected';
    this.figure.querySelector('[data-executed]').textContent='No motion sent';
