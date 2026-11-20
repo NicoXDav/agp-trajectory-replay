@@ -280,7 +280,7 @@ export class GraspLabView {
     const result=route&&time<3.25?'IK preview · route sampled':rays?'Two calibrated rays · target localized':'';
     this.toolResult.hidden=!result;this.toolResult.textContent=result;
 
-    const wrist=tools.has('wrist')&&!reference&&time>=2.1&&time<9.9;
+    const wrist=tools.has('wrist')&&!reference&&(this.root.dataset.focus==='guides'||(time>=2.1&&time<9.9));
     this.wrist.hidden=!wrist;this.rootRef.hidden=!wrist;
     if(wrist)this.renderWrist(frame[6]);
     this.renderer.setViewport(0,0,this.width,this.height);this.renderer.render(this.scene,this.camera);

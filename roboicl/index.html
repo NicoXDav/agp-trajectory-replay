@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="scenes.css">
 <link rel="stylesheet" href="opening.css">
 <link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=9">
-<link rel="stylesheet" href="context-loop.css?v=16"><link rel="stylesheet" href="report.css?v=3"><script type="module" src="report.js?v=2"></script>
+<link rel="stylesheet" href="context-loop.css?v=17"><link rel="stylesheet" href="report.css?v=4"><script type="module" src="report.js?v=3"></script>
 <link rel="preload" href="../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
-<script type="module" src="context-loop.js?v=16"></script>
+<script type="module" src="context-loop.js?v=17"></script>
 <script src="opening.js?v=9" defer></script>
 <script type="importmap">{"imports":{"three":"../assets/three/build/three.module.js","three/addons/":"../assets/three/examples/jsm/"}}</script>
 <script type="module" src="scene-loader.js?v=17"></script>
@@ -48,12 +48,27 @@
 <p>Across <strong>34 RoboDojo tasks</strong>, MXI-RoboICL achieves a category-balanced score of <strong>75.93</strong>. On the <strong>22 tasks shared with the original RoboICL Report</strong>, it improves the category-balanced score by <strong>28.32 points</strong>. The accompanying studies examine context allocation, geometric consistency, demonstration choice, and sensitivity to scoring-related information. Multi-view localization and route assistance are evaluated as optional extensions to the core policy.</p>
 </section>
 
-<figure id="context-loop" class="context-loop wrap" aria-label="The MXI-RoboICL control loop" data-phase="reference">
+<figure id="context-loop" class="context-loop wrap" aria-label="The MXI-RoboICL control loop" data-phase="reference" data-focus="allocation">
   <div class="grasp-lab" aria-label="Interactive diagram of the MXI-RoboICL context loop">
+    <div class="lab-focus-header">
+      <h2>Geometry in context</h2>
+      <div class="lab-focus-controls" role="group" aria-label="Explore the MXI input designs">
+        <button type="button" data-lab-focus="allocation" aria-pressed="true">Context allocation</button>
+        <button type="button" data-lab-focus="geometry" aria-pressed="false">Image + pose</button>
+        <button type="button" data-lab-focus="guides" aria-pressed="false">Grasp references</button>
+      </div>
+      <p data-lab-focus-description aria-live="polite">More of the same context capacity goes to the demonstration, while recent execution feedback stays available.</p>
+    </div>
     <div class="lab-workspace">
       <div class="lab-context">
         <section class="lab-reference" aria-label="Fixed demonstration">
           <div class="lab-side-header"><h3>One demonstration</h3><span>18 expert windows</span></div>
+
+          <div class="lab-allocation" aria-label="Context allocation changes from 12 expert and 12 online segments to 18 expert and 6 online segments">
+            <div><span>RoboICL</span><div class="allocation-cells" aria-hidden="true"><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i></div><b>12 + 12</b></div>
+            <div><span>MXI</span><div class="allocation-cells" aria-hidden="true"><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="expert"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i><i class="online"></i></div><b>18 + 6</b></div>
+            <p><span class="allocation-key expert">Expert</span><span class="allocation-key online">Online</span><span>24 segment slots</span></p>
+          </div>
           <p class="lab-reference-sub"><span data-lab-demo-title>Steel pin</span> · windows sampled across time</p>
           <div class="lab-windows" role="group" aria-label="Inspect a demonstration window">
             <button type="button" data-lab-window="0" aria-label="Demonstration window 1" aria-pressed="true"><canvas width="240" height="150" aria-hidden="true"></canvas><span>01</span></button>
@@ -68,6 +83,7 @@
             <div class="lab-example-arrow"><span>Action</span><b>→</b></div>
             <div><canvas data-lab-example-end width="320" height="200" aria-label="Demonstration resulting observation"></canvas><span>Result</span></div>
           </div>
+          <div class="lab-bound-tags"><span data-lab-demo-stamp>Demo image</span><span>Its camera pose</span><span>Its robot state</span></div>
           <p class="lab-demo-caption" data-lab-window-action>Prepare above the part.</p>
           <p class="lab-receipt" data-lab-window-receipt>Hand open; ready to approach.</p>
         </section>
@@ -83,6 +99,7 @@
               <div><canvas data-lab-observation-photo width="320" height="200" aria-label="Result of the latest execution segment"></canvas><span>Result</span></div>
             </div>
           </div>
+          <div class="lab-bound-tags"><span data-lab-live-stamp>Initial image</span><span>Its camera pose</span><span>Its robot state</span></div>
           <div class="lab-live-record"><span data-lab-observation-label>Current episode</span><p data-lab-observation-state>New experience arrives as the robot moves.</p><small data-lab-observation-receipt>Images · actions · execution receipts</small></div>
         </section>
       </div>
@@ -113,7 +130,7 @@
           <button type="button" data-lab-reset aria-label="Reset camera" title="Reset camera">⌖</button>
         </div>
         <span class="lab-target" data-lab-target hidden></span>
-        <div class="lab-wrist lab-ref-wrist" data-lab-ref-wrist hidden><canvas width="232" height="160"></canvas><span>Expert wrist · grasp</span></div>
+        <div class="lab-wrist lab-ref-wrist" data-lab-ref-wrist hidden><canvas width="232" height="160"></canvas><span>Demonstration wrist</span></div>
         <div class="lab-wrist" data-lab-wrist hidden aria-label="Simulated wrist camera">
           <canvas data-lab-wrist-canvas width="232" height="160" aria-hidden="true"></canvas>
           <svg viewBox="0 0 232 160" aria-hidden="true"><line data-lab-offset-line/><circle data-lab-target-dot r="4"/></svg>
@@ -133,9 +150,9 @@
         <path data-lab-path="feedback" marker-end="url(#flow-arrow)"/>
         <g class="lab-streams" data-lab-streams></g>
       </svg>
-      <div class="lab-photo-packet" data-lab-demo-packet aria-hidden="true"><canvas width="480" height="150"></canvas><span>Demo window</span></div>
-      <div class="lab-photo-packet" data-lab-feedback-packet aria-hidden="true"><canvas width="480" height="150"></canvas><span>Execution segment</span></div>
-      <div class="lab-photo-packet lab-context-packet" data-lab-context-packet aria-hidden="true"><canvas width="240" height="150"></canvas><span>Live context</span></div>
+      <div class="lab-photo-packet" data-lab-demo-packet aria-hidden="true"><canvas width="480" height="150"></canvas><span>Demo window</span><small class="lab-packet-geometry">Camera pose + robot state</small></div>
+      <div class="lab-photo-packet" data-lab-feedback-packet aria-hidden="true"><canvas width="480" height="150"></canvas><span>Execution segment</span><small class="lab-packet-geometry">Camera pose + robot state</small></div>
+      <div class="lab-photo-packet lab-context-packet" data-lab-context-packet aria-hidden="true"><canvas width="240" height="150"></canvas><span>Live context</span><small class="lab-packet-geometry">Camera pose + robot state</small></div>
       <span class="lab-action-label" data-lab-action-label>Action</span>
       <span class="lab-feedback-label" data-lab-feedback-label>Execution becomes context</span>
     </div>
@@ -148,7 +165,7 @@
       </div>
     </div>
   </div>
-  <figcaption><span>Figure 1</span> The MXI-RoboICL control loop. Five example windows illustrate the demonstration context. Completed action segments feed back into the online history, alongside the latest observation. The model combines these inputs to predict the next action chunk. Camera views and arm motion are simulated; the geometry layers illustrate grasp references, target localization, and motion checks.</figcaption>
+  <figcaption><span>Figure 1</span> Explore the three MXI input designs in the control loop. The allocation bars show segment capacity; five thumbnails illustrate windows sampled from one demonstration. Completed action segments feed back into the online history, alongside the latest observation. The model combines these inputs to predict the next action chunk. Camera views and arm motion are simulated; the geometry layers illustrate grasp references, target localization, and motion checks.</figcaption>
 </figure>
 
 <div class="reading-layout wrap"><article class="prose">
@@ -157,13 +174,19 @@
 <p class="small">Each retained segment includes the observations before and after an action chunk, the action itself, and an execution receipt recording how many steps ran and whether execution was interrupted. Demonstration windows are sampled across time. Online history retains segments at fixed temporal anchors and the latest executed segment, with omitted intervals marked as gaps. This provides temporal coverage, although brief contacts and handovers may fall between the selected windows.</p></section>
 
 <section id="method" class="method-chapter"><h2 class="method-group-title">Method</h2><h3>Wrist guides</h3><p>MXI projects the nominal grasp center and inner finger-pad edges into both demonstration and current-episode wrist images. The same geometric convention lets the model interpret each grasp relative to the hand, even when the object or camera has moved. In the recorded example below, the expert’s right hand holds a purple pen while the robot’s left hand approaches the pen in the current episode.</p>
-<div class="observation-study">
+<div class="observation-study" data-wrist-cue="center">
+<div class="wrist-study-heading"><h4>A shared reference across grasps</h4><span>Recorded model inputs</span></div>
+<div class="wrist-cue-controls" role="group" aria-label="Highlight the same feature in both wrist views">
+<span>Compare</span><button type="button" data-wrist-cue="center" aria-pressed="true"><i class="cue-cross" aria-hidden="true">+</i>Grasp center</button><button type="button" data-wrist-cue="pads" aria-pressed="false"><i class="cue-pads" aria-hidden="true">╱ ╲</i>Finger pads</button><button type="button" data-wrist-cue="target" aria-pressed="false"><i class="cue-target" aria-hidden="true">◇</i>Target</button>
+</div>
 <p class="wrist-source">Fill Pen Holder · Recorded wrist views from an earlier configuration with 12 demonstration windows and up to 12 online interactions.</p>
-<div class="observation-pair" data-detail>
-<figure><figcaption>Expert demonstration <small>Right wrist · step 501</small></figcaption><div class="wrist-crop"><img width="640" height="480" src="../assets/observations/expert.webp" alt="Purple pen between the expert’s right fingers, above the red grasp center"></div></figure>
-<figure><figcaption>Current episode <small id="live-camera">Left wrist · step 87</small></figcaption><div class="wrist-crop"><img id="current-wrist" width="640" height="480" src="../assets/observations/approach.webp" alt="Purple pen to the right of the red cross in the left wrist image"></div></figure></div>
-<div class="observation-tools"><span><b class="cross-key">＋</b> Nominal grasp center <b class="pads-key">╱ ╲</b> Inner finger pads</span><div aria-label="Recorded observation"><button id="crop-mode" aria-pressed="true">Magnify both views</button> <button data-frame="approach" aria-pressed="true">Approach · 87</button><button data-frame="hold" aria-pressed="false">Holding · 266</button></div></div>
+<div class="observation-pair">
+<figure><figcaption>Expert demonstration <small>Right wrist · step 501</small></figcaption><div class="wrist-crop"><div class="wrist-coordinate-plane"><img width="640" height="480" src="../assets/observations/expert.webp" alt="Purple pen between the expert’s right fingers, above the red grasp center"><svg class="wrist-annotation" data-wrist-annotation="expert" viewBox="0 0 640 480" aria-hidden="true"></svg></div><span class="wrist-feature-label">Projected grasp center</span></div></figure>
+<figure><figcaption>Current episode <small id="live-camera">Left wrist · step 87</small></figcaption><div class="wrist-crop"><div class="wrist-coordinate-plane"><img id="current-wrist" width="640" height="480" src="../assets/observations/approach.webp" alt="Purple pen to the right of the red cross in the left wrist image"><svg class="wrist-annotation" data-wrist-annotation="current" viewBox="0 0 640 480" aria-hidden="true"></svg></div><span class="wrist-feature-label">Projected grasp center</span></div></figure></div>
+<div class="observation-tools"><span><b class="cross-key">＋</b> Nominal grasp center <b class="pads-key">╱ ╲</b> Inner finger pads</span><div class="wrist-phase-controls" role="group" aria-label="Recorded observation"><button id="crop-mode" aria-pressed="false">Magnify both views</button> <button data-frame="approach" aria-pressed="true">Approach <small>step 87</small></button><button data-frame="hold" aria-pressed="false">Holding <small>step 266</small></button></div></div>
+<p class="wrist-cue-note" data-wrist-cue-note aria-live="polite">The red cross gives both grasps the same nominal reference. Compare the pen’s position relative to it.</p>
 <p id="wrist-caption" aria-live="polite">The expert’s right hand holds the pen. At step 87 in the current episode, the pen lies to the right of the left hand’s projected grasp center.</p>
+<p class="wrist-annotation-note">Highlights are reader annotations. The red crosses and cyan pad guides are part of the recorded model inputs.</p>
 <details><summary>Camera poses for these frames</summary><div class="pose-grid" id="wrist-poses"></div><small>Camera-to-environment transforms; translation is in metres. Demonstration pad positions are estimated from the recorded gripper command. Current-episode pad positions use measured finger joints.</small></details>
 </div>
 
@@ -221,6 +244,11 @@
 
 <section id="results"><h2>Benchmark results</h2>
 <p>RoboDojo measures task progress on a 0–100 scale. Scores are averaged over layouts for each task, then over tasks within each category; the overall mean weights categories equally. The 34-task evaluation includes 591 scored layouts. Q0-Preview values are taken from the 18 November 2026 leaderboard snapshot reported in the paper. These are comparisons of complete systems, whose prompts, demonstrations, and tools may differ.</p>
+<figure class="shared-score-chart" aria-labelledby="shared-score-title">
+<div class="shared-score-heading"><div><h3 id="shared-score-title">Compared with original RoboICL</h3><p>22 shared tasks · 3 categories · score out of 100</p></div><div class="score-legend"><span><i class="original"></i>Original RoboICL</span><span><i class="mxi"></i>MXI-RoboICL</span></div></div>
+<div class="shared-score-layout">
+<div class="shared-score-mean"><span>Category-balanced mean</span><div class="shared-score-values"><div><small>Original</small><strong>52.27</strong></div><span aria-hidden="true">→</span><div><small>MXI</small><strong>80.58</strong></div></div><div class="shared-score-gain"><b>+28.32</b><span>points</span></div><p>Higher scores in all three shared categories.</p></div>
+<div class="shared-score-categories"><div class="score-axis" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div><div class="score-category"><div class="score-category-label"><h4>Precision</h4><span>+33.60 points</span></div><div class="score-bar-row original"><span class="sr-only">Original RoboICL</span><div class="score-bar-track" aria-hidden="true"><i style="--score:38.53%"></i></div><b>38.53</b></div><div class="score-bar-row mxi"><span class="sr-only">MXI-RoboICL</span><div class="score-bar-track" aria-hidden="true"><i style="--score:72.13%"></i></div><b>72.13</b></div></div><div class="score-category"><div class="score-category-label"><h4>Long-Horizon</h4><span>+27.37 points</span></div><div class="score-bar-row original"><span class="sr-only">Original RoboICL</span><div class="score-bar-track" aria-hidden="true"><i style="--score:44.11%"></i></div><b>44.11</b></div><div class="score-bar-row mxi"><span class="sr-only">MXI-RoboICL</span><div class="score-bar-track" aria-hidden="true"><i style="--score:71.48%"></i></div><b>71.48</b></div></div><div class="score-category"><div class="score-category-label"><h4>Memory</h4><span>+23.98 points</span></div><div class="score-bar-row original"><span class="sr-only">Original RoboICL</span><div class="score-bar-track" aria-hidden="true"><i style="--score:74.17%"></i></div><b>74.17</b></div><div class="score-bar-row mxi"><span class="sr-only">MXI-RoboICL</span><div class="score-bar-track" aria-hidden="true"><i style="--score:98.15%"></i></div><b>98.15</b></div></div></div></div><figcaption>Each category has equal weight in the shared mean. Gains are calculated before rounding. This compares the complete systems on the common task set.</figcaption></figure>
 <div class="table-scroll"><table class="benchmark-table"><thead><tr><th>Evaluation</th><th>MXI-RoboICL</th><th>Comparison</th><th>Difference</th></tr></thead><tbody>
 <tr><th>22 shared tasks<span class="evaluation-scope">3 categories</span></th><td>80.58</td><td><span class="comparison-name">Original RoboICL</span><span class="comparison-score">52.27</span></td><td>+28.32<sup>1</sup></td></tr>
 <tr><th>34 tasks<span class="evaluation-scope">4 categories</span></th><td>75.93</td><td><span class="comparison-name">Q0-Preview</span><span class="comparison-score">73.20</span></td><td>+2.73</td></tr>

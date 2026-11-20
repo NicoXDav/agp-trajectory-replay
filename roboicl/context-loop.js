@@ -13,7 +13,7 @@ if(root){
 
 async function boot(root){
   const [{GraspLabView},data]=await Promise.all([
-    import('./grasp-lab-view.js?v=16'),
+    import('./grasp-lab-view.js?v=17'),
     fetch(new URL('../assets/arx-x5/grasp-lab.json?v=11',import.meta.url)).then(r=>{if(!r.ok)throw new Error('Trajectories unavailable');return r.json();}),
   ]);
   const find=name=>root.querySelector(`[data-lab-${name}]`);
@@ -29,7 +29,7 @@ async function boot(root){
   const colors={reference:'#a9d2ff',observation:'#9be6cf',context:'#b9e5dc',action:'#f0d3a7',feedback:'#92e1cb'};
   const streams=Object.fromEntries(Object.keys(paths).map(name=>{
     const group=document.createElementNS('http://www.w3.org/2000/svg','g');
-    group.style.color=colors[name];find('streams').append(group);
+    group.dataset.flow=name;group.style.color=colors[name];find('streams').append(group);
     const stroke=document.createElementNS(group.namespaceURI,'path');stroke.setAttribute('pathLength','1');stroke.setAttribute('stroke',colors[name]);group.append(stroke);
     const dots=Array.from({length:12},(_,i)=>{
       const dot=document.createElementNS(group.namespaceURI,'circle');dot.setAttribute('r',i%6===0?'2.3':'1.2');dot.setAttribute('fill',colors[name]);group.append(dot);return dot;
@@ -69,7 +69,8 @@ async function boot(root){
     }
   }
   function displayWindow(index){
-    const [,,label,action,receipt]=DEMO_WINDOWS[index];
+    const [start,end,label,action,receipt]=DEMO_WINDOWS[index];
+    find('demo-stamp').textContent='Demo '+start.toFixed(2)+'–'+end.toFixed(2)+' s';
     windows.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
     copy(referenceImages[index][0],find('example-start'));copy(referenceImages[index][1],find('example-end'));
     find('window-action').textContent=action;find('window-receipt').textContent=`Receipt · ${receipt}`;
@@ -93,6 +94,7 @@ async function boot(root){
     }
     displayWindow(0);copy(referenceImages[0][0],find('shared-demo'));
     view.arrange(part,layout);records.clear();received=null;lastReference=-1;
+    find('live-stamp').textContent='Initial image · 0.00 s';
     copy(shot(0),find('live-start'));copy(shot(0),find('observation-photo'));copy(shot(0),find('shared-live'));
     const anchor=find('anchor'),c=anchor.querySelector('canvas');c.getContext('2d').clearRect(0,0,c.width,c.height);anchor.setAttribute('data-empty','');
     find('observation-label').textContent='Initial observation';find('observation-state').textContent='A new grasp begins.';
@@ -104,6 +106,7 @@ async function boot(root){
     const count=state.history.length,record=state.history.at(-1);
     copy(shot(record?.start??0),find('live-start'));copy(shot(state.observationTime),find('observation-photo'));
     received=state.observationTime;
+    find('live-stamp').textContent='Image at '+received.toFixed(2)+' s';
     find('observation-label').textContent=count?'Latest execution segment':'Initial observation';
     find('observation-state').textContent=['Target on stand · hand open','Approach completed','Fingers closed · ready to lift','Part lifted','Placed, released, and clear'][count];
     find('observation-receipt').textContent=count?'Action + outcome + execution receipt':'Images · robot state';
@@ -175,6 +178,20 @@ async function boot(root){
     find('view-label').textContent=`Current episode · ${data.objects.find(object=>object.id===id).name}`;
     if(ready){prepare();draw();syncPlayback();}
   }
+  const focusDescriptions={
+    allocation:'More of the same context capacity goes to the demonstration, while recent execution feedback stays available.',
+    geometry:'An image travels with its own camera pose and robot state. Earlier observations keep the geometry from when they were captured.',
+    guides:'Demonstration and current wrist views use the same grasp references. Compare the target with the cross and finger-pad guides.'
+  };
+  for(const button of root.querySelectorAll('[data-lab-focus]'))button.addEventListener('click',()=>{
+    root.dataset.focus=button.dataset.labFocus;
+    root.querySelectorAll('[data-lab-focus]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+    find('focus-description').textContent=focusDescriptions[root.dataset.focus];
+    if(root.dataset.focus==='guides'){
+      tools.add('wrist');root.querySelector('[data-lab-tool="wrist"]').setAttribute('aria-pressed','true');
+    }
+    endpoints();draw();
+  });
   windows.forEach((button,index)=>button.addEventListener('click',()=>{manualWindow=true;displayWindow(index);draw();}));
   find('layout').addEventListener('click',()=>{
     layout=1-layout;find('layout').querySelector('b').textContent=layout?'B':'A';find('layout').setAttribute('aria-pressed',String(layout===0));choosePart(part);

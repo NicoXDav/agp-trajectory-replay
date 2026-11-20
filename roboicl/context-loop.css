@@ -126,3 +126,43 @@ main>.context-loop{width:calc(100% - 28px)}main>.opening-overview{width:calc(100
 .lab-bottom{display:block}.lab-bottom>p{max-width:none;margin-bottom:10px}.lab-tools>span{display:none}.lab-history-gap{font-size:14px}.lab-live-strip{grid-template-columns:23% 9px 1fr;gap:6px}.lab-latest-pair canvas{height:56px}.lab-anchor-wrap canvas{height:43px}
 }
 @media(prefers-reduced-motion:reduce){.lab-streams,.lab-photo-packet{display:none}.lab-core-scan:after{animation:none!important}.grasp-lab button{transition:none}}
+
+/* Three input designs, explored within the existing control loop. */
+@media(min-width:701px){.lab-context{padding-top:12px;gap:15px}.lab-reference{padding-bottom:15px}.lab-stage{align-self:center;height:clamp(450px,32vw,570px);min-height:0}}
+.context-loop[data-focus="geometry"] .lab-photo-packet{width:128px}
+.context-loop[data-focus="geometry"] .lab-context-packet{width:86px}
+.lab-focus-header{padding:23px 40px 16px;border-bottom:1px solid #385465;display:grid;grid-template-columns:1fr auto;gap:14px 24px;align-items:center}
+.lab-focus-header h2{font:450 clamp(28px,2.4vw,38px)/1.15 var(--article-serif);letter-spacing:-.035em;margin:0;color:#eef5f7}
+.lab-focus-controls{display:flex;gap:6px;flex-wrap:wrap}
+.lab-focus-controls button{padding:10px 15px;font-size:14px}
+.lab-focus-header>p{grid-column:1/-1;margin:0;color:#a8c0ce;line-height:1.5;font-size:15px;max-width:920px;min-height:1.5em}
+.lab-allocation{margin:12px 0 14px;padding:8px 0;border-block:1px solid #86a8c32e;transition:opacity .25s}
+.lab-allocation>div{display:grid;grid-template-columns:55px 1fr 49px;align-items:center;gap:9px;margin:5px 0;font-size:11px;color:#a8bed1}
+.lab-allocation>div:nth-child(2){color:#e5f1fa}
+.lab-allocation b{font-weight:500;font-variant-numeric:tabular-nums;text-align:right}
+.allocation-cells{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));gap:2px;height:10px}
+.allocation-cells i{border-radius:1px;background:#9ac8f2}
+.allocation-cells .online{background:#85cbb8}
+.lab-allocation p{display:flex;gap:10px;margin:10px 0 0;font-size:10px;color:#9bb4c8}
+.lab-allocation p>span:last-child{margin-left:auto}
+.allocation-key{display:inline-flex;align-items:center;gap:4px}
+.allocation-key:before{content:'';width:6px;height:6px;background:#9ac8f2;border-radius:1px}
+.allocation-key.online:before{background:#85cbb8}
+.lab-bound-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;visibility:hidden;min-height:19px}
+.lab-bound-tags span{font-size:10px;line-height:1.3;color:#b8e7d9;border:1px solid #72b5a280;border-radius:3px;padding:3px 5px;background:#1c3738}
+.lab-bound-tags span:first-child{color:#d1e5f7;background:#21394a;border-color:#8ab9df80}
+.lab-packet-geometry{display:none;text-align:center;margin-top:3px;font-size:8px;line-height:1.3;color:#b7e7d5}
+.context-loop[data-focus="geometry"] .lab-bound-tags{visibility:visible}
+.context-loop[data-focus="geometry"] .lab-packet-geometry{display:block}
+.context-loop[data-focus="allocation"] .lab-allocation{border-color:#9ac8f280}
+.context-loop:not([data-focus="allocation"]) .lab-allocation{opacity:.55}
+.context-loop[data-focus="geometry"] :is(.lab-example canvas,.lab-latest-pair canvas,.lab-anchor-wrap canvas){border-color:#8bd1ba;box-shadow:0 0 12px #9adfbd21}
+.context-loop[data-focus="guides"] .lab-stage .lab-wrist{width:44%;right:3%;border-color:#9dddc7;box-shadow:0 0 22px #94e8cb25}
+.context-loop[data-focus="guides"] .lab-stage .lab-ref-wrist{right:50%}
+.context-loop[data-focus="guides"] .lab-stage .lab-wrist span{font-size:11px}
+.context-loop[data-focus="allocation"] :is([data-flow="feedback"],[data-flow="observation"]){opacity:.42}
+.context-loop[data-focus="geometry"] [data-flow="action"]{opacity:.25}
+.context-loop[data-focus="guides"] [data-flow="feedback"]{opacity:.42}
+@media(max-width:1100px){.lab-focus-header{padding:22px 25px 15px;grid-template-columns:1fr}.lab-focus-header>p{min-height:0}.lab-focus-controls button{font-size:13px}}
+@media(max-width:700px){.lab-focus-header{padding:22px 22px 17px;gap:15px}.lab-focus-header h2{font-size:29px}.lab-focus-controls{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.lab-focus-controls button{padding:9px 5px;font-size:12px;line-height:1.35}.lab-focus-header>p{font-size:14px}.lab-bound-tags span{font-size:9px}.context-loop[data-focus="guides"] .lab-stage .lab-wrist span{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.lab-allocation{transition:none}}
