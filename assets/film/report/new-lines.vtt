@@ -20,30 +20,8 @@ The fingers close, and the pen rises with the hand.
 A shared geometric reference helps the policy relate its own grasp to
 the demonstration.
 
-00:01:09.270 --> 00:01:10.982
-One image gives a direction.
-
-00:01:10.982 --> 00:01:13.832
-The distance is still open along that ray.
-
-00:01:13.832 --> 00:01:16.920
-Now select the same rim point in the wrist view.
-
-00:01:16.920 --> 00:01:19.845
-A second ray narrows down the location.
-
-00:01:19.845 --> 00:01:24.732
-With both camera poses, MXI estimates a position from the two images.
-
-00:01:24.732 --> 00:01:29.882
-In this recorded example, the head-camera depth is about fifty-three
-centimetres.
-
-00:01:29.882 --> 00:01:34.245
-The estimate returns to the agent as context for its next action.
-
-00:02:06.820 --> 00:02:10.798
+00:02:11.060 --> 00:02:15.038
 On 22 tasks shared with the original report,
 
-00:02:10.798 --> 00:02:15.590
+00:02:15.038 --> 00:02:19.830
 the category-balanced score rose from 52.27 to 80.58.
