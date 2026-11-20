@@ -1,12 +1,20 @@
 import * as THREE from 'three';
 import {STLLoader} from 'three/addons/loaders/STLLoader.js';
 
-const baseURL = new URL('../assets/arx-x5/',import.meta.url);
-export const motion = await fetch(new URL('motion.json',baseURL)).then(r=>{if(!r.ok)throw Error('ARX motion unavailable');return r.json();});
-export const precisionMotion = await fetch(new URL('precision-motion.json?v=21',baseURL)).then(r=>{if(!r.ok)throw Error('ARX precision motion unavailable');return r.json();});
+const baseURL = new URL('https://gcore.jsdelivr.net/gh/NicoXDav/agp-trajectory-replay@7745e6460ea8f91ad82898d35724111549ca1df1/assets/arx-x5/');
 const names=['base_link',...Array.from({length:8},(_,i)=>'link'+(i+1))];
 const loader=new STLLoader();
-const geometries=Object.fromEntries(await Promise.all(names.map(async name=>[name,await loader.loadAsync(new URL(name+'.STL',baseURL).href)])));
+const [motion, precisionMotion, geometries] = await Promise.all([
+ fetch(new URL('motion.json',baseURL)).then(r=>{if(!r.ok)throw Error('ARX motion unavailable');return r.json();}),
+ fetch(new URL('precision-motion.json',baseURL)).then(r=>{if(!r.ok)throw Error('ARX precision motion unavailable');return r.json();}),
+ Promise.all(names.map(async name=>{
+  const response=await fetch(new URL(name+'.STL.gz',baseURL));
+  if(!response.ok)throw Error('ARX mesh unavailable: '+name);
+  const bytes=await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+  return [name,loader.parse(bytes)];
+ })).then(Object.fromEntries)
+]);
+export {motion, precisionMotion};
 const dark=new THREE.MeshStandardMaterial({color:0x384553,metalness:.60,roughness:.34});
 const alloy=new THREE.MeshStandardMaterial({color:0xbfc9d2,metalness:.65,roughness:.3});
 const rubber=new THREE.MeshStandardMaterial({color:0x101821,metalness:.1,roughness:.7});

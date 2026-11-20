@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { createArm, motion } from './arx.js?v=21';
+import { createArm, motion } from './arx.js?v=22';
 import { triangulateRays } from './ray-geometry.mjs';
 
 const vector = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);

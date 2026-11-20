@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import {motion, precisionMotion, sampleMotion, createArm} from './arx.js?v=21';
+import {motion, precisionMotion, sampleMotion, createArm} from './arx.js?v=22';
 import {triangulateRays,simulatePixelSpread} from './ray-geometry.mjs';
 
 const V = (x=0,y=0,z=0) => new THREE.Vector3(x,y,z);
@@ -318,7 +318,7 @@ class TriIllustration extends Illustration {
 
 }
 
-const planningMotion = await fetch(new URL('../assets/arx-x5/planning-motion.json',import.meta.url)).then(r=>{if(!r.ok)throw Error('Planning illustration unavailable');return r.json();});
+const planningMotion = await fetch('https://gcore.jsdelivr.net/gh/NicoXDav/agp-trajectory-replay@7745e6460ea8f91ad82898d35724111549ca1df1/assets/arx-x5/planning-motion.json').then(r=>{if(!r.ok)throw Error('Planning illustration unavailable');return r.json();});
 class PlanningIllustration extends Illustration {
  constructor(figure){
   super(figure,43,[0,4,9,16,21,31]);
@@ -439,14 +439,27 @@ class PlanningIllustration extends Illustration {
 }
 
 const scenes=[];
-for(const figure of document.querySelectorAll('[data-scene]')) {
- try {scenes.push(figure.dataset.scene==='grasp'?new GraspIllustration(figure):figure.dataset.scene==='planning'?new PlanningIllustration(figure):new TriIllustration(figure));}
- catch(error){console.error(error);const label=figure.querySelector('.scene-loading');label.hidden=false;label.textContent='This illustration requires WebGL. Enable hardware acceleration and reload to view the 3D scene.';figure.querySelectorAll('button').forEach(b=>b.disabled=true);}
-}
 const visibility=new IntersectionObserver(entries=>{
- entries.forEach(e=>{const s=scenes.find(s=>s.figure===e.target);if(s)s.visible=e.isIntersecting;});
+ entries.forEach(e=>{const scene=scenes.find(s=>s.figure===e.target);if(scene)scene.visible=e.isIntersecting;});
 },{threshold:.04});
-scenes.forEach(s=>visibility.observe(s.figure));
+const initialize=new IntersectionObserver(entries=>{
+ for(const entry of entries){
+  if(!entry.isIntersecting)continue;
+  const figure=entry.target;initialize.unobserve(figure);
+  try{
+   const scene=figure.dataset.scene==='grasp'?new GraspIllustration(figure):figure.dataset.scene==='planning'?new PlanningIllustration(figure):new TriIllustration(figure);
+   scenes.push(scene);visibility.observe(figure);
+  }catch(error){
+   console.error(error);
+   const label=figure.querySelector('.scene-loading');label.hidden=false;
+   label.textContent=error.message.startsWith('Error creating WebGL context')
+    ?'Interactive 3D is unavailable in this browser. Open this page in Safari or Chrome to explore.'
+    :'The 3D scene could not start. Reload the page to try again.';
+   figure.querySelectorAll('button, input').forEach(control=>control.disabled=true);
+  }
+ }
+},{rootMargin:'300px 0px'});
+document.querySelectorAll('[data-scene]').forEach(figure=>initialize.observe(figure));
 reduced.addEventListener('change',e=>scenes.forEach(s=>{s.paused=e.matches;s.sync();}));
 let last=0;
 function frame(now) {

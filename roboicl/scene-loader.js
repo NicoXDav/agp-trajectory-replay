@@ -1,12 +1,11 @@
-// Begin downloading the 3D engine only near the geometry section.
-const target=document.querySelector('[data-scene]');
-if(target){
- const observer=new IntersectionObserver(entries=>{
-  if(!entries.some(e=>e.isIntersecting))return;
-  observer.disconnect();
-  import('./scenes.js?v=17').catch(()=>{
-   document.querySelectorAll('.scene-loading').forEach(el=>{el.textContent='The interactive model could not load. Reload the page to retry.';});
-  });
- },{rootMargin:'800px 0px'});
- observer.observe(target);
-}
+// Prepare assets while the overview is being read; scenes create renderers only near the viewport.
+const targets=document.querySelectorAll('#background, [data-scene]');
+const observer=new IntersectionObserver(entries=>{
+ if(!entries.some(entry=>entry.isIntersecting))return;
+ observer.disconnect();
+ import('./scenes.js?v=18').catch(error=>{
+  console.error('MXI scene resources:',error);
+  document.querySelectorAll('.scene-loading').forEach(el=>{el.hidden=false;el.textContent='The 3D assets could not load. Reload the page to retry.';});
+ });
+});
+targets.forEach(target=>observer.observe(target));

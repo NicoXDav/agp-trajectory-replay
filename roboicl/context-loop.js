@@ -1,21 +1,32 @@
 import { flowState, CYCLE_DURATION, DEMO_WINDOWS } from './context-flow-state.mjs?v=15';
 const root=document.querySelector('#context-loop');
+let prepared;
+function prepareResources(){
+ return prepared??=Promise.all([
+  import('./grasp-lab-view.js?v=18'),
+  fetch('https://gcore.jsdelivr.net/gh/NicoXDav/agp-trajectory-replay@7745e6460ea8f91ad82898d35724111549ca1df1/assets/arx-x5/grasp-lab.json').then(r=>{if(!r.ok)throw new Error('Trajectories unavailable');return r.json();})
+ ]);
+}
+function reportError(error){
+ console.error('MXI context diagram:',error);
+ const status=root.querySelector('[data-lab-loading]');status.hidden=false;
+ status.textContent=error.message.startsWith('Error creating WebGL context')
+  ?'Interactive 3D is unavailable in this browser. Open this page in Safari or Chrome to explore.'
+  :'The interactive diagram could not load. Please reload.';
+}
 if(root){
-  const loader=new IntersectionObserver(([entry])=>{
-    if(!entry.isIntersecting)return;loader.disconnect();
-    boot(root).catch(error=>{
-      console.error('MXI context diagram:',error);
-      const status=root.querySelector('[data-lab-loading]');status.hidden=false;
-      status.textContent='The interactive diagram could not load. Please reload.';
-    });
-  },{rootMargin:'300px 0px'});loader.observe(root);
+ const warmup=new IntersectionObserver(entries=>{
+  if(!entries.some(entry=>entry.isIntersecting))return;
+  warmup.disconnect();prepareResources().catch(reportError);
+ });
+ warmup.observe(document.querySelector('#background'));
+ const loader=new IntersectionObserver(([entry])=>{
+  if(!entry.isIntersecting)return;loader.disconnect();boot(root).catch(reportError);
+ },{rootMargin:'300px 0px'});loader.observe(root);
 }
 
 async function boot(root){
-  const [{GraspLabView},data]=await Promise.all([
-    import('./grasp-lab-view.js?v=17'),
-    fetch(new URL('../assets/arx-x5/grasp-lab.json?v=11',import.meta.url)).then(r=>{if(!r.ok)throw new Error('Trajectories unavailable');return r.json();}),
-  ]);
+  const [{GraspLabView},data]=await prepareResources();
   const find=name=>root.querySelector(`[data-lab-${name}]`);
   const windows=[...root.querySelectorAll('[data-lab-window]')];
   const paths=Object.fromEntries([...root.querySelectorAll('[data-lab-path]')].map(p=>[p.dataset.labPath,p]));
