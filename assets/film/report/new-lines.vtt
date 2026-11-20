@@ -1,61 +1,49 @@
 WEBVTT
 
-00:00:45.740 --> 00:00:49.155
-Here are two wrist images from Fill Pen Holder. In the
+00:00:45.790 --> 00:00:50.615
+Here is the same purple pen in the expert demonstration and the
+current episode.
 
-00:00:49.155 --> 00:00:52.824
-demonstration, the right hand holds the purple pen. In the
+00:00:50.615 --> 00:00:54.940
+MXI projects the grasp center into both wrist views.
 
-00:00:52.824 --> 00:00:55.670
-current episode, the left hand approaches it.
+00:00:54.940 --> 00:00:57.077
+Now watch the left hand approach.
 
-00:00:56.100 --> 00:01:00.125
-Look at the red cross. The pen is beside it in the current
+00:00:57.077 --> 00:00:59.302
+The pen moves toward the cross.
 
-00:01:00.125 --> 00:01:03.734
-view. The cyan edges show where the finger pads will
+00:00:59.302 --> 00:01:02.902
+The fingers close, and the pen rises with the hand.
 
-00:01:03.734 --> 00:01:04.150
-close.
+00:01:02.902 --> 00:01:08.502
+A shared geometric reference helps the policy relate its own grasp to
+the demonstration.
 
-00:01:04.580 --> 00:01:08.086
-Later in the episode, the purple pen sits between the
+00:01:09.270 --> 00:01:10.982
+One image gives a direction.
 
-00:01:08.086 --> 00:01:11.790
-fingers. Both views use the same marks, even though they
+00:01:10.982 --> 00:01:13.832
+The distance is still open along that ray.
 
-00:01:11.790 --> 00:01:13.510
-come from different hands.
+00:01:13.832 --> 00:01:16.920
+Now select the same rim point in the wrist view.
 
-00:01:13.940 --> 00:01:17.244
-Each wrist image keeps the camera pose from its own
+00:01:16.920 --> 00:01:19.845
+A second ray narrows down the location.
 
-00:01:17.244 --> 00:01:20.936
-observation. That lets the policy relate the image to the
+00:01:19.845 --> 00:01:24.732
+With both camera poses, MXI estimates a position from the two images.
 
-00:01:20.936 --> 00:01:22.750
-coordinates it uses to move.
+00:01:24.732 --> 00:01:29.882
+In this recorded example, the head-camera depth is about fifty-three
+centimetres.
 
-00:01:33.420 --> 00:01:36.816
-For an optional position estimate, the model picks the
+00:01:29.882 --> 00:01:34.245
+The estimate returns to the agent as context for its next action.
 
-00:01:36.816 --> 00:01:40.275
-same feature in two views. Here it selected a corner of
-
-00:01:40.275 --> 00:01:41.470
-the pen holder rim.
-
-00:01:41.900 --> 00:01:45.827
-The rays meet at an angle of twenty seven degrees. Their
-
-00:01:45.827 --> 00:01:49.755
-closest separation is just over a tenth of a millimetre.
-
-00:01:49.755 --> 00:01:52.630
-That measures agreement between the rays.
-
-00:02:24.900 --> 00:02:28.878
+00:02:06.820 --> 00:02:10.798
 On 22 tasks shared with the original report,
 
-00:02:28.878 --> 00:02:33.670
+00:02:10.798 --> 00:02:15.590
 the category-balanced score rose from 52.27 to 80.58.
