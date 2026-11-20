@@ -19,3 +19,5 @@
 .lab-stage .lab-wrist{width:30%;right:2%;bottom:48px}
 .lab-stage .lab-ref-wrist{right:33%}
 @media(max-width:680px){.lab-stage .lab-wrist{width:36%;bottom:39px}.lab-stage .lab-ref-wrist{right:39%}}
+
+.observation-study .wrist-source{margin:0 0 1rem;color:var(--muted);font:500 14px/1.5 var(--article-sans)}
