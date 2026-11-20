@@ -21,3 +21,32 @@
 @media(max-width:680px){.lab-stage .lab-wrist{width:36%;bottom:39px}.lab-stage .lab-ref-wrist{right:39%}}
 
 .observation-study .wrist-source{margin:0 0 1rem;color:var(--muted);font:500 14px/1.5 var(--article-sans)}
+
+/* Keep benchmark scope readable while giving the actual scores visual priority. */
+.benchmark-table{table-layout:fixed;font-size:21px}
+.benchmark-table th,.benchmark-table td{padding:28px 22px;vertical-align:middle}
+.benchmark-table thead th{font-size:18px;font-weight:500;padding-block:18px}
+.benchmark-table th:first-child{width:34%}
+.benchmark-table th:nth-child(2){width:20%}
+.benchmark-table th:nth-child(3){width:28%}
+.benchmark-table th:last-child{width:18%}
+.benchmark-table tbody th{font-size:21px;line-height:1.35}
+.benchmark-table .evaluation-scope,.benchmark-table .comparison-name{display:block;font-size:16px;line-height:1.4;font-weight:400;color:var(--muted)}
+.benchmark-table .evaluation-scope{margin-top:7px}
+.benchmark-table .comparison-name{margin-bottom:6px}
+.benchmark-table .comparison-score{display:block;font-size:32px;font-weight:500;color:var(--text)}
+.table-scroll .benchmark-table td:nth-child(2){font-size:46px;line-height:1.15;letter-spacing:-.035em;font-weight:650}
+.table-scroll .benchmark-table :is(th,td):nth-child(2){background:color-mix(in srgb,var(--accent) 9%,var(--paper))}
+.benchmark-table td:last-child{font-size:30px;line-height:1.15;letter-spacing:-.025em;color:var(--text)}
+.benchmark-table sup{font-size:12px;margin-left:3px;vertical-align:super}
+@media(max-width:760px){
+ .benchmark-table{min-width:650px}
+ .benchmark-table th,.benchmark-table td{padding:20px 14px}
+ .benchmark-table tbody th{font-size:18px}
+ .table-scroll .benchmark-table td:nth-child(2){font-size:36px}
+ .benchmark-table .comparison-score{font-size:27px}
+ .benchmark-table td:last-child{font-size:25px}
+}
+
+.table-scroll table:not(.benchmark-table){font-size:19px;min-width:650px}
+.table-scroll table:not(.benchmark-table) :is(td,th){padding:18px 16px}

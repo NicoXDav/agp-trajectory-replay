@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="scenes.css">
 <link rel="stylesheet" href="opening.css">
 <link rel="stylesheet" href="editorial.css"><link rel="stylesheet" href="mxi.css?v=9">
-<link rel="stylesheet" href="context-loop.css?v=16"><link rel="stylesheet" href="report.css?v=2"><script type="module" src="report.js?v=1"></script>
+<link rel="stylesheet" href="context-loop.css?v=16"><link rel="stylesheet" href="report.css?v=3"><script type="module" src="report.js?v=1"></script>
 <link rel="preload" href="../assets/fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
 <script type="module" src="context-loop.js?v=16"></script>
 <script src="opening.js?v=9" defer></script>
@@ -36,10 +36,10 @@
 <section id="showreel" class="showreel wrap" aria-label="MXI-RoboICL in action">
 <figure class="showreel-figure">
 <video id="showcase-video" controls playsinline preload="none" poster="../assets/film/v9/film-poster.jpg" aria-label="MXI-RoboICL: method film with English narration, captions and recorded successes">
-<source src="../assets/film/report/film.mp4?v=shared22" type="video/mp4"><track kind="captions" srclang="en" label="English" default src="../assets/film/report/new-lines.vtt?v=shared22">
-<a href="../assets/film/report/film.mp4?v=shared22">Watch the MXI-RoboICL method film</a>
+<source src="../assets/film/report/film.mp4?v=motion3" type="video/mp4"><track kind="captions" srclang="en" label="English" default src="../assets/film/report/new-lines.vtt?v=motion3">
+<a href="../assets/film/report/film.mp4?v=motion3">Watch the MXI-RoboICL method film</a>
 </video>
-<div class="film-links"><a href="../assets/film/report/film-4k.mp4?v=shared22">Watch in 4K ↗</a> <a href="../assets/film/report/en.vtt?v=shared22" download>English captions ↓</a></div>
+<div class="film-links"><a href="../assets/film/report/film-4k.mp4?v=motion3">Watch in 4K ↗</a> <a href="../assets/film/report/en.vtt?v=motion3" download>English captions ↓</a></div>
 </figure>
 </section>
 <section id="background" class="opening-overview wrap" aria-label="Overview">
@@ -221,11 +221,11 @@
 
 <section id="results"><h2>Benchmark results</h2>
 <p>RoboDojo scores task progress on a 0–100 scale. Each benchmark mean gives equal weight to its task categories. The four-category evaluation covers 591 scored layouts. Q0-Preview values come from the leaderboard snapshot of 18 November 2026.</p>
-<div class="table-scroll"><table><thead><tr><th>Evaluation</th><th>MXI-RoboICL</th><th>Comparison</th><th>Difference</th></tr></thead><tbody>
-<tr><th>22 shared tasks · 3 categories</th><td>80.58</td><td>Original RoboICL · 52.27</td><td>+28.32¹</td></tr>
-<tr><th>34 tasks · 4 categories</th><td>75.93</td><td>Q0-Preview · 73.20</td><td>+2.73</td></tr>
-<tr><th>8 Open tasks only</th><td>73.13</td><td>Q0-Preview · 78.20</td><td>−5.07</td></tr>
-<tr><th>42 tasks · 5 categories</th><td>75.37</td><td>Q0-Preview · 74.20</td><td>+1.17</td></tr></tbody></table></div>
+<div class="table-scroll"><table class="benchmark-table"><thead><tr><th>Evaluation</th><th>MXI-RoboICL</th><th>Comparison</th><th>Difference</th></tr></thead><tbody>
+<tr><th>22 shared tasks<span class="evaluation-scope">3 categories</span></th><td>80.58</td><td><span class="comparison-name">Original RoboICL</span><span class="comparison-score">52.27</span></td><td>+28.32<sup>1</sup></td></tr>
+<tr><th>34 tasks<span class="evaluation-scope">4 categories</span></th><td>75.93</td><td><span class="comparison-name">Q0-Preview</span><span class="comparison-score">73.20</span></td><td>+2.73</td></tr>
+<tr><th>8 Open tasks<span class="evaluation-scope">Open category</span></th><td>73.13</td><td><span class="comparison-name">Q0-Preview</span><span class="comparison-score">78.20</span></td><td>−5.07</td></tr>
+<tr><th>42 tasks<span class="evaluation-scope">5 categories</span></th><td>75.37</td><td><span class="comparison-name">Q0-Preview</span><span class="comparison-score">74.20</span></td><td>+1.17</td></tr></tbody></table></div>
 <p class="small">¹ The original-report comparison uses the unrounded means for Precision, Long-Horizon and Memory (Table 4).</p>
 <details><summary>Scores by category</summary><div class="table-scroll"><table><thead><tr><th>Category</th><th>MXI-RoboICL</th><th>Q0-Preview</th></tr></thead><tbody>
 <tr><th>Generalization</th><td>61.95</td><td>64.00</td></tr><tr><th>Precision</th><td>72.13</td><td>65.30</td></tr><tr><th>Long-Horizon</th><td>71.48</td><td>69.80</td></tr><tr><th>Memory</th><td>98.15</td><td>93.68</td></tr>
